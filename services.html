@@ -4,130 +4,330 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alex Bogle — AI Agent Infrastructure for Business</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+@property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 
-  :root {
-    --bg: #0a0a0f;
-    --bg-card: #111118;
-    --bg-card-hover: #16161f;
-    --border: #1e1e2a;
-    --border-glow: #2a2a40;
-    --text: #e4e4ef;
-    --text-muted: #8888a0;
-    --accent: #3b82f6;
-    --accent-glow: rgba(59,130,246,0.15);
-    --accent-soft: rgba(59,130,246,0.08);
-    --green: #22c55e;
-    --font: 'Inter', -apple-system, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+:root {
+  --bg: #06060c; --bg-elevated: #0c0c14; --bg-card: #111118; --bg-card-hover: #16161f;
+  --border: #1a1a2e; --border-glow: #2a2a4a; --border-bright: #3a3a6a;
+  --text: #e8e8f0; --text-muted: #7878a0; --text-dim: #4a4a6a;
+  --accent: #3b82f6; --accent-bright: #60a5fa; --accent-dim: #1d4ed8;
+  --accent-glow: rgba(59,130,246,0.18); --accent-soft: rgba(59,130,246,0.06);
+  --green: #22c55e; --green-dim: #166534; --purple: #a855f7; --cyan: #22d3ee;
+  --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
+  --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 24px; --radius-full: 9999px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.4); --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(59,130,246,0.12);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  overscroll-behavior-y: contain;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: var(--noise-url); background-repeat: repeat;
+  background-size: 256px 256px; pointer-events: none; z-index: 9999; opacity: 0.4;
+}
+::selection { background: var(--accent); color: #fff; }
+
+/* Scroll-driven animations */
+@keyframes scroll-fade-in { from { opacity: 0; transform: translateY(40px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes scroll-reveal { from { opacity: 0; clip-path: inset(0 0 100% 0); } to { opacity: 1; clip-path: inset(0 0 0% 0); } }
+@keyframes scroll-slide-left { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scroll-slide-right { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes gradient-rotate { 0% { --gradient-angle: 0deg; } 100% { --gradient-angle: 360deg; } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.1); } 50% { box-shadow: 0 0 40px rgba(59,130,246,0.25); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+.scroll-animate { animation: scroll-fade-in linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+.scroll-reveal { animation: scroll-reveal linear both; animation-timeline: view(); animation-range: entry 5% entry 35%; }
+.scroll-left { animation: scroll-slide-left linear both; animation-timeline: view(); animation-range: entry 0% entry 30%; }
+.scroll-right { animation: scroll-slide-right linear both; animation-timeline: view(); animation-range: entry 0% entry 30%; }
+
+@supports not (animation-timeline: view()) {
+  .scroll-animate, .scroll-reveal, .scroll-left, .scroll-right {
+    opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease;
   }
-
-  html { scroll-behavior: smooth; }
-  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-  .animate-on-scroll { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
-
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  nav .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-  nav .logo span { color: var(--accent); }
-  nav .nav-links { display: flex; gap: 2rem; list-style: none; }
-  nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-  nav .nav-links a:hover { color: var(--text); }
-  nav .nav-cta { background: var(--accent); color: #fff; padding: 0.5rem 1.25rem; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: opacity 0.2s; }
-  nav .nav-cta:hover { opacity: 0.85; }
-
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); pointer-events: none; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-soft); border: 1px solid var(--border-glow); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-bottom: 2rem; }
-  .hero-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
-  .hero h1 .accent { color: var(--accent); }
-  .hero .subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-muted); max-width: 640px; margin-bottom: 2.5rem; line-height: 1.7; }
-  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .btn-primary { background: var(--accent); color: #fff; padding: 0.85rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; }
-  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
-  .btn-secondary { background: transparent; color: var(--text); padding: 0.85rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--border); transition: all 0.2s; }
-  .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card); }
-
-  /* SECTIONS */
-  section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-label { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
-  .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
-  .section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3rem; }
-
-  /* ARCHITECTURE */
-  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .arch-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; }
-  .arch-card:hover { border-color: var(--border-glow); background: var(--bg-card-hover); transform: translateY(-2px); }
-  .arch-icon { font-size: 1.5rem; margin-bottom: 1rem; }
-  .arch-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
-  .arch-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
-  .arch-card .tech-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
-  .arch-card .tech-tag { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); background: var(--accent-soft); border: 1px solid var(--border); padding: 0.2rem 0.5rem; border-radius: 4px; }
-
-  /* PRICING */
-  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; position: relative; }
-  .pricing-card:hover { border-color: var(--border-glow); transform: translateY(-2px); }
-  .pricing-card.featured { border-color: var(--accent); }
-  .pricing-card.featured::before { content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 999px; }
-  .pricing-tier { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-  .pricing-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .pricing-price { font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; }
-  .pricing-price span { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
-  .pricing-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
-  .pricing-features { list-style: none; margin-bottom: 2rem; }
-  .pricing-features li { padding: 0.4rem 0; font-size: 0.85rem; color: var(--text-muted); padding-left: 1.25rem; position: relative; }
-  .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 0.8rem; }
-  .pricing-card .btn-primary, .pricing-card .btn-secondary { display: block; text-align: center; width: 100%; }
-
-  /* PROOF */
-  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .proof-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; }
-  .proof-stat { font-size: 2rem; font-weight: 800; color: var(--accent); font-family: var(--mono); }
-  .proof-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
-
-  /* CONTACT */
-  #contact { text-align: center; }
-  .contact-links { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 2rem auto; }
-  .contact-link { display: flex; align-items: center; gap: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.5rem; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: border-color 0.2s; }
-  .contact-link:hover { border-color: var(--border-glow); }
-  .contact-link .icon { font-size: 1.25rem; }
-  .contact-link .label { font-weight: 600; }
-  .contact-link .value { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; }
-
-  /* FOOTER */
-  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
-
-  @media (max-width: 768px) {
-    .arch-grid, .pricing-grid, .proof-grid { grid-template-columns: 1fr; }
-    nav .nav-links { display: none; }
-    .hero { padding-top: 5rem; }
+  .scroll-animate.visible, .scroll-reveal.visible, .scroll-left.visible, .scroll-right.visible {
+    opacity: 1; transform: translateY(0) translateX(0);
   }
+}
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; transition: all var(--transition); border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(6,6,12,0.8); backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5); border-bottom-color: var(--border);
+}
+nav .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+nav .logo span { color: var(--accent); }
+nav .nav-links {
+  display: flex; gap: 0.5rem; list-style: none;
+  background: rgba(17,17,24,0.6); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border);
+  border-radius: var(--radius-full); padding: 0.35rem;
+}
+nav .nav-links a {
+  color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500;
+  padding: 0.5rem 1.1rem; border-radius: var(--radius-full); transition: all var(--transition);
+}
+nav .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+nav .nav-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  color: #fff; padding: 0.55rem 1.35rem; border-radius: var(--radius-full);
+  text-decoration: none; font-size: 0.82rem; font-weight: 600;
+  transition: all var(--transition); border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 12px rgba(59,130,246,0.2);
+}
+nav .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(59,130,246,0.35); }
+.nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; z-index: 101; }
+
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  nav .nav-links {
+    position: fixed; top: 70px; left: 1rem; right: 1rem; flex-direction: column;
+    padding: 1rem; border-radius: var(--radius-lg); background: rgba(12,12,20,0.95);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border); transform: translateY(-20px); opacity: 0;
+    pointer-events: none; transition: all var(--transition);
+  }
+  nav .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; padding: 7rem 2rem 5rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+  width: min(700px, 80vw); height: min(700px, 80vw);
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+  pointer-events: none; animation: glow-pulse 6s ease-in-out infinite;
+}
+.hero::after {
+  content: ''; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);
+  width: min(500px, 60vw); height: min(500px, 60vw);
+  background: radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 60%);
+  pointer-events: none; animation: glow-pulse 8s ease-in-out infinite reverse;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(17,17,24,0.7); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border);
+  padding: 0.45rem 1.1rem; border-radius: var(--radius-full);
+  font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-bottom: 2.5rem;
+  animation: fade-in 0.8s ease 0.2s both; position: relative; z-index: 1;
+}
+.hero-badge .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s ease-in-out infinite; box-shadow: 0 0 8px rgba(34,197,94,0.4); }
+.hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 900; letter-spacing: -0.04em;
+  line-height: 1.05; margin-bottom: 1.75rem; text-wrap: balance;
+  animation: scroll-fade-in 0.8s ease 0.3s both; position: relative; z-index: 1;
+}
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero .subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--text-muted);
+  max-width: 640px; margin-bottom: 3rem; line-height: 1.75;
+  animation: scroll-fade-in 0.8s ease 0.5s both; position: relative; z-index: 1;
+}
+.hero-buttons {
+  display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  animation: scroll-fade-in 0.8s ease 0.7s both; position: relative; z-index: 1;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  color: #fff; padding: 0.9rem 2.2rem; border-radius: var(--radius-full);
+  text-decoration: none; font-weight: 600; font-size: 0.92rem;
+  transition: all var(--transition); border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
+  display: inline-flex; align-items: center; gap: 0.5rem; position: relative; overflow: hidden;
+}
+.btn-primary::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1)); opacity: 0; transition: opacity var(--transition); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); border-color: rgba(255,255,255,0.2); }
+.btn-primary:hover::before { opacity: 1; }
+.btn-secondary {
+  background: rgba(17,17,24,0.6); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); color: var(--text);
+  padding: 0.9rem 2.2rem; border-radius: var(--radius-full);
+  text-decoration: none; font-weight: 600; font-size: 0.92rem;
+  border: 1px solid var(--border); transition: all var(--transition);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-secondary:hover { border-color: var(--border-bright); background: rgba(255,255,255,0.05); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+/* Sections */
+section { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: var(--mono); font-size: 0.72rem; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+.section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.25rem; text-wrap: balance; }
+.section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3.5rem; line-height: 1.75; }
+
+/* Architecture cards */
+.arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.arch-card {
+  background: var(--bg-card); border-radius: var(--radius-lg); padding: 2.25rem;
+  transition: all var(--transition); position: relative;
+  background-image: linear-gradient(var(--bg-card), var(--bg-card)),
+    linear-gradient(var(--gradient-angle), var(--accent), var(--purple), var(--cyan), var(--accent));
+  background-origin: border-box; background-clip: padding-box, border-box;
+  border: 1px solid transparent; animation: gradient-rotate 8s linear infinite;
+}
+.arch-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+.arch-card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.06), transparent 70%); pointer-events: none; opacity: 0; transition: opacity var(--transition); }
+.arch-card:hover::after { opacity: 1; }
+.arch-icon { font-size: 1.75rem; margin-bottom: 1.25rem; }
+.arch-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+.arch-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.75; }
+.tech-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+.tech-tag { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); background: var(--accent-soft); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: var(--radius-sm); }
+
+/* Pricing */
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.pricing-card {
+  background: var(--bg-card); border-radius: var(--radius-xl); padding: 2.5rem 2rem;
+  transition: all var(--transition); position: relative;
+  background-image: linear-gradient(var(--bg-card), var(--bg-card)),
+    linear-gradient(var(--gradient-angle), var(--border), var(--border));
+  background-origin: border-box; background-clip: padding-box, border-box;
+  border: 1px solid transparent;
+}
+.pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.pricing-card.featured {
+  background-image: linear-gradient(var(--bg-card), var(--bg-card)),
+    linear-gradient(135deg, var(--accent), var(--purple), var(--cyan));
+  animation: gradient-rotate 6s linear infinite;
+  box-shadow: var(--shadow-glow);
+}
+.pricing-card.featured::before {
+  content: 'Most Popular'; position: absolute; top: -14px; left: 50%;
+  transform: translateX(-50%); background: linear-gradient(135deg, var(--accent), var(--purple));
+  color: #fff; font-size: 0.7rem; font-weight: 700; padding: 0.35rem 1rem;
+  border-radius: var(--radius-full); white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+}
+.pricing-tier { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+.pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.pricing-price { font-size: 2.5rem; font-weight: 900; color: var(--text); margin-bottom: 0.25rem; line-height: 1.2; }
+.pricing-price span { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
+.pricing-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.75rem; line-height: 1.6; }
+.pricing-features { list-style: none; margin-bottom: 2.25rem; }
+.pricing-features li {
+  padding: 0.5rem 0; font-size: 0.88rem; color: var(--text-muted);
+  padding-left: 1.5rem; position: relative;
+}
+.pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 0.85rem; font-weight: 700; }
+.pricing-card .btn-primary, .pricing-card .btn-secondary { display: block; text-align: center; width: 100%; justify-content: center; }
+
+/* Proof */
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.proof-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.75rem; text-align: center;
+  transition: all var(--transition); position: relative; overflow: hidden;
+}
+.proof-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--purple)); opacity: 0; transition: opacity var(--transition); }
+.proof-card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+.proof-card:hover::before { opacity: 1; }
+.proof-stat {
+  font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-family: var(--mono); line-height: 1.2;
+}
+.proof-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem; font-weight: 500; }
+
+/* Contact */
+#contact { text-align: center; }
+.contact-links { display: flex; flex-direction: column; gap: 0.75rem; max-width: 440px; margin: 2.5rem auto; }
+.contact-link {
+  display: flex; align-items: center; gap: 1rem; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 1.1rem 1.5rem; color: var(--text); text-decoration: none;
+  font-size: 0.95rem; transition: all var(--transition); position: relative; overflow: hidden;
+}
+.contact-link::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent), var(--purple)); opacity: 0; transition: opacity var(--transition); }
+.contact-link:hover { border-color: var(--border-bright); transform: translateX(6px); background: var(--bg-card-hover); }
+.contact-link:hover::before { opacity: 1; }
+.contact-link .icon { font-size: 1.3rem; }
+.contact-link .label { font-weight: 600; }
+.contact-link .value { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; font-family: var(--mono); }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; }
+footer a { color: var(--text-muted); text-decoration: none; transition: color var(--transition); }
+footer a:hover { color: var(--accent); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .arch-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .proof-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
+  section { padding: 5rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .proof-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
 </style>
 </head>
 <body>
 
-<nav>
+<!-- NAV -->
+<nav id="navbar">
   <a href="index.html" class="logo">alex<span>.</span>bogle</a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#architecture">How It Works</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#proof">Proof</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Book a Call</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
+  <div class="hero-grid"></div>
   <div class="hero-badge"><span class="dot"></span> Now accepting 2 new clients</div>
   <h1>AI agent infrastructure<br>that <span class="accent">runs your business.</span></h1>
   <p class="subtitle">
@@ -141,12 +341,12 @@
 
 <!-- ARCHITECTURE -->
 <section id="architecture">
-  <div class="section-label animate-on-scroll">How It Works</div>
-  <h2 class="section-title animate-on-scroll">Enterprise-grade AI, deployed for your business</h2>
-  <p class="section-desc animate-on-scroll">Not a chatbot. Not a wrapper. A dedicated multi-agent system with departmental routing, persistent memory, and hands-free communication — running 24/7 on secure infrastructure.</p>
+  <div class="section-label scroll-animate">How It Works</div>
+  <h2 class="section-title scroll-animate">Enterprise-grade AI, deployed for your business</h2>
+  <p class="section-desc scroll-animate">Not a chatbot. Not a wrapper. A dedicated multi-agent system with departmental routing, persistent memory, and hands-free communication — running 24/7 on secure infrastructure.</p>
 
   <div class="arch-grid">
-    <div class="arch-card animate-on-scroll">
+    <div class="arch-card scroll-left">
       <div class="arch-icon">📬</div>
       <h3>Departmental AI Silos</h3>
       <p>Your data isn't processed by one generic chatbot. Information is automatically routed to specialized AI workers — Market Analyst, Finance Agent, IT Operations, Content & Growth — that handle tasks simultaneously without bottlenecking.</p>
@@ -157,7 +357,7 @@
       </div>
     </div>
 
-    <div class="arch-card animate-on-scroll">
+    <div class="arch-card scroll-right">
       <div class="arch-icon">🧠</div>
       <h3>Zero-Loss Corporate Memory</h3>
       <p>The AI doesn't forget. Every interaction, transaction, and decision is stored in a secure local database — a digital brain for your operations that never gets wiped, never loses context, and never leaks to third-party cloud providers.</p>
@@ -168,7 +368,7 @@
       </div>
     </div>
 
-    <div class="arch-card animate-on-scroll">
+    <div class="arch-card scroll-left">
       <div class="arch-icon">📧</div>
       <h3>Hands-Free Executive Communication</h3>
       <p>Automated agents monitor your inbox, surface payout alerts, update external trackers, and flag business-critical issues directly to your messaging channels in real time. You see what matters. The rest is handled.</p>
@@ -179,7 +379,7 @@
       </div>
     </div>
 
-    <div class="arch-card animate-on-scroll">
+    <div class="arch-card scroll-right">
       <div class="arch-icon">🔒</div>
       <h3>Local-First Security</h3>
       <p>Your data stays on your infrastructure. All containers bind to localhost only — no external exposure. API keys stored in isolated .env files, never in code. Docker-isolated agents that can't bleed into each other.</p>
@@ -194,12 +394,12 @@
 
 <!-- PRICING -->
 <section id="pricing">
-  <div class="section-label animate-on-scroll">Pricing</div>
-  <h2 class="section-title animate-on-scroll">Three tiers. Pick your level.</h2>
-  <p class="section-desc animate-on-scroll">Every package includes installation, configuration, and training. No monthly lock-ins for setup tiers — you own the system.</p>
+  <div class="section-label scroll-animate">Pricing</div>
+  <h2 class="section-title scroll-animate">Three tiers. Pick your level.</h2>
+  <p class="section-desc scroll-animate">Every package includes installation, configuration, and training. No monthly lock-ins for setup tiers — you own the system.</p>
 
   <div class="pricing-grid">
-    <div class="pricing-card animate-on-scroll">
+    <div class="pricing-card scroll-animate">
       <div class="pricing-tier">Tier 1</div>
       <div class="pricing-name">Personal Assistant</div>
       <div class="pricing-price">$1,500 <span>/one-time</span></div>
@@ -215,7 +415,7 @@
       <a href="#contact" class="btn-secondary">Get Started</a>
     </div>
 
-    <div class="pricing-card featured animate-on-scroll">
+    <div class="pricing-card featured scroll-animate">
       <div class="pricing-tier">Tier 2</div>
       <div class="pricing-name">Business Operations</div>
       <div class="pricing-price">$3,000 <span>/one-time</span></div>
@@ -232,7 +432,7 @@
       <a href="#contact" class="btn-primary">Get Started</a>
     </div>
 
-    <div class="pricing-card animate-on-scroll">
+    <div class="pricing-card scroll-animate">
       <div class="pricing-tier">Tier 3</div>
       <div class="pricing-name">White-Glove Ongoing</div>
       <div class="pricing-price">$800 <span>/month</span></div>
@@ -252,32 +452,32 @@
 
 <!-- PROOF -->
 <section id="proof">
-  <div class="section-label animate-on-scroll">Proof</div>
-  <h2 class="section-title animate-on-scroll">This isn't theoretical. It's running now.</h2>
-  <p class="section-desc animate-on-scroll">Every stat below is from my own production system — the same architecture I deploy for clients.</p>
+  <div class="section-label scroll-animate">Proof</div>
+  <h2 class="section-title scroll-animate">This isn't theoretical. It's running now.</h2>
+  <p class="section-desc scroll-animate">Every stat below is from my own production system — the same architecture I deploy for clients.</p>
 
   <div class="proof-grid">
-    <div class="proof-card animate-on-scroll">
+    <div class="proof-card scroll-animate">
       <div class="proof-stat">6</div>
       <div class="proof-label">AI Agents in Production</div>
     </div>
-    <div class="proof-card animate-on-scroll">
+    <div class="proof-card scroll-animate">
       <div class="proof-stat">26</div>
       <div class="proof-label">Automated Cron Workflows</div>
     </div>
-    <div class="proof-card animate-on-scroll">
+    <div class="proof-card scroll-animate">
       <div class="proof-stat">120+</div>
       <div class="proof-label">Skills Installed</div>
     </div>
-    <div class="proof-card animate-on-scroll">
+    <div class="proof-card scroll-animate">
       <div class="proof-stat">359 MB</div>
       <div class="proof-label">Conversational History Indexed</div>
     </div>
-    <div class="proof-card animate-on-scroll">
+    <div class="proof-card scroll-animate">
       <div class="proof-stat">102</div>
       <div class="proof-label">Knowledge Base Pages</div>
     </div>
-    <div class="proof-card animate-on-scroll">
+    <div class="proof-card scroll-animate">
       <div class="proof-stat">$0</div>
       <div class="proof-label">Monthly Cloud Cost</div>
     </div>
@@ -286,22 +486,22 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label animate-on-scroll">Contact</div>
-  <h2 class="section-title animate-on-scroll">Let's build your system</h2>
-  <p class="section-desc animate-on-scroll" style="margin: 0 auto 2rem;">Tell me about your business. I'll tell you exactly what I can automate. No pitch — just a straight answer.</p>
+  <div class="section-label scroll-animate">Contact</div>
+  <h2 class="section-title scroll-animate">Let's build your system</h2>
+  <p class="section-desc scroll-animate" style="margin: 0 auto 2rem;">Tell me about your business. I'll tell you exactly what I can automate. No pitch — just a straight answer.</p>
 
   <div class="contact-links">
-    <a href="mailto:bogle.alex@hotmail.com" class="contact-link animate-on-scroll">
+    <a href="mailto:bogle.alex@hotmail.com" class="contact-link scroll-left">
       <span class="icon">📧</span>
       <span class="label">Email</span>
       <span class="value">bogle.alex@hotmail.com</span>
     </a>
-    <a href="https://linkedin.com/in/alex-bogle" target="_blank" class="contact-link animate-on-scroll">
+    <a href="https://linkedin.com/in/alex-bogle" target="_blank" class="contact-link scroll-right">
       <span class="icon">💼</span>
       <span class="label">LinkedIn</span>
       <span class="value">alex-bogle</span>
     </a>
-    <a href="https://github.com/SaintChris" target="_blank" class="contact-link animate-on-scroll">
+    <a href="https://github.com/SaintChris" target="_blank" class="contact-link scroll-left">
       <span class="icon">🐙</span>
       <span class="label">GitHub</span>
       <span class="value">SaintChris</span>
@@ -310,14 +510,27 @@
 </section>
 
 <footer>
-  © 2026 Alex Bogle · Built with intent · saintlex.sbs
+  © 2026 Alex Bogle · Built with intent · <a href="https://saintlex.sbs">saintlex.sbs</a>
 </footer>
 
 <script>
+// Nav scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+
+// Mobile menu
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => navLinks.classList.remove('open')); });
+
+// Fallback scroll animation
+if (!CSS.supports('animation-timeline', 'view()')) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  document.querySelectorAll('.scroll-animate, .scroll-reveal, .scroll-left, .scroll-right').forEach(el => observer.observe(el));
+}
 </script>
 
 </body>
