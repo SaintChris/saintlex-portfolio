@@ -34,6 +34,38 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -43,6 +75,10 @@
     padding: 0 2rem;
     height: 64px;
     display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,15,0.95);
   }
   nav .logo {
     font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
@@ -58,9 +94,9 @@
   nav .nav-cta {
     background: var(--accent); color: #fff; padding: 0.5rem 1.25rem;
     border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
   }
-  nav .nav-cta:hover { opacity: 0.85; }
+  nav .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
   /* ── HERO ── */
   .hero {
@@ -83,25 +119,34 @@
     background: var(--accent-soft); border: 1px solid var(--border-glow);
     padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem;
     color: var(--accent); font-weight: 500; margin-bottom: 2rem;
+    animation: fadeIn 0.8s ease 0.2s both;
   }
-  .hero-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+  .hero-badge .dot {
+    width: 6px; height: 6px; background: var(--green); border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
   .hero h1 {
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
     margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease 0.3s both;
   }
   .hero h1 .accent { color: var(--accent); }
   .hero .subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-muted);
     max-width: 600px; margin-bottom: 2.5rem; line-height: 1.7;
+    animation: fadeInUp 0.8s ease 0.5s both;
   }
-  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .hero-buttons {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeInUp 0.8s ease 0.7s both;
+  }
   .btn-primary {
     background: var(--accent); color: #fff; padding: 0.85rem 2rem;
     border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
     transition: all 0.2s; border: none; cursor: pointer;
   }
-  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
   .btn-secondary {
     background: transparent; color: var(--text); padding: 0.85rem 2rem;
     border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
@@ -109,19 +154,37 @@
   }
   .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card); }
 
-  /* ── TECH STRIP ── */
+  /* ── TECH STRIP (marquee) ── */
   .tech-strip {
     border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 1.5rem 2rem; overflow: hidden;
+    padding: 1.5rem 0; overflow: hidden;
   }
   .tech-strip-inner {
-    display: flex; gap: 3rem; align-items: center; justify-content: center;
-    flex-wrap: wrap;
+    display: flex; gap: 3rem;
+    animation: scroll 20s linear infinite;
+    width: max-content;
   }
+  .tech-strip-inner:hover { animation-play-state: paused; }
   .tech-strip span {
     font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted);
     white-space: nowrap;
   }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; max-width: 900px; margin: 0 auto;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: 2rem; font-weight: 800; color: var(--accent);
+    font-family: var(--mono);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
 
   /* ── SECTIONS ── */
   section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
@@ -135,6 +198,22 @@
   }
   .section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3rem; }
 
+  /* ── PROJECT TABS ── */
+  .project-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+  }
+  .project-tab {
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text-muted); padding: 0.6rem 1.25rem; border-radius: 8px;
+    font-size: 0.85rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s; font-family: var(--font);
+  }
+  .project-tab:hover { border-color: var(--border-glow); color: var(--text); }
+  .project-tab.active {
+    background: var(--accent-soft); border-color: var(--accent);
+    color: var(--accent);
+  }
+
   /* ── PROJECT CARDS ── */
   .projects-grid { display: grid; gap: 1.5rem; }
   .project-card {
@@ -145,6 +224,7 @@
     border-color: var(--border-glow);
     background: var(--bg-card-hover);
     transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   }
   .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
   .project-title { font-size: 1.25rem; font-weight: 700; }
@@ -173,8 +253,29 @@
   .project-links a {
     color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500;
     display: flex; align-items: center; gap: 0.35rem;
+    transition: gap 0.2s;
   }
-  .project-links a:hover { text-decoration: underline; }
+  .project-links a:hover { gap: 0.5rem; }
+  .project-links a::after {
+    content: '→'; transition: transform 0.2s;
+  }
+
+  /* ── MID-PAGE CTA ── */
+  .mid-cta {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .mid-cta-inner {
+    max-width: 600px; margin: 0 auto;
+  }
+  .mid-cta h3 {
+    font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;
+  }
+  .mid-cta p {
+    color: var(--text-muted); margin-bottom: 1.5rem;
+  }
 
   /* ── ABOUT ── */
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
@@ -185,9 +286,33 @@
   .stat-card {
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 12px; padding: 1.25rem; text-align: center;
+    transition: border-color 0.2s;
   }
+  .stat-card:hover { border-color: var(--border-glow); }
   .stat-num { font-size: 1.75rem; font-weight: 800; color: var(--accent); }
   .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+  /* ── TOOL LOGOS ── */
+  .tools-section {
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem; text-align: center;
+  }
+  .tools-label {
+    font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem;
+  }
+  .tools-grid {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    justify-content: center; align-items: center;
+  }
+  .tool-logo {
+    font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted);
+    padding: 0.5rem 1rem; border: 1px solid var(--border);
+    border-radius: 8px; transition: all 0.2s;
+  }
+  .tool-logo:hover {
+    border-color: var(--border-glow); color: var(--text);
+  }
 
   /* ── CONTACT ── */
   #contact { text-align: center; }
@@ -197,9 +322,9 @@
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 12px; padding: 1rem 1.5rem;
     color: var(--text); text-decoration: none; font-size: 0.95rem;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, transform 0.2s;
   }
-  .contact-link:hover { border-color: var(--border-glow); }
+  .contact-link:hover { border-color: var(--border-glow); transform: translateX(4px); }
   .contact-link .icon { font-size: 1.25rem; }
   .contact-link .label { font-weight: 600; }
   .contact-link .value { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; }
@@ -215,13 +340,16 @@
     .about-grid { grid-template-columns: 1fr; }
     nav .nav-links { display: none; }
     .hero { padding-top: 5rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-tabs { gap: 0.35rem; }
+    .project-tab { padding: 0.5rem 0.85rem; font-size: 0.8rem; }
   }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="navbar">
   <a href="#" class="logo">alex<span>.</span>bogle</a>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
@@ -245,32 +373,57 @@
   </div>
 </div>
 
-<!-- TECH STRIP -->
+<!-- TECH STRIP (marquee) -->
 <div class="tech-strip">
   <div class="tech-strip-inner">
-    <span>Python</span>
-    <span>FastAPI</span>
-    <span>Streamlit</span>
-    <span>Docker</span>
-    <span>LangChain</span>
-    <span>Paperclip</span>
-    <span>PostgreSQL</span>
-    <span>Ollama</span>
-    <span>Qdrant</span>
-    <span>MCP</span>
+    <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>Docker</span>
+    <span>LangChain</span><span>Paperclip</span><span>PostgreSQL</span><span>Ollama</span>
+    <span>Qdrant</span><span>MCP</span><span>Obsidian</span><span>Hermes</span>
+    <!-- Duplicate for seamless loop -->
+    <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>Docker</span>
+    <span>LangChain</span><span>Paperclip</span><span>PostgreSQL</span><span>Ollama</span>
+    <span>Qdrant</span><span>MCP</span><span>Obsidian</span><span>Hermes</span>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip animate-on-scroll">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">AI Agents Built</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">52</div>
+      <div class="stat-label">Tests Passing</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">26</div>
+      <div class="stat-label">Automated Cron Jobs</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">$0</div>
+      <div class="stat-label">Monthly Infra Cost</div>
+    </div>
   </div>
 </div>
 
 <!-- WORK -->
 <section id="work">
-  <div class="section-label">Portfolio</div>
-  <h2 class="section-title">Selected Projects</h2>
-  <p class="section-desc">Production-grade systems built to solve real problems. Every project here runs on free-tier infrastructure.</p>
+  <div class="section-label animate-on-scroll">Portfolio</div>
+  <h2 class="section-title animate-on-scroll">Selected Projects</h2>
+  <p class="section-desc animate-on-scroll">Production-grade systems built to solve real problems. Every project here runs on free-tier infrastructure.</p>
+
+  <div class="project-tabs animate-on-scroll">
+    <button class="project-tab active" onclick="filterProjects('all', this)">All</button>
+    <button class="project-tab" onclick="filterProjects('agents', this)">AI Agents</button>
+    <button class="project-tab" onclick="filterProjects('infra', this)">Infrastructure</button>
+    <button class="project-tab" onclick="filterProjects('content', this)">Content</button>
+  </div>
 
   <div class="projects-grid">
 
-    <!-- PROJECT 1 -->
-    <div class="project-card">
+    <div class="project-card animate-on-scroll" data-category="agents">
       <div class="project-header">
         <h3 class="project-title">Multi-Agent AI System</h3>
         <span class="project-tag">● $0/month</span>
@@ -296,12 +449,11 @@
         <span class="tech-tag">Ollama</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/SaintChris/portfolio-agentic-infra" target="_blank">View on GitHub →</a>
+        <a href="https://github.com/SaintChris/portfolio-agentic-infra" target="_blank">View on GitHub</a>
       </div>
     </div>
 
-    <!-- PROJECT 2 -->
-    <div class="project-card">
+    <div class="project-card animate-on-scroll" data-category="infra">
       <div class="project-header">
         <h3 class="project-title">AI Agent Infrastructure Showcase</h3>
         <span class="project-tag">● Live</span>
@@ -326,12 +478,11 @@
         <span class="tech-tag">Cron</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/SaintChris/hermes-setup-showcase" target="_blank">View on GitHub →</a>
+        <a href="https://github.com/SaintChris/hermes-setup-showcase" target="_blank">View on GitHub</a>
       </div>
     </div>
 
-    <!-- PROJECT 3 -->
-    <div class="project-card">
+    <div class="project-card animate-on-scroll" data-category="content">
       <div class="project-header">
         <h3 class="project-title">AI Blog & Technical Writing</h3>
         <span class="project-tag">● Content</span>
@@ -352,19 +503,28 @@
         <span class="tech-tag">Technical Writing</span>
       </div>
       <div class="project-links">
-        <a href="https://saintlex.sbs/blog" target="_blank">Read Articles →</a>
+        <a href="https://saintlex.sbs/blog" target="_blank">Read Articles</a>
       </div>
     </div>
 
   </div>
 </section>
 
+<!-- MID-PAGE CTA -->
+<div class="mid-cta animate-on-scroll">
+  <div class="mid-cta-inner">
+    <h3>Interested in working together?</h3>
+    <p>I'm currently open to Applied AI Engineer, ML Engineer, and Data Science roles. Based in Jamaica, available remote.</p>
+    <a href="#contact" class="btn-primary">Get in Touch</a>
+  </div>
+</div>
+
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-label">About</div>
-  <h2 class="section-title">Who I am</h2>
+  <div class="section-label animate-on-scroll">About</div>
+  <h2 class="section-title animate-on-scroll">Who I am</h2>
   <div class="about-grid">
-    <div class="about-text">
+    <div class="about-text animate-on-scroll">
       <p>
         I'm a self-taught Data &amp; AI Engineer based in Jamaica, building production-grade agent systems 
         that run on free-tier infrastructure. I don't just prototype — I ship systems with tests, 
@@ -382,7 +542,7 @@
         production experience from day one.
       </p>
     </div>
-    <div class="about-stats">
+    <div class="about-stats animate-on-scroll">
       <div class="stat-card">
         <div class="stat-num">6</div>
         <div class="stat-label">AI Agents Built</div>
@@ -403,24 +563,43 @@
   </div>
 </section>
 
+<!-- TOOL LOGOS -->
+<div class="tools-section animate-on-scroll">
+  <div class="tools-label">Built with</div>
+  <div class="tools-grid">
+    <div class="tool-logo">Python</div>
+    <div class="tool-logo">FastAPI</div>
+    <div class="tool-logo">Streamlit</div>
+    <div class="tool-logo">Docker</div>
+    <div class="tool-logo">LangChain</div>
+    <div class="tool-logo">Paperclip</div>
+    <div class="tool-logo">PostgreSQL</div>
+    <div class="tool-logo">Qdrant</div>
+    <div class="tool-logo">Ollama</div>
+    <div class="tool-logo">MCP</div>
+    <div class="tool-logo">Obsidian</div>
+    <div class="tool-logo">Hermes</div>
+  </div>
+</div>
+
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">Contact</div>
-  <h2 class="section-title">Let's connect</h2>
-  <p class="section-desc" style="margin: 0 auto 2rem;">Open to Data Science, AI Engineering, and ML Engineering roles. Based in Jamaica, available remote.</p>
+  <div class="section-label animate-on-scroll">Contact</div>
+  <h2 class="section-title animate-on-scroll">Let's connect</h2>
+  <p class="section-desc animate-on-scroll" style="margin: 0 auto 2rem;">Open to Data Science, AI Engineering, and ML Engineering roles. Based in Jamaica, available remote.</p>
 
   <div class="contact-links">
-    <a href="mailto:bogle.alex@hotmail.com" class="contact-link">
+    <a href="mailto:bogle.alex@hotmail.com" class="contact-link animate-on-scroll">
       <span class="icon">📧</span>
       <span class="label">Email</span>
       <span class="value">bogle.alex@hotmail.com</span>
     </a>
-    <a href="https://linkedin.com/in/alex-bogle" target="_blank" class="contact-link">
+    <a href="https://linkedin.com/in/alex-bogle" target="_blank" class="contact-link animate-on-scroll">
       <span class="icon">💼</span>
       <span class="label">LinkedIn</span>
       <span class="value">alex-bogle</span>
     </a>
-    <a href="https://github.com/SaintChris" target="_blank" class="contact-link">
+    <a href="https://github.com/SaintChris" target="_blank" class="contact-link animate-on-scroll">
       <span class="icon">🐙</span>
       <span class="label">GitHub</span>
       <span class="value">SaintChris</span>
@@ -432,6 +611,40 @@
 <footer>
   © 2026 Alex Bogle · Built with intent · saintlex.sbs
 </footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  // Project tab filtering
+  function filterProjects(category, btn) {
+    document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      if (category === 'all' || card.dataset.category === category) {
+        card.style.display = 'block';
+        card.style.animation = 'fadeInUp 0.4s ease';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
 
 </body>
 </html>
