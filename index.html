@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Bogle — Data & AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #111118;
+    --bg-card-hover: #16161f;
+    --border: #1e1e2a;
+    --border-glow: #2a2a40;
+    --text: #e4e4ef;
+    --text-muted: #8888a0;
+    --accent: #3b82f6;
+    --accent-glow: rgba(59,130,246,0.15);
+    --accent-soft: rgba(59,130,246,0.08);
+    --green: #22c55e;
+    --font: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo {
+    font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+    color: var(--text); text-decoration: none;
+  }
+  nav .logo span { color: var(--accent); }
+  nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+  nav .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
+    font-weight: 500; transition: color 0.2s;
+  }
+  nav .nav-links a:hover { color: var(--text); }
+  nav .nav-cta {
+    background: var(--accent); color: #fff; padding: 0.5rem 1.25rem;
+    border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  nav .nav-cta:hover { opacity: 0.85; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent-soft); border: 1px solid var(--border-glow);
+    padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem;
+    color: var(--accent); font-weight: 500; margin-bottom: 2rem;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero .subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-muted);
+    max-width: 600px; margin-bottom: 2.5rem; line-height: 1.7;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--accent); color: #fff; padding: 0.85rem 2rem;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    transition: all 0.2s; border: none; cursor: pointer;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--text); padding: 0.85rem 2rem;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card); }
+
+  /* ── TECH STRIP ── */
+  .tech-strip {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem; overflow: hidden;
+  }
+  .tech-strip-inner {
+    display: flex; gap: 3rem; align-items: center; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tech-strip span {
+    font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.75rem; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3rem; }
+
+  /* ── PROJECT CARDS ── */
+  .projects-grid { display: grid; gap: 1.5rem; }
+  .project-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem; transition: all 0.3s;
+  }
+  .project-card:hover {
+    border-color: var(--border-glow);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+  .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
+  .project-title { font-size: 1.25rem; font-weight: 700; }
+  .project-tag {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--green);
+    background: rgba(34,197,94,0.1); padding: 0.25rem 0.75rem;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; line-height: 1.7; }
+  .project-bullets { list-style: none; margin-bottom: 1.5rem; }
+  .project-bullets li {
+    padding: 0.35rem 0; font-size: 0.9rem; color: var(--text-muted);
+    padding-left: 1.25rem; position: relative;
+  }
+  .project-bullets li::before {
+    content: '→'; position: absolute; left: 0; color: var(--accent);
+    font-size: 0.85rem;
+  }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .tech-tag {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted);
+    background: var(--accent-soft); border: 1px solid var(--border);
+    padding: 0.25rem 0.65rem; border-radius: 6px;
+  }
+  .project-links { display: flex; gap: 1rem; }
+  .project-links a {
+    color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    display: flex; align-items: center; gap: 0.35rem;
+  }
+  .project-links a:hover { text-decoration: underline; }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .stat-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem; text-align: center;
+  }
+  .stat-num { font-size: 1.75rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 2rem auto; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.5rem;
+    color: var(--text); text-decoration: none; font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--border-glow); }
+  .contact-link .icon { font-size: 1.25rem; }
+  .contact-link .label { font-weight: 600; }
+  .contact-link .value { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 2rem; text-align: center;
+    color: var(--text-muted); font-size: 0.8rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .hero { padding-top: 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">alex<span>.</span>bogle</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Open to opportunities</div>
+  <h1>Building AI systems<br>that <span class="accent">actually ship.</span></h1>
+  <p class="subtitle">
+    Data &amp; AI Engineer specializing in multi-agent orchestration, 
+    production-grade automation, and intelligent infrastructure — all running on zero-cost tooling.
+  </p>
+  <div class="hero-buttons">
+    <a href="#work" class="btn-primary">View My Work</a>
+    <a href="#contact" class="btn-secondary">Get in Touch</a>
+  </div>
+</div>
+
+<!-- TECH STRIP -->
+<div class="tech-strip">
+  <div class="tech-strip-inner">
+    <span>Python</span>
+    <span>FastAPI</span>
+    <span>Streamlit</span>
+    <span>Docker</span>
+    <span>LangChain</span>
+    <span>Paperclip</span>
+    <span>PostgreSQL</span>
+    <span>Ollama</span>
+    <span>Qdrant</span>
+    <span>MCP</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">Selected Projects</h2>
+  <p class="section-desc">Production-grade systems built to solve real problems. Every project here runs on free-tier infrastructure.</p>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 -->
+    <div class="project-card">
+      <div class="project-header">
+        <h3 class="project-title">Multi-Agent AI System</h3>
+        <span class="project-tag">● $0/month</span>
+      </div>
+      <p class="project-desc">
+        Six autonomous AI agents working in concert — CEO, Market Analyst, Content Growth, Finance, Ops, and Research. 
+        A complete business automation pipeline built with production delegation patterns.
+      </p>
+      <ul class="project-bullets">
+        <li>Agent delegation bridge with shared task queue</li>
+        <li>Live Streamlit dashboard for real-time monitoring</li>
+        <li>52 integration tests, all passing</li>
+        <li>Docker containerized with docker-compose orchestration</li>
+        <li>Demo mode for instant showcase — no backend needed</li>
+      </ul>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">Streamlit</span>
+        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">Paperclip</span>
+        <span class="tech-tag">Qdrant</span>
+        <span class="tech-tag">Ollama</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/SaintChris/portfolio-agentic-infra" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-header">
+        <h3 class="project-title">AI Agent Infrastructure Showcase</h3>
+        <span class="project-tag">● Live</span>
+      </div>
+      <p class="project-desc">
+        Full production AI agent framework with multi-agent orchestration, automated knowledge management, 
+        and 26 autonomous cron workflows handling P&L tracking, market analysis, and content pipelines.
+      </p>
+      <ul class="project-bullets">
+        <li>Hermes agent framework with 6 specialized agent inboxes</li>
+        <li>Obsidian-based knowledge management system</li>
+        <li>Automated P&L tracking and financial reporting</li>
+        <li>26 cron jobs managing autonomous workflows</li>
+        <li>Paperclip orchestration for multi-agent coordination</li>
+      </ul>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Hermes</span>
+        <span class="tech-tag">Paperclip</span>
+        <span class="tech-tag">Obsidian</span>
+        <span class="tech-tag">PostgreSQL</span>
+        <span class="tech-tag">Cron</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/SaintChris/hermes-setup-showcase" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+      <div class="project-header">
+        <h3 class="project-title">AI Blog & Technical Writing</h3>
+        <span class="project-tag">● Content</span>
+      </div>
+      <p class="project-desc">
+        Writing about AI agent architecture, free-tier automation strategies, and modern AI tooling. 
+        Demonstrates ability to communicate complex technical concepts clearly.
+      </p>
+      <ul class="project-bullets">
+        <li>Multi-agent system design patterns</li>
+        <li>Cost optimization for AI infrastructure</li>
+        <li>Tool comparisons and integration guides</li>
+        <li>Content pipeline automation using AI agents</li>
+      </ul>
+      <div class="tech-tags">
+        <span class="tech-tag">Markdown</span>
+        <span class="tech-tag">Obsidian</span>
+        <span class="tech-tag">Technical Writing</span>
+      </div>
+      <div class="project-links">
+        <a href="https://saintlex.sbs/blog" target="_blank">Read Articles →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-title">Who I am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a self-taught Data &amp; AI Engineer based in Jamaica, building production-grade agent systems 
+        that run on free-tier infrastructure. I don't just prototype — I ship systems with tests, 
+        monitoring, and real orchestration.
+      </p>
+      <p>
+        My focus is on multi-agent orchestration: getting specialized AI agents to work together 
+        through delegation patterns, shared task queues, and structured communication. Everything I build 
+        is designed to run at zero model cost using open-source tooling.
+      </p>
+      <p>
+        Currently seeking <strong style="color:var(--text)">Applied AI Engineer</strong>, 
+        <strong style="color:var(--text)">ML Engineer</strong>, or 
+        <strong style="color:var(--text)">Data Science</strong> roles where I can contribute 
+        production experience from day one.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">AI Agents Built</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">52</div>
+        <div class="stat-label">Tests Passing</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">26</div>
+        <div class="stat-label">Automated Cron Jobs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$0</div>
+        <div class="stat-label">Monthly Infra Cost</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">Let's connect</h2>
+  <p class="section-desc" style="margin: 0 auto 2rem;">Open to Data Science, AI Engineering, and ML Engineering roles. Based in Jamaica, available remote.</p>
+
+  <div class="contact-links">
+    <a href="mailto:bogle.alex@hotmail.com" class="contact-link">
+      <span class="icon">📧</span>
+      <span class="label">Email</span>
+      <span class="value">bogle.alex@hotmail.com</span>
+    </a>
+    <a href="https://linkedin.com/in/alex-bogle" target="_blank" class="contact-link">
+      <span class="icon">💼</span>
+      <span class="label">LinkedIn</span>
+      <span class="value">alex-bogle</span>
+    </a>
+    <a href="https://github.com/SaintChris" target="_blank" class="contact-link">
+      <span class="icon">🐙</span>
+      <span class="label">GitHub</span>
+      <span class="value">SaintChris</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Alex Bogle · Built with intent · saintlex.sbs
+</footer>
+
+</body>
+</html>
