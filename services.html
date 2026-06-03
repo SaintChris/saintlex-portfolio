@@ -36,6 +36,27 @@ body::before {
 }
 ::selection { background: var(--accent); color: #fff; }
 
+/* Custom cursor */
+@media (pointer: fine) {
+  body.custom-cursor { cursor: none; }
+  body.custom-cursor a, body.custom-cursor button { cursor: none; }
+  .cursor-dot {
+    position: fixed; width: 8px; height: 8px;
+    background: var(--accent); border-radius: 50%;
+    pointer-events: none; z-index: 10000;
+    transition: transform 0.1s ease, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed; width: 40px; height: 40px;
+    border: 1.5px solid var(--accent); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    opacity: 0.5;
+  }
+  .cursor-ring.hover { width: 60px; height: 60px; opacity: 0.8; }
+}
+
 /* Scroll-driven animations */
 @keyframes scroll-fade-in { from { opacity: 0; transform: translateY(40px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes scroll-reveal { from { opacity: 0; clip-path: inset(0 0 100% 0); } to { opacity: 1; clip-path: inset(0 0 0% 0); } }
@@ -531,6 +552,32 @@ if (!CSS.supports('animation-timeline', 'view()')) {
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.scroll-animate, .scroll-reveal, .scroll-left, .scroll-right').forEach(el => observer.observe(el));
 }
+
+// Custom cursor
+const cDot = document.createElement('div');
+cDot.className = 'cursor-dot';
+const cRing = document.createElement('div');
+cRing.className = 'cursor-ring';
+document.body.appendChild(cDot);
+document.body.appendChild(cRing);
+document.body.classList.add('custom-cursor');
+
+let mX = 0, mY = 0, rX = 0, rY = 0;
+document.addEventListener('mousemove', (e) => {
+  mX = e.clientX; mY = e.clientY;
+  cDot.style.left = mX + 'px'; cDot.style.top = mY + 'px';
+});
+function animateRing() {
+  rX += (mX - rX) * 0.15;
+  rY += (mY - rY) * 0.15;
+  cRing.style.left = rX + 'px'; cRing.style.top = rY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cRing.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cRing.classList.remove('hover'));
+});
 </script>
 
 </body>
