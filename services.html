@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Bogle — AI Agent Infrastructure for Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #111118;
+    --bg-card-hover: #16161f;
+    --border: #1e1e2a;
+    --border-glow: #2a2a40;
+    --text: #e4e4ef;
+    --text-muted: #8888a0;
+    --accent: #3b82f6;
+    --accent-glow: rgba(59,130,246,0.15);
+    --accent-soft: rgba(59,130,246,0.08);
+    --green: #22c55e;
+    --font: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+  .animate-on-scroll { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  nav .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+  nav .logo span { color: var(--accent); }
+  nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+  nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  nav .nav-links a:hover { color: var(--text); }
+  nav .nav-cta { background: var(--accent); color: #fff; padding: 0.5rem 1.25rem; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: opacity 0.2s; }
+  nav .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-soft); border: 1px solid var(--border-glow); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-bottom: 2rem; }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero .subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-muted); max-width: 640px; margin-bottom: 2.5rem; line-height: 1.7; }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary { background: var(--accent); color: #fff; padding: 0.85rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.85rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--border); transition: all 0.2s; }
+  .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card); }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3rem; }
+
+  /* ARCHITECTURE */
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .arch-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; }
+  .arch-card:hover { border-color: var(--border-glow); background: var(--bg-card-hover); transform: translateY(-2px); }
+  .arch-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .arch-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .arch-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+  .arch-card .tech-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .arch-card .tech-tag { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); background: var(--accent-soft); border: 1px solid var(--border); padding: 0.2rem 0.5rem; border-radius: 4px; }
+
+  /* PRICING */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; position: relative; }
+  .pricing-card:hover { border-color: var(--border-glow); transform: translateY(-2px); }
+  .pricing-card.featured { border-color: var(--accent); }
+  .pricing-card.featured::before { content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 999px; }
+  .pricing-tier { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .pricing-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .pricing-price { font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; }
+  .pricing-price span { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
+  .pricing-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .pricing-features { list-style: none; margin-bottom: 2rem; }
+  .pricing-features li { padding: 0.4rem 0; font-size: 0.85rem; color: var(--text-muted); padding-left: 1.25rem; position: relative; }
+  .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 0.8rem; }
+  .pricing-card .btn-primary, .pricing-card .btn-secondary { display: block; text-align: center; width: 100%; }
+
+  /* PROOF */
+  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .proof-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; }
+  .proof-stat { font-size: 2rem; font-weight: 800; color: var(--accent); font-family: var(--mono); }
+  .proof-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+  /* CONTACT */
+  #contact { text-align: center; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 2rem auto; }
+  .contact-link { display: flex; align-items: center; gap: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.5rem; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: border-color 0.2s; }
+  .contact-link:hover { border-color: var(--border-glow); }
+  .contact-link .icon { font-size: 1.25rem; }
+  .contact-link .label { font-weight: 600; }
+  .contact-link .value { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+
+  @media (max-width: 768px) {
+    .arch-grid, .pricing-grid, .proof-grid { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .hero { padding-top: 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">alex<span>.</span>bogle</a>
+  <ul class="nav-links">
+    <li><a href="#architecture">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#proof">Proof</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Call</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Now accepting 2 new clients</div>
+  <h1>AI agent infrastructure<br>that <span class="accent">runs your business.</span></h1>
+  <p class="subtitle">
+    I build and deploy multi-agent AI systems that automate your operations — email, scheduling, research, reporting — so you can focus on growth, not busywork.
+  </p>
+  <div class="hero-buttons">
+    <a href="#pricing" class="btn-primary">View Packages</a>
+    <a href="#architecture" class="btn-secondary">See How It Works</a>
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-label animate-on-scroll">How It Works</div>
+  <h2 class="section-title animate-on-scroll">Enterprise-grade AI, deployed for your business</h2>
+  <p class="section-desc animate-on-scroll">Not a chatbot. Not a wrapper. A dedicated multi-agent system with departmental routing, persistent memory, and hands-free communication — running 24/7 on secure infrastructure.</p>
+
+  <div class="arch-grid">
+    <div class="arch-card animate-on-scroll">
+      <div class="arch-icon">📬</div>
+      <h3>Departmental AI Silos</h3>
+      <p>Your data isn't processed by one generic chatbot. Information is automatically routed to specialized AI workers — Market Analyst, Finance Agent, IT Operations, Content & Growth — that handle tasks simultaneously without bottlenecking.</p>
+      <div class="tech-list">
+        <span class="tech-tag">6-inbox routing</span>
+        <span class="tech-tag">Async file-based</span>
+        <span class="tech-tag">5-min bridge</span>
+      </div>
+    </div>
+
+    <div class="arch-card animate-on-scroll">
+      <div class="arch-icon">🧠</div>
+      <h3>Zero-Loss Corporate Memory</h3>
+      <p>The AI doesn't forget. Every interaction, transaction, and decision is stored in a secure local database — a digital brain for your operations that never gets wiped, never loses context, and never leaks to third-party cloud providers.</p>
+      <div class="tech-list">
+        <span class="tech-tag">pgvector</span>
+        <span class="tech-tag">SQLite FTS5</span>
+        <span class="tech-tag">Obsidian vault</span>
+      </div>
+    </div>
+
+    <div class="arch-card animate-on-scroll">
+      <div class="arch-icon">📧</div>
+      <h3>Hands-Free Executive Communication</h3>
+      <p>Automated agents monitor your inbox, surface payout alerts, update external trackers, and flag business-critical issues directly to your messaging channels in real time. You see what matters. The rest is handled.</p>
+      <div class="tech-list">
+        <span class="tech-tag">Zapier MCP</span>
+        <span class="tech-tag">Himalaya CLI</span>
+        <span class="tech-tag">Telegram delivery</span>
+      </div>
+    </div>
+
+    <div class="arch-card animate-on-scroll">
+      <div class="arch-icon">🔒</div>
+      <h3>Local-First Security</h3>
+      <p>Your data stays on your infrastructure. All containers bind to localhost only — no external exposure. API keys stored in isolated .env files, never in code. Docker-isolated agents that can't bleed into each other.</p>
+      <div class="tech-list">
+        <span class="tech-tag">Docker isolation</span>
+        <span class="tech-tag">localhost-only</span>
+        <span class="tech-tag">.env secrets</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label animate-on-scroll">Pricing</div>
+  <h2 class="section-title animate-on-scroll">Three tiers. Pick your level.</h2>
+  <p class="section-desc animate-on-scroll">Every package includes installation, configuration, and training. No monthly lock-ins for setup tiers — you own the system.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card animate-on-scroll">
+      <div class="pricing-tier">Tier 1</div>
+      <div class="pricing-name">Personal Assistant</div>
+      <div class="pricing-price">$1,500 <span>/one-time</span></div>
+      <p class="pricing-desc">For individuals and solopreneurs who want a personal AI assistant without the technical complexity.</p>
+      <ul class="pricing-features">
+        <li>Hermes installation & configuration</li>
+        <li>Messaging setup (Telegram or Discord)</li>
+        <li>Email integration (Gmail/Outlook)</li>
+        <li>Daily brief & reminders</li>
+        <li>Basic knowledge management</li>
+        <li>2 weeks support</li>
+      </ul>
+      <a href="#contact" class="btn-secondary">Get Started</a>
+    </div>
+
+    <div class="pricing-card featured animate-on-scroll">
+      <div class="pricing-tier">Tier 2</div>
+      <div class="pricing-name">Business Operations</div>
+      <div class="pricing-price">$3,000 <span>/one-time</span></div>
+      <p class="pricing-desc">For businesses that need multi-agent automation, departmental routing, and hands-free operations.</p>
+      <ul class="pricing-features">
+        <li>Everything in Tier 1</li>
+        <li>VPS deployment with Docker isolation</li>
+        <li>6-agent departmental routing</li>
+        <li>Automated email triage & payout detection</li>
+        <li>External tracker sync (Google Sheets)</li>
+        <li>Custom skills for your workflow</li>
+        <li>30 days support + 1 training session</li>
+      </ul>
+      <a href="#contact" class="btn-primary">Get Started</a>
+    </div>
+
+    <div class="pricing-card animate-on-scroll">
+      <div class="pricing-tier">Tier 3</div>
+      <div class="pricing-name">White-Glove Ongoing</div>
+      <div class="pricing-price">$800 <span>/month</span></div>
+      <p class="pricing-desc">For clients who want continuous optimization, new automations, and priority support.</p>
+      <ul class="pricing-features">
+        <li>Everything in Tier 2</li>
+        <li>Monthly maintenance & updates</li>
+        <li>New cron jobs & skills on request</li>
+        <li>Knowledge base management</li>
+        <li>Performance monitoring</li>
+        <li>Priority Telegram/email support</li>
+      </ul>
+      <a href="#contact" class="btn-secondary">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="section-label animate-on-scroll">Proof</div>
+  <h2 class="section-title animate-on-scroll">This isn't theoretical. It's running now.</h2>
+  <p class="section-desc animate-on-scroll">Every stat below is from my own production system — the same architecture I deploy for clients.</p>
+
+  <div class="proof-grid">
+    <div class="proof-card animate-on-scroll">
+      <div class="proof-stat">6</div>
+      <div class="proof-label">AI Agents in Production</div>
+    </div>
+    <div class="proof-card animate-on-scroll">
+      <div class="proof-stat">26</div>
+      <div class="proof-label">Automated Cron Workflows</div>
+    </div>
+    <div class="proof-card animate-on-scroll">
+      <div class="proof-stat">120+</div>
+      <div class="proof-label">Skills Installed</div>
+    </div>
+    <div class="proof-card animate-on-scroll">
+      <div class="proof-stat">359 MB</div>
+      <div class="proof-label">Conversational History Indexed</div>
+    </div>
+    <div class="proof-card animate-on-scroll">
+      <div class="proof-stat">102</div>
+      <div class="proof-label">Knowledge Base Pages</div>
+    </div>
+    <div class="proof-card animate-on-scroll">
+      <div class="proof-stat">$0</div>
+      <div class="proof-label">Monthly Cloud Cost</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label animate-on-scroll">Contact</div>
+  <h2 class="section-title animate-on-scroll">Let's build your system</h2>
+  <p class="section-desc animate-on-scroll" style="margin: 0 auto 2rem;">Tell me about your business. I'll tell you exactly what I can automate. No pitch — just a straight answer.</p>
+
+  <div class="contact-links">
+    <a href="mailto:bogle.alex@hotmail.com" class="contact-link animate-on-scroll">
+      <span class="icon">📧</span>
+      <span class="label">Email</span>
+      <span class="value">bogle.alex@hotmail.com</span>
+    </a>
+    <a href="https://linkedin.com/in/alex-bogle" target="_blank" class="contact-link animate-on-scroll">
+      <span class="icon">💼</span>
+      <span class="label">LinkedIn</span>
+      <span class="value">alex-bogle</span>
+    </a>
+    <a href="https://github.com/SaintChris" target="_blank" class="contact-link animate-on-scroll">
+      <span class="icon">🐙</span>
+      <span class="label">GitHub</span>
+      <span class="value">SaintChris</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Alex Bogle · Built with intent · saintlex.sbs
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
