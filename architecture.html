@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Bogle — System Architecture Diagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060c; --bg-card: #111118; --border: #1a1a2e;
+  --border-glow: #2a2a4a; --text: #e8e8f0; --text-muted: #7878a0;
+  --accent: #3b82f6; --accent-bright: #60a5fa;
+  --green: #22c55e; --purple: #a855f7; --cyan: #22d3ee;
+  --amber: #f59e0b; --red: #ef4444; --pink: #ec4899;
+  --font: 'Inter', sans-serif; --mono: 'JetBrains Mono', monospace;
+  --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+  padding: 2rem;
+}
+h1 {
+  text-align: center; font-size: 2rem; font-weight: 900;
+  margin-bottom: 0.5rem; letter-spacing: -0.03em;
+}
+.subtitle {
+  text-align: center; color: var(--text-muted); margin-bottom: 3rem;
+  font-size: 0.95rem;
+}
+
+/* ── DIAGRAM CONTAINER ── */
+.diagram {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; gap: 2rem;
+}
+
+/* ── SECTION ── */
+.section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.section-title {
+  font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.section-title .icon { font-size: 1.3rem; }
+.section-title .label { letter-spacing: -0.01em; }
+
+/* ── FLOW DIAGRAM (SVG) ── */
+.flow-container {
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+.flow-container svg {
+  display: block; margin: 0 auto;
+  max-width: 100%; height: auto;
+}
+
+/* ── GRID LAYOUTS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; }
+
+/* ── NODES ── */
+.node {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.node:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.node-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+.node-title {
+  font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+.node-desc {
+  font-size: 0.72rem; color: var(--text-muted); line-height: 1.5;
+}
+.node-badge {
+  display: inline-block; font-family: var(--mono); font-size: 0.6rem;
+  padding: 0.15rem 0.5rem; border-radius: var(--radius-full);
+  margin-top: 0.5rem; font-weight: 500;
+}
+.badge-green { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+.badge-blue { background: rgba(59,130,246,0.1); color: var(--accent); border: 1px solid rgba(59,130,246,0.2); }
+.badge-purple { background: rgba(168,85,247,0.1); color: var(--purple); border: 1px solid rgba(168,85,247,0.2); }
+.badge-cyan { background: rgba(34,211,238,0.1); color: var(--cyan); border: 1px solid rgba(34,211,238,0.2); }
+.badge-amber { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+.badge-pink { background: rgba(236,72,153,0.1); color: var(--pink); border: 1px solid rgba(236,72,153,0.2); }
+
+/* ── CONNECTION LINES ── */
+.connections {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.5rem; padding: 1rem 0; flex-wrap: wrap;
+}
+.arrow { color: var(--text-muted); font-size: 1.2rem; }
+.arrow-animated {
+  animation: arrow-pulse 2s ease-in-out infinite;
+}
+@keyframes arrow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative; padding-left: 2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--purple), var(--cyan));
+  border-radius: 2px;
+}
+.timeline-item {
+  position: relative; margin-bottom: 1.5rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute; left: -2rem; top: 0.5rem;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translateX(-4px);
+  box-shadow: 0 0 8px rgba(59,130,246,0.4);
+}
+.timeline-time {
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--accent); margin-bottom: 0.25rem;
+}
+.timeline-text {
+  font-size: 0.85rem; color: var(--text-muted);
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 1rem; margin-bottom: 2rem;
+}
+.stat-box {
+  text-align: center; padding: 1.25rem 0.5rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.stat-num {
+  font-size: 1.5rem; font-weight: 800;
+  font-family: var(--mono);
+}
+.stat-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .stats-bar { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .grid-6 { grid-template-columns: 1fr 1fr; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  body { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<h1>⚙️ System Architecture</h1>
+<p class="subtitle">Alex Bogle — OWL Ops | M1 Mac | Zero cloud cost</p>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-box">
+    <div class="stat-num" style="color:var(--accent)">6</div>
+    <div class="stat-label">AI Agents</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:var(--green)">26</div>
+    <div class="stat-label">Cron Jobs</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:var(--purple)">108</div>
+    <div class="stat-label">Custom Skills</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:var(--cyan)">5</div>
+    <div class="stat-label">Memory Layers</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:var(--amber)">359 MB</div>
+    <div class="stat-label">History Indexed</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num" style="color:var(--pink)">$0</div>
+    <div class="stat-label">Monthly Cost</div>
+  </div>
+</div>
+
+<!-- MAIN FLOW DIAGRAM -->
+<div class="section">
+  <div class="section-title"><span class="icon">🔄</span><span class="label">Data Flow — How It All Connects</span></div>
+  <div class="flow-container">
+    <svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:1200px;">
+      <defs>
+        <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/></marker>
+        <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#22c55e"/></marker>
+        <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#a855f7"/></marker>
+        <marker id="arrowCyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee"/></marker>
+        <marker id="arrowAmber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b"/></marker>
+        <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient>
+        <linearGradient id="gGreen" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#22c55e"/><stop offset="100%" stop-color="#166534"/></linearGradient>
+        <linearGradient id="gPurple" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+        <linearGradient id="gCyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
+        <linearGradient id="gAmber" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+        <linearGradient id="gPink" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#be185d"/></linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+
+      <!-- Background grid -->
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a2e" stroke-width="0.5"/></pattern>
+      <rect width="1200" height="520" fill="url(#grid)"/>
+
+      <!-- ═══ LAYER 1: USER INPUT ═══ -->
+      <rect x="20" y="20" width="160" height="70" rx="12" fill="url(#gBlue)" opacity="0.15" stroke="#3b82f6" stroke-width="1"/>
+      <text x="100" y="48" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-size="11" font-weight="600">📱 Telegram</text>
+      <text x="100" y="65" text-anchor="middle" fill="#7878a0" font-family="Inter,sans-serif" font-size="9">User Input</text>
+
+      <rect x="220" y="20" width="160" height="70" rx="12" fill="url(#gBlue)" opacity="0.15" stroke="#3b82f6" stroke-width="1"/>
+      <text x="300" y="48" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-size="11" font-weight="600">🖥️ Desktop App</text>
+      <text x="300" y="65" text-anchor="middle" fill="#7878a0" font-family="Inter,sans-serif" font-size="9">Tauri v0.15.1</text>
+
+      <!-- Arrow to Router -->
+      <line x1="180" y1="55" x2="210" y2="55" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+      <line x1="380" y1="55" x2="410" y2="55" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+      <!-- ═══ LAYER 2: ROUTER (OWL) ═══ -->
+      <rect x="420" y="15" width="200" height="80" rx="16" fill="url(#gPurple)" opacity="0.2" stroke="#a855f7" stroke-width="2" filter="url(#glow)"/>
+      <text x="520" y="42" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-size="13" font-weight="800">🦉 OWL (CEO)</text>
+      <text x="520" y="58" text-anchor="middle" fill="#a855f7" font-family="JetBrains Mono,monospace" font-size="9">Router + Dispatcher</text>
+      <text x="520" y="72" text-anchor="middle" fill="#7878a0" font-family="Inter,sans-serif" font-size="8">ROUTING_RULES.md → 6 inboxes</text>
+
+      <!-- ═══ LAYER 3: AGENTS ═══ -->
+      <!-- Agent 1: Market Analyst -->
+      <rect x="20" y="160" width="170" height="80" rx="12" fill="url(#gGreen)" opacity="0.12" stroke="#22c55e" stroke-width="1"/>
+      <text x="105" y="188" text-anchor="middle" fill="#4ade80" font-family="Inter,sans-serif" font-size="11" font-weight="600">📊 Market Analyst</text>
+      <text x="105" y="205" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">NQ/MNQ, liquidity</text>
+      <text x="105" y="220" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">sweeps, displacement</text>
+
+      <!-- Agent 2: Content & Growth -->
+      <rect x="210" y="160" width="170" height="80" rx="12" fill="url(#gCyan)" opacity="0.12" stroke="#22d3ee" stroke-width="1"/>
+      <text x="295" y="188" text-anchor="middle" fill="#67e8f9" font-family="Inter,sans-serif" font-size="11" font-weight="600">✍️ Content & Growth</text>
+      <text x="295" y="205" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">LinkedIn, portfolio</text>
+      <text x="295" y="220" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">articles, content</text>
+
+      <!-- Agent 3: Founding Engineer -->
+      <rect x="400" y="160" width="170" height="80" rx="12" fill="url(#gAmber)" opacity="0.12" stroke="#f59e0b" stroke-width="1"/>
+      <text x="485" y="188" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-size="11" font-weight="600">🔧 Founding Engineer</text>
+      <text x="485" y="205" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">Infra, code, deploy</text>
+      <text x="485" y="220" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">Docker, scripts</text>
+
+      <!-- Agent 4: IT Operations -->
+      <rect x="590" y="160" width="170" height="80" rx="12" fill="url(#gPink)" opacity="0.12" stroke="#ec4899" stroke-width="1"/>
+      <text x="675" y="188" text-anchor="middle" fill="#f472b6" font-family="Inter,sans-serif" font-size="11" font-weight="600">🖥️ IT Operations</text>
+      <text x="675" y="205" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">Health, debug, monitor</text>
+      <text x="675" y="220" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">cron watchdog</text>
+
+      <!-- Agent 5: Finance Agent -->
+      <rect x="780" y="160" width="170" height="80" rx="12" fill="url(#gGreen)" opacity="0.12" stroke="#22c55e" stroke-width="1"/>
+      <text x="865" y="188" text-anchor="middle" fill="#4ade80" font-family="Inter,sans-serif" font-size="11" font-weight="600">💰 Finance Agent</text>
+      <text x="865" y="205" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">P&L, bank statements</text>
+      <text x="865" y="220" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">reports, payouts</text>
+
+      <!-- Agent 6: Research -->
+      <rect x="970" y="160" width="170" height="80" rx="12" fill="url(#gPurple)" opacity="0.12" stroke="#a855f7" stroke-width="1"/>
+      <text x="1055" y="188" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-size="11" font-weight="600">🔬 Research</text>
+      <text x="1055" y="205" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">Deep research, analysis</text>
+      <text x="1055" y="220" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">market intel</text>
+
+      <!-- Arrows from Router to Agents -->
+      <line x1="520" y1="95" x2="105" y2="155" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowPurple)" opacity="0.6"/>
+      <line x1="520" y1="95" x2="295" y2="155" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowPurple)" opacity="0.6"/>
+      <line x1="520" y1="95" x2="485" y2="155" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowPurple)" opacity="0.6"/>
+      <line x1="520" y1="95" x2="675" y2="155" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowPurple)" opacity="0.6"/>
+      <line x1="520" y1="95" x2="865" y2="155" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowPurple)" opacity="0.6"/>
+      <line x1="520" y1="95" x2="1055" y2="155" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowPurple)" opacity="0.6"/>
+
+      <!-- ═══ LAYER 4: INBOX BRIDGE ═══ -->
+      <rect x="420" y="290" width="200" height="60" rx="12" fill="url(#gCyan)" opacity="0.15" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="520" y="315" text-anchor="middle" fill="#67e8f9" font-family="Inter,sans-serif" font-size="11" font-weight="600">📬 Inbox Bridge</text>
+      <text x="520" y="332" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">inbox_bridge.py • every 5 min</text>
+
+      <!-- Arrows from Agents to Bridge -->
+      <line x1="105" y1="240" x2="430" y2="310" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowCyan)" opacity="0.4"/>
+      <line x1="295" y1="240" x2="440" y2="315" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowCyan)" opacity="0.4"/>
+      <line x1="485" y1="240" x2="500" y2="310" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowCyan)" opacity="0.4"/>
+      <line x1="675" y1="240" x2="540" y2="315" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowCyan)" opacity="0.4"/>
+      <line x1="865" y1="240" x2="580" y2="320" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowCyan)" opacity="0.4"/>
+      <line x1="1055" y1="240" x2="600" y2="320" stroke="#22d3ee" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowCyan)" opacity="0.4"/>
+
+      <!-- ═══ LAYER 5: MEMORY STACK ═══ -->
+      <text x="200" y="420" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-size="10" font-weight="700">5-LAYER MEMORY STACK</text>
+
+      <rect x="20" y="430" width="145" height="70" rx="10" fill="url(#gPurple)" opacity="0.1" stroke="#a855f7" stroke-width="1"/>
+      <text x="92" y="452" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-size="9" font-weight="600">① Honcho</text>
+      <text x="92" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">pgvector + Redis</text>
+      <text x="92" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">localhost:8000</text>
+
+      <rect x="175" y="430" width="145" height="70" rx="10" fill="url(#gBlue)" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+      <text x="247" y="452" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="600">② soul.md</text>
+      <text x="247" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">Personality + rules</text>
+      <text x="247" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">every prompt</text>
+
+      <rect x="330" y="430" width="145" height="70" rx="10" fill="url(#gGreen)" opacity="0.1" stroke="#22c55e" stroke-width="1"/>
+      <text x="402" y="452" text-anchor="middle" fill="#4ade80" font-family="Inter,sans-serif" font-size="9" font-weight="600">③ Obsidian</text>
+      <text x="402" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">102 pages, 15 MB</text>
+      <text x="402" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">knowledge catalog</text>
+
+      <rect x="485" y="430" width="145" height="70" rx="10" fill="url(#gAmber)" opacity="0.1" stroke="#f59e0b" stroke-width="1"/>
+      <text x="557" y="452" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="600">④ Built-in</text>
+      <text x="557" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">2,200 char limit</text>
+      <text x="557" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">routing essentials</text>
+
+      <rect x="640" y="430" width="145" height="70" rx="10" fill="url(#gCyan)" opacity="0.1" stroke="#22d3ee" stroke-width="1"/>
+      <text x="712" y="452" text-anchor="middle" fill="#67e8f9" font-family="Inter,sans-serif" font-size="9" font-weight="600">⑤ Session Search</text>
+      <text x="712" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">SQLite FTS5</text>
+      <text x="712" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">359 MB indexed</text>
+
+      <!-- Arrows from Bridge to Memory -->
+      <line x1="520" y1="350" x2="400" y2="425" stroke="#a855f7" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrowPurple)" opacity="0.5"/>
+
+      <!-- ═══ LAYER 6: SERVICES ═══ -->
+      <text x="900" y="420" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-size="10" font-weight="700">SERVICES</text>
+
+      <rect x="795" y="430" width="130" height="70" rx="10" fill="url(#gGreen)" opacity="0.1" stroke="#22c55e" stroke-width="1"/>
+      <text x="860" y="452" text-anchor="middle" fill="#4ade80" font-family="Inter,sans-serif" font-size="9" font-weight="600">🐳 Docker</text>
+      <text x="860" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">PG, Redis, Ollama</text>
+      <text x="860" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">localhost only</text>
+
+      <rect x="935" y="430" width="130" height="70" rx="10" fill="url(#gAmber)" opacity="0.1" stroke="#f59e0b" stroke-width="1"/>
+      <text x="1000" y="452" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="600">🤖 Ollama</text>
+      <text x="1000" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">qwen3:4b, 1.7b</text>
+      <text x="1000" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">nomic-embed</text>
+
+      <rect x="1075" y="430" width="105" height="70" rx="10" fill="url(#gPink)" opacity="0.1" stroke="#ec4899" stroke-width="1"/>
+      <text x="1127" y="452" text-anchor="middle" fill="#f472b6" font-family="Inter,sans-serif" font-size="9" font-weight="600">🔗 MCP</text>
+      <text x="1127" y="468" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">cua-driver</text>
+      <text x="1127" y="480" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="7">zapier</text>
+
+      <!-- Arrows from Memory to Services -->
+      <line x1="712" y1="430" x2="850" y2="425" stroke="#f59e0b" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowAmber)" opacity="0.4"/>
+      <line x1="712" y1="430" x2="990" y2="425" stroke="#f59e0b" stroke-width="0.8" stroke-dasharray="3,3" marker-end="url(#arrowAmber)" opacity="0.4"/>
+
+      <!-- ═══ CRON JOBS ═══ -->
+      <rect x="700" y="290" width="200" height="60" rx="12" fill="url(#gAmber)" opacity="0.12" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="800" y="315" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-size="11" font-weight="600">⏰ 26 Cron Jobs</text>
+      <text x="800" y="332" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">Daily / Weekly / Monthly / Continuous</text>
+
+      <!-- Arrow from Bridge to Cron -->
+      <line x1="620" y1="320" x2="695" y2="320" stroke="#f59e0b" stroke-width="1" marker-end="url(#arrowAmber)"/>
+
+      <!-- ═══ PAPERCLIP ═══ -->
+      <rect x="940" y="290" width="160" height="60" rx="12" fill="url(#gGreen)" opacity="0.12" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="1020" y="315" text-anchor="middle" fill="#4ade80" font-family="Inter,sans-serif" font-size="11" font-weight="600">🎯 Paperclip</text>
+      <text x="1020" y="332" text-anchor="middle" fill="#7878a0" font-family="JetBrains Mono,monospace" font-size="8">Multi-agent orchestration :3100</text>
+
+      <!-- Arrow from Bridge to Paperclip -->
+      <line x1="620" y1="310" x2="935" y2="315" stroke="#22c55e" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowGreen)" opacity="0.6"/>
+
+      <!-- ═══ LEGEND ═══ -->
+      <rect x="20" y="290" width="160" height="60" rx="12" fill="#0c0c14" stroke="#1a1a2e" stroke-width="1"/>
+      <text x="100" y="310" text-anchor="middle" fill="#7878a0" font-family="Inter,sans-serif" font-size="8" font-weight="600">LEGEND</text>
+      <text x="100" y="325" text-anchor="middle" fill="#4a4a6a" font-family="JetBrains Mono,monospace" font-size="7">━━━ direct flow</text>
+      <text x="100" y="338" text-anchor="middle" fill="#4a4a6a" font-family="JetBrains Mono,monospace" font-size="7">╌╌╌ async / routed</text>
+    </svg>
+  </div>
+</div>
+
+<!-- AGENTS DETAIL -->
+<div class="section">
+  <div class="section-title"><span class="icon">🤖</span><span class="label">6 AI Agents — Specialized Workers</span></div>
+  <div class="grid-3">
+    <div class="node">
+      <div class="node-icon">📊</div>
+      <div class="node-title">Market Analyst</div>
+      <div class="node-desc">NQ/MNQ trading analysis, liquidity sweeps, displacement, supply/demand zones</div>
+      <span class="node-badge badge-green">trade • market • NQ • MNQ</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">✍️</div>
+      <div class="node-title">Content & Growth</div>
+      <div class="node-desc">LinkedIn posts, portfolio content, technical articles, social distribution</div>
+      <span class="node-badge badge-cyan">linkedin • post • article</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔧</div>
+      <div class="node-title">Founding Engineer</div>
+      <div class="node-desc">Infrastructure, code, Docker deployments, scripts, system builds</div>
+      <span class="node-badge badge-amber">setup • deploy • code</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🖥️</div>
+      <div class="node-title">IT Operations</div>
+      <div class="node-desc">System health monitoring, debugging, cron watchdog, error triage</div>
+      <span class="node-badge badge-pink">health • cron • debug</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">💰</div>
+      <div class="node-title">Finance Agent</div>
+      <div class="node-desc">P&L tracking, bank statement parsing, financial reports, payout detection</div>
+      <span class="node-badge badge-green">finance • P&L • bank</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔬</div>
+      <div class="node-title">Research</div>
+      <div class="node-desc">Deep research, market intelligence, competitive analysis, data synthesis</div>
+      <span class="node-badge badge-purple">research • analysis</span>
+    </div>
+  </div>
+</div>
+
+<!-- MEMORY STACK -->
+<div class="section">
+  <div class="section-title"><span class="icon">🧠</span><span class="label">5-Layer Memory Architecture</span></div>
+  <div class="grid-3">
+    <div class="node">
+      <div class="node-icon">①</div>
+      <div class="node-title">Honcho (Vector + Cache)</div>
+      <div class="node-desc">Cross-session user modeling, peer cards, dialectic reasoning. pgvector + Redis. FastAPI at localhost:8000.</div>
+      <span class="node-badge badge-purple">hybrid recall • qwen3:1.7b</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">②</div>
+      <div class="node-title">soul.md + agents.md</div>
+      <div class="node-desc">Personality, rules, preferences, communication style. Injected into every single prompt automatically.</div>
+      <span class="node-badge badge-blue">every prompt • identity</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">③</div>
+      <div class="node-title">Obsidian Vault</div>
+      <div class="node-desc">102 pages, 15 MB. Project statuses, daily logs, mistake records, session summaries, handoffs.</div>
+      <span class="node-badge badge-green">102 pages • knowledge</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">④</div>
+      <div class="node-title">Built-in Memory</div>
+      <div class="node-desc">2,200 char hard limit. Only routing essentials: Telegram IDs, email prefs, critical paths.</div>
+      <span class="node-badge badge-amber">minimal • essential</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">⑤</div>
+      <div class="node-title">Session Search</div>
+      <div class="node-desc">SQLite FTS5 full-text search across 359 MB of raw conversational history. On-demand recall.</div>
+      <span class="node-badge badge-cyan">359 MB • FTS5</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔗</div>
+      <div class="node-title">Inbox Bridge</div>
+      <div class="node-desc">inbox_bridge.py runs every 5 min. Routes handoff files between 6 agent inboxes. Async file-based.</div>
+      <span class="node-badge badge-pink">5 min • async • 6 inboxes</span>
+    </div>
+  </div>
+</div>
+
+<!-- CRON JOBS -->
+<div class="section">
+  <div class="section-title"><span class="icon">⏰</span><span class="label">26 Automated Cron Workflows</span></div>
+  <div class="grid-4">
+    <div class="node">
+      <div class="node-icon">🌙</div>
+      <div class="node-title">Nightly Brain Sync</div>
+      <div class="node-desc">00:00 daily — consolidates memory, updates vault</div>
+      <span class="node-badge badge-green">✅ 00:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🌅</div>
+      <div class="node-title">Morning Brief</div>
+      <div class="node-desc">07:00 daily — priorities, weather, schedule</div>
+      <span class="node-badge badge-green">✅ 07:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">📧</div>
+      <div class="node-title">Email Triage</div>
+      <div class="node-desc">12:00 daily — surfaces important emails</div>
+      <span class="node-badge badge-green">✅ 12:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">📈</div>
+      <div class="node-title">Market Events</div>
+      <div class="node-desc">08:00 weekdays — economic calendar brief</div>
+      <span class="node-badge badge-blue">✅ 08:00 M-F</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">💵</div>
+      <div class="node-title">P&L Summary</div>
+      <div class="node-desc">Sunday 18:00 — weekly trading P&L report</div>
+      <span class="node-badge badge-green">✅ Sun 18:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔍</div>
+      <div class="node-title">Payout Detector</div>
+      <div class="node-desc">Sunday 10:00 — scans for payout alerts</div>
+      <span class="node-badge badge-green">✅ Sun 10:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🐕</div>
+      <div class="node-title">Cron Watchdog</div>
+      <div class="node-desc">Sunday 11:00 — checks all cron health</div>
+      <span class="node-badge badge-green">✅ Sun 11:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🧹</div>
+      <div class="node-title">PG Retention</div>
+      <div class="node-desc">03:00 daily — Postgres cleanup</div>
+      <span class="node-badge badge-blue">✅ 03:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔄</div>
+      <div class="node-title">Model Router Refresh</div>
+      <div class="node-desc">20:00 daily — updates available models</div>
+      <span class="node-badge badge-green">✅ 20:00</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">📋</div>
+      <div class="node-title">Job Tracker Update</div>
+      <div class="node-desc">Every 4h — syncs to Google Sheets</div>
+      <span class="node-badge badge-cyan">✅ 4h</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">💀</div>
+      <div class="node-title">Dead Man's Switch</div>
+      <div class="node-desc">Every 30m — CEO heartbeat check</div>
+      <span class="node-badge badge-pink">✅ 30m</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">📊</div>
+      <div class="node-title">Adaptive Monitor</div>
+      <div class="node-desc">Every 2h — system health monitoring</div>
+      <span class="node-badge badge-amber">✅ 2h</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="section">
+  <div class="section-title"><span class="icon">🐳</span><span class="label">Infrastructure Services</span></div>
+  <div class="grid-3">
+    <div class="node">
+      <div class="node-icon">🐳</div>
+      <div class="node-title">Docker Stack</div>
+      <div class="node-desc">PostgreSQL + pgvector, Redis, Honcho API — all containerized, localhost-only binding</div>
+      <span class="node-badge badge-green">localhost only</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🤖</div>
+      <div class="node-title">Ollama</div>
+      <div class="node-desc">qwen3:4b (main), qwen3:1.7b (dialectic), nomic-embed (embeddings) — all local inference</div>
+      <span class="node-badge badge-blue">:11434 • local</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔗</div>
+      <div class="node-title">MCP Servers</div>
+      <div class="node-desc">cua-driver (macOS desktop control), Zapier (Google Sheets, email, job tracker)</div>
+      <span class="node-badge badge-purple">cua • zapier</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🎯</div>
+      <div class="node-title">Paperclip</div>
+      <div class="node-desc">Multi-agent orchestration layer. Coordinates agent workflows and task delegation.</div>
+      <span class="node-badge badge-cyan">:3100</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">🌐</div>
+      <div class="node-title">OpenRouter</div>
+      <div class="node-desc">Cloud LLM fallback. owl-alpha primary model. Free-tier with rate limit management.</div>
+      <span class="node-badge badge-amber">owl-alpha</span>
+    </div>
+    <div class="node">
+      <div class="node-icon">📧</div>
+      <div class="node-title">Himalaya CLI</div>
+      <div class="node-desc">IMAP/SMTP email from terminal. Integrated with agent email triage workflows.</div>
+      <span class="node-badge badge-pink">email • terminal</span>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="section">
+  <div class="section-title"><span class="icon">🛠️</span><span class="label">108 Custom Skills + 90 Built-in</span></div>
+  <div class="grid-4">
+    <div class="node">
+      <div class="node-icon">🎨</div>
+      <div class="node-title">Creative (20)</div>
+      <div class="node-desc">Diagrams, ASCII art, design, pixel art, video, comics</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">💻</div>
+      <div class="node-title">Dev (12)</div>
+      <div class="node-desc">Debugging, planning, TDD, code review, spikes</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">📊</div>
+      <div class="node-title">Productivity (12)</div>
+      <div class="node-desc">Job hunting, Google Workspace, Notion, Airtable</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">⚙️</div>
+      <div class="node-title">DevOps (7)</div>
+      <div class="node-desc">Cron management, monitoring, kanban orchestration</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">🐙</div>
+      <div class="node-title">GitHub (6)</div>
+      <div class="node-desc">Auth, PRs, issues, code review, repo management</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">🔬</div>
+      <div class="node-title">Research (5)</div>
+      <div class="node-desc">arXiv, blogwatcher, LLM wiki, Polymarket</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">🎵</div>
+      <div class="node-title">Media (5)</div>
+      <div class="node-desc">Spotify, YouTube, GIF search, audio analysis</div>
+    </div>
+    <div class="node">
+      <div class="node-icon">🤖</div>
+      <div class="node-title">AI Agents (5)</div>
+      <div class="node-desc">Claude Code, Codex, OpenCode, kanban lanes</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILE STRUCTURE -->
+<div class="section">
+  <div class="section-title"><span class="icon">📁</span><span class="label">Key File Paths</span></div>
+  <div style="font-family:var(--mono);font-size:0.82rem;line-height:2;color:var(--text-muted);">
+    <div><span style="color:var(--accent)">~/.hermes/</span></div>
+    <div style="padding-left:1.5rem"><span style="color:var(--green)">config.yaml</span> — Main Hermes config</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--green)">.env</span> — API keys (600 permissions)</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--green)">SOUL.md</span> — Personality, memory layers, preferences</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--green)">ROUTING_RULES.md</span> — Agent routing rules</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--green)">ARCHITECTURE.md</span> — This architecture doc</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--amber)">skills/</span> — 108 custom skills</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--amber)">scripts/</span> — inbox_bridge.py, model_router.py, pg_retention.py</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--amber)">cron/</span> — 26 cron job definitions</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--amber)">logs/</span> — Agent, error, gateway logs</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--amber)">memories/</span> — Built-in memory files</div>
+    <div><span style="color:var(--accent)">~/.shared/</span> — Cross-agent shared workspace</div>
+    <div style="padding-left:1.5rem"><span style="color:var(--amber)">handoffs/inbox/</span> — 6 agent routing inboxes</div>
+    <div><span style="color:var(--accent)">~/Documents/Obsidian Vault/</span> — 102-page knowledge base</div>
+    <div><span style="color:var(--accent)">~/honcho/</span> — Docker Compose (API + PG + Redis)</div>
+  </div>
+</div>
+
+<footer style="text-align:center;padding:2rem;color:var(--text-dim);font-size:0.8rem;">
+  OWL Ops © 2026 Alex Bogle · M1 Mac · Zero cloud cost · <a href="https://saintlex.sbs" style="color:var(--accent)">saintlex.sbs</a>
+</footer>
+
+</body>
+</html>
