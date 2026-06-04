@@ -1018,6 +1018,45 @@ footer a:hover { color: var(--accent); }
   </div>
 </div>
 
+<!-- RESULTS / PROOF -->
+<section id="results">
+  <div class="section-label scroll-animate">Results</div>
+  <h2 class="section-title scroll-animate">This isn't theoretical. It's running now.</h2>
+  <p class="section-desc scroll-animate">Every number below is from my own production system — the same architecture I deploy for clients and the same one hiring managers can inspect.</p>
+  <div class="results-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+    <div class="result-card scroll-animate" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;">
+      <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--accent-bright),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);">6</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">AI Agents in Production</div>
+      <div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.25rem;">CEO, Market, Content, Engineering, Ops, Finance</div>
+    </div>
+    <div class="result-card scroll-animate" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;">
+      <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--green),#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);">26</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">Automated Cron Workflows</div>
+      <div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.25rem;">Daily, weekly, monthly, continuous</div>
+    </div>
+    <div class="result-card scroll-animate" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;">
+      <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--purple),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);">5</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">Memory Layers</div>
+      <div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.25rem;">Vector, cache, FTS5, vault, cross-session</div>
+    </div>
+    <div class="result-card scroll-animate" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;">
+      <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);">359 MB</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">History Indexed</div>
+      <div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.25rem;">SQLite FTS5 full-text search</div>
+    </div>
+    <div class="result-card scroll-animate" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;">
+      <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--amber),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);">108</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">Custom Skills</div>
+      <div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.25rem;">Creative, dev, DevOps, finance, research</div>
+    </div>
+    <div class="result-card scroll-animate" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;">
+      <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--green),#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);">$0</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">Monthly Cloud Cost</div>
+      <div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.25rem;">M1 Mac, local inference, free tiers</div>
+    </div>
+  </div>
+</section>
+
 <!-- WORK -->
 <section id="work">
   <div class="section-label scroll-animate">Portfolio</div>
@@ -1028,7 +1067,6 @@ footer a:hover { color: var(--accent); }
     <button class="project-tab active" onclick="filterProjects('all', this)"><span>All</span></button>
     <button class="project-tab" onclick="filterProjects('agents', this)"><span>AI Agents</span></button>
     <button class="project-tab" onclick="filterProjects('infra', this)"><span>Infrastructure</span></button>
-    <button class="project-tab" onclick="filterProjects('content', this)"><span>Content</span></button>
   </div>
 
   <div class="projects-grid">
@@ -1092,28 +1130,27 @@ footer a:hover { color: var(--accent); }
       </div>
     </div>
 
-    <div class="project-card scroll-animate" data-category="content">
+    <div class="project-card scroll-animate" data-category="infra">
       <div class="project-header">
-        <h3 class="project-title">AI Blog & Technical Writing</h3>
-        <span class="project-tag">● Content</span>
+        <h3 class="project-title">5-Layer AI Memory Stack</h3>
+        <span class="project-tag">● Published</span>
       </div>
       <p class="project-desc">
-        Writing about AI agent architecture, free-tier automation strategies, and modern AI tooling. 
-        Demonstrates ability to communicate complex technical concepts clearly.
+        Deep technical article explaining how I built a persistent, multi-layer memory system on an M1 Mac — pgvector, Redis, SQLite FTS5, Obsidian vault, and cross-session recall.
       </p>
       <ul class="project-bullets">
-        <li>Multi-agent system design patterns</li>
-        <li>Cost optimization for AI infrastructure</li>
-        <li>Tool comparisons and integration guides</li>
-        <li>Content pipeline automation using AI agents</li>
+        <li>Published on saintlex.sbs — full technical deep-dive</li>
+        <li>Covers async file-based routing between 6 AI agents</li>
+        <li>Explains the inbox_bridge.py pattern for microservice-style communication</li>
+        <li>Real architecture, real numbers, real production system</li>
       </ul>
       <div class="tech-tags">
-        <span class="tech-tag">Markdown</span>
-        <span class="tech-tag">Obsidian</span>
         <span class="tech-tag">Technical Writing</span>
+        <span class="tech-tag">Architecture</span>
+        <span class="tech-tag">Agentic AI</span>
       </div>
       <div class="project-links">
-        <a href="https://saintlex.sbs/articles/5-layer-memory-stack" target="_blank">Read Articles</a>
+        <a href="https://saintlex.sbs/articles/5-layer-memory-stack" target="_blank">Read Article</a>
       </div>
     </div>
 
@@ -1129,10 +1166,47 @@ footer a:hover { color: var(--accent); }
   </div>
 </div>
 
+<!-- PERSONAL STORY -->
+<section id="story">
+  <div class="section-label scroll-animate">My Story</div>
+  <h2 class="section-title scroll-animate">Self-taught. Zero budget. Production AI.</h2>
+  <div class="about-grid">
+    <div class="about-text scroll-left">
+      <p>
+        I'm Alex. I'm 27, based in Kingston, Jamaica, and I build production-grade AI systems on a single M1 Mac with zero cloud spend.
+      </p>
+      <p>
+        I didn't come through a CS degree or a Big Tech pipeline. I taught myself Python, Docker, and AI architecture by building real systems that solve real problems. Today I run 6 autonomous AI agents, 26 automated cron workflows, and a 5-layer memory stack — all locally, all free.
+      </p>
+      <p>
+        My edge isn't theory. It's that I've shipped what others only prototype. Every system I build is designed to run at zero cost, survive API failures, and scale without a cloud budget. Because constraints make better engineers.
+      </p>
+    </div>
+    <div class="about-stats scroll-right">
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">CS Degree</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$0</div>
+        <div class="stat-label">Cloud Spend</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1</div>
+        <div class="stat-label">M1 Mac</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Self-Taught</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ABOUT -->
 <section id="about">
   <div class="section-label scroll-animate">About</div>
-  <h2 class="section-title scroll-animate">Who I am</h2>
+  <h2 class="section-title scroll-animate">What I build</h2>
   <div class="about-grid">
     <div class="about-text scroll-left">
       <p>
