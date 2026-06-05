@@ -4,7 +4,7 @@
 [![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-orange)](https://saintchris.github.io/saintlex-portfolio)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-> Portfolio site for Alex Bogle — Data & AI Engineer.
+> Portfolio site for Alex Bogle — AI Engineer.
 
 ---
 
@@ -32,7 +32,7 @@ Built to showcase production-grade AI agent systems and data engineering project
 
 ## Author
 
-**Alex Bogle** — Data & AI Engineer based in Jamaica.
+**Alex Bogle** — AI Engineer based in Jamaica. 🔭 Open to Work.
 
 - 🌐 [saintlex.sbs](https://saintlex.sbs/)
 - 💼 [linkedin.com/in/alex-bogle](https://linkedin.com/in/alex-bogle)
