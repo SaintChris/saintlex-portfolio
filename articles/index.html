@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles — Alex Bogle</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060c; --bg-card: #111118; --border: #1a1a2e;
+  --border-glow: #2a2a4a; --text: #e8e8f0; --text-muted: #7878a0; --text-dim: #4a4a6a;
+  --accent: #3b82f6; --accent-bright: #60a5fa; --accent-dim: #1d4ed8;
+  --accent-glow: rgba(59,130,246,0.18); --accent-soft: rgba(59,130,246,0.06);
+  --green: #22c55e; --purple: #a855f7; --cyan: #22d3ee; --amber: #f59e0b;
+  --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
+  --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.8; -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: var(--noise-url); background-repeat: repeat;
+  background-size: 256px 256px; pointer-events: none; z-index: 9999; opacity: 0.4;
+}
+::selection { background: var(--accent); color: #fff; }
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; background: rgba(6,6,12,0.8);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+}
+nav .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+nav .logo span { color: var(--accent); }
+nav .nav-links { display: flex; gap: 0.5rem; list-style: none; background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 0.35rem; }
+nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: var(--radius-full); transition: all var(--transition); }
+nav .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+nav .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+
+/* Page */
+.page-header {
+  max-width: 720px; margin: 0 auto; padding: 7rem 2rem 3rem;
+}
+.page-header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem;
+}
+.page-header p { color: var(--text-muted); font-size: 1.02rem; }
+
+/* Article list */
+.article-list {
+  max-width: 720px; margin: 0 auto; padding: 0 2rem 4rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.article-card {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem;
+  transition: all var(--transition);
+  position: relative; overflow: hidden;
+}
+.article-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--purple), var(--cyan));
+  opacity: 0; transition: opacity var(--transition);
+}
+.article-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.article-card:hover::before { opacity: 1; }
+.article-card .meta {
+  display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap;
+}
+.article-card .tag {
+  font-family: var(--mono); font-size: 0.65rem; color: var(--accent);
+  background: var(--accent-soft); border: 1px solid var(--border);
+  padding: 0.2rem 0.65rem; border-radius: var(--radius-full);
+}
+.article-card .date { font-size: 0.75rem; color: var(--text-dim); }
+.article-card h2 {
+  font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;
+  letter-spacing: -0.01em; color: var(--text);
+}
+.article-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; }
+.article-card .read-more {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 1rem; font-size: 0.82rem; font-weight: 600;
+  color: var(--accent); transition: gap var(--transition);
+}
+.article-card:hover .read-more { gap: 0.6rem; }
+
+/* CTA */
+.cta-box {
+  max-width: 720px; margin: 0 auto 4rem; padding: 0 2rem;
+}
+.cta-box-inner {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem;
+  text-align: center;
+}
+.cta-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+.cta-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.cta-box .btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  color: #fff; padding: 0.85rem 2rem; border-radius: var(--radius-full);
+  text-decoration: none; font-weight: 600; font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
+  transition: all var(--transition);
+}
+.cta-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 2rem; }
+footer a { color: var(--text-muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+  .page-header { padding: 6rem 1.5rem 2rem; }
+  .article-list { padding: 0 1.5rem 3rem; }
+  .cta-box { padding: 0 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">alex<span>.</span>bogle</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="back-link">← Back</a>
+</nav>
+
+<div class="page-header">
+  <h1>Articles</h1>
+  <p>Technical deep-dives on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.</p>
+</div>
+
+<div class="article-list">
+  <a href="5-layer-memory-stack.html" class="article-card">
+    <div class="meta">
+      <span class="tag">Architecture</span>
+      <span class="tag">Agentic AI</span>
+      <span class="date">June 2026</span>
+    </div>
+    <h2>Why I Built a 5-Layer AI Memory Stack on an M1 Mac (And Why Stateless Chatbots Are Dead)</h2>
+    <p>Every AI agent you've ever talked to has a problem: it forgets. Here's how I built a persistent, multi-layer memory system that survives session restarts, API failures, and model changes — all at $0/month.</p>
+    <span class="read-more">Read Article →</span>
+  </a>
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-inner">
+    <h3>Looking for an Agentic AI Engineer?</h3>
+    <p>I'm currently open to Agentic AI Engineer, AI Solutions Architect, and MLOps roles. Based in Jamaica (EST timezone), available remote. Production experience from day one.</p>
+    <a href="index.html#contact" class="btn">Get in Touch →</a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Alex Bogle · <a href="https://saintlex.sbs">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
+</footer>
+
+</body>
+</html>
