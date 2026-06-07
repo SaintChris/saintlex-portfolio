@@ -1,67 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>What Happens When You Push Free AI Models to Their Limits — Alex Bogle</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg:#06060c; --bg-card:#111118; --border:#1a1a2e; --text:#e8e8f0; --text-muted:#7878a0; --accent:#3b82f6; --radius:12px; --transition:0.3s cubic-bezier(0.4,0,0.2,1); }
-    body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;}
-    .article{max-width:720px;margin:0 auto;padding:2rem 2rem 4rem;}
-    .article h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-0.03em;line-height:1.15;margin-bottom:1.5rem;}
-    .article p{margin-bottom:1.25rem;line-height:1.6;color:var(--text-muted);}
-    .article ul{margin-left:1.5rem;margin-bottom:1.25rem;}
-    .article li{margin-bottom:0.5rem;}
-    a{color:var(--accent);text-decoration:none;}
-    a:hover{text-decoration:underline;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAINTLEX // Article</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#070A12',
+                        cardBg: '#0F1524',
+                        cyberGreen: '#10B981',
+                        hudGray: '#1F2937',
+                        slateText: '#9CA3AF'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .section-label-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; }
+    </style>
 </head>
-<body>
-<nav id="navbar">
-  <a href="../index.html" class="logo">alex<span>.</span>bogle</a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html#work">Work</a></li>
-    <li><a href="../index.html#about">About</a></li>
-    <li><a href="../architecture.html">Architecture</a></li>
-    <li><a href="../#architecture">How It Works</a></li>
-    <li><a href="../#pricing">Pricing</a></li>
-    <li><a href="../#proof">Proof</a></li>
-    <li><a href="../#contact">Contact</a></li>
-  </ul>
-  <a href="../#contact" class="nav-cta">Book a Call</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
-</nav>
-<article class="article">
-  <h1>What Happens When You Push Free AI Models to Their Limits</h1>
-  <p>I became curious about a simple question: how far can you get with free AI models?</p>
-  <p>Not as a thought experiment. As a real deployment. Real workloads. Real uptime requirements. Zero budget.</p>
-  <p>Here's what I built and what I learned.</p>
-  <h2>The Setup</h2>
-  <p>I run a multi-model AI system on consumer hardware — a MacBook with 16GB RAM. The stack has three layers:</p>
-  <ul>
-    <li><strong>Local inference</strong> — Models running on-device for privacy‑sensitive tasks. No API keys, no cloud dependency, no usage limits.</li>
-    <li><strong>Orchestration</strong> — An agent framework that decides which model to use, chains tasks together, handles failures with automatic fallback, and runs everything on schedule.</li>
-    <li><strong>Cloud fallback</strong> — Free‑tier cloud models that kick in when local hardware hits its limits. Multi‑model fallback chains so if one provider is rate‑limited, the system cascades without dropping the job.</li>
-  </ul>
-  <p>The whole thing runs 24/7 via automated scheduling.</p>
-  <h2>What I Learned About Free Models</h2>
-  <p>Free models are not degraded products. Some are genuinely competitive with paid alternatives. The gap between free and paid is narrower than most people think — and it's shrinking every month.</p>
-  <p>The real question isn't "which model is best." It's "how do you architect a system that survives failure?"</p>
-  <p>Because everything fails. Providers rate‑limit. Local processes crash. APIs change. Models get deprecated. The teams that build resilient systems aren't the ones with the biggest budgets — they're the ones who assume failure and design around it.</p>
-  <h2>What This Taught Me</h2>
-  <ul>
-    <li>Systems thinking — designing for failure states, not just happy paths</li>
-    <li>API design and rate limiting — how providers throttle, and how to work around it</li>
-    <li>Knowledge management — structuring interconnected documentation that stays accurate over time</li>
-    <li>Automation engineering — sequential execution, retry logic, self‑healing workflows</li>
-    <li>Model evaluation — testing real capabilities vs marketing claims on real workloads</li>
-    <li>Cost engineering — getting production‑quality output at $0/month by being deliberate about model selection</li>
-  </ul>
-  <h2>The Bigger Picture</h2>
-  <p>AI infrastructure isn't just for big companies with big budgets. Individuals can now build sophisticated, multi‑model, self‑healing systems on consumer hardware.</p>
-  <p>That changes who can compete. And it changes what "entry‑level" looks like in this industry.</p>
-  <p>If you're building AI infrastructure — or if your team needs someone who thinks about systems, not just tools — I'd love to connect.</p>
-</article>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row min-h-screen relative">
+        <aside class="w-full md:w-60 lg:w-64 md:fixed md:top-0 md:bottom-0 md:left-0 md:h-screen p-6 lg:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-hudGray/50 bg-obsidian z-50">
+            <div class="space-y-10">
+                <div>
+                    <div class="font-mono font-black tracking-tighter text-lg text-white leading-none">SAINTLEX<span class="text-cyberGreen">//</span></div>
+                    <div class="text-[9px] tracking-[0.15em] text-slateText font-bold uppercase mt-1">AGENTIC_CORE</div>
+                </div>
+                <nav class="flex flex-col space-y-3 font-mono text-[11px] uppercase tracking-wider text-slateText">
+                    <a href="../index.html#hero" class="flex items-center gap-2.5 hover:text-white"><span class="h-1 w-1.5 rounded-full bg-transparent"></span><span>.core_hub()</span></a>
+                    <a href="../index.html#systems" class="flex items-center gap-2.5 hover:text-white"><span class="h-1 w-1.5 rounded-full bg-transparent"></span><span>.systems()</span></a>
+                    <a href="../index.html#memory" class="flex items-center gap-2.5 hover:text-white"><span class="h-1 w-1.5 rounded-full bg-transparent"></span><span>.persistence()</span></a>
+                    <a href="../index.html#telemetry" class="flex items-center gap-2.5 hover:text-white"><span class="h-1 w-1.5 rounded-full bg-transparent"></span><span>.telemetry()</span></a>
+                </nav>
+            </div>
+            <div class="pt-6 md:pt-0 font-mono">
+                <a href="mailto:[EMAIL]" class="block w-full text-center px-4 py-2.5 border border-cyberGreen/40 text-cyberGreen bg-cyberGreen/5 rounded-lg text-[10px] font-bold hover:bg-cyberGreen hover:text-black transition-all duration-300 tracking-wider uppercase">Initialize Contact</a>
+            </div>
+        </aside>
+        <main class="flex-1 md:ml-60 lg:ml-64 p-6 md:p-12 lg:p-16">
+            <article class="max-w-3xl mx-auto space-y-8">
+                <div class="section-label-mono">// LinkedIn Article — Ready to Publish</div>
+                <h1 class="text-3xl lg:text-4xl font-black text-white tracking-tighter leading-tight">What Happens When You Push Free AI Models to Their Limits</h1>
+                <div class="border-t border-hudGray/30 pt-8 space-y-6 text-gray-300 leading-relaxed">
+                    <p>I became curious about a simple question: how far can you get with free AI models? Not as a thought experiment. As a real deployment. Real workloads. Real uptime requirements. Zero budget.</p>
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight">The Setup</h2>
+                    <p>I run a multi-model AI system on consumer hardware — a MacBook with 16GB RAM. The stack has three layers: local inference for privacy-sensitive tasks, orchestration that decides which model to use with automatic fallback, and cloud free-tier models that kick in when local hardware hits its limits.</p>
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight">What I Learned</h2>
+                    <p>Free models are not degraded products. Some are genuinely competitive with paid alternatives. The real question isn't "which model is best" — it's "how do you architect a system that survives failure?" Because everything fails. Providers rate-limit. Local processes crash. APIs change. Models get deprecated.</p>
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight">The Bigger Picture</h2>
+                    <p>AI infrastructure isn't just for big companies with big budgets. Individuals can now build sophisticated, multi-model, self-healing systems on consumer hardware. That changes who can compete.</p>
+                </div>
+            </article>
+        </main>
+    </div>
 </body>
 </html>
