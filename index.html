@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alex Bogle — Agentic AI Systems Architect</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
 /* ═══════════════════════════════════════════
    CSS CUSTOM PROPERTIES + @property
@@ -945,7 +946,14 @@ footer a:hover { color: var(--accent); }
   .section-title { font-size: 1.6rem; }
 }
 </style>
-</head>
+<meta name="description" content="Alex Bogle – Agentic AI Systems Architect. Deep‑dives on AI architecture, agentic systems, and building production AI on zero‑cost infrastructure.">
+<meta property="og:title" content="Alex Bogle – Agentic AI Systems Architect">
+<meta property="og:description" content="Technical articles on AI architecture, agentic systems, and free‑AI deployments.">
+<meta property="og:url" content="https://saintlex.sbs">
+<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<script async defer data-domain="saintlex.sbs" src="https://plausible.io/js/plausible.js"></script>
+<meta name="keywords" content="agentic AI, AI architecture, free APIs, daily API widget, 5-layer memory stack, M1 Mac, zero cost AI, AI Engineer, remote AI work"></head>
 <body>
 
 <!-- Custom Cursor -->
@@ -953,34 +961,39 @@ footer a:hover { color: var(--accent); }
 <div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="logo">alex<span>.</span>bogle</a>
-  <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="architecture.html">Architecture</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="articles/index.html">Articles</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  <a href="#contact" class="nav-cta">Get in Touch</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+<nav id="navbar" class="fixed top-0 inset-x-0 z-10 h-16 flex items-center justify-between px-8 transition-all bg-transparent">
+  <a href="#" class="text-2xl font-extrabold text-white"><span class="text-blue-500">alex</span><span class="text-white">.</span>bogle</a>
+  <ul id="navLinks" class="hidden md:flex gap-4 list-none">
+    <li><a href="#work" class="text-gray-300 hover:text-white">Work</a></li>
+    <li><a href="#about" class="text-gray-300 hover:text-white">About</a></li>
+    <li><a href="architecture.html" class="text-gray-300 hover:text-white">Architecture</a></li>
+    <li><a href="services.html" class="text-gray-300 hover:text-white">Services</a></li>
+    <li><a href="articles/index.html" class="text-gray-300 hover:text-white">Articles</a></li>
+    <li><a href="#contact" class="text-gray-300 hover:text-white">Contact</a></li>
+  </ul>
+  <a href="#contact" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-full hover:opacity-90 transition">Get in Touch</a>
+  <button class="md:hidden" id="navToggle" aria-label="Toggle menu">☰</button>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
+<section class="hero flex flex-col items-center justify-center text-center min-h-screen p-8 relative overflow-hidden">
   <div class="hero-grid"></div>
-  <div class="hero-badge"><span class="dot"></span> Open to opportunities</div>
-  <h1>Building AI systems<br>that <span class="accent">actually ship.</span></h1>
-  <p class="subtitle">
-    Agentic AI Systems Architect specializing in multi-agent orchestration, autonomous asynchronous workflows, and secure intelligent infrastructure — built and deployed on zero-cost tooling.
-  </p>
-  <div class="hero-buttons">
-    <a href="#work" class="btn-primary">View My Work</a>
-    <a href="services.html" class="btn-secondary">Services &amp; Pricing</a>
-    <a href="#contact" class="btn-secondary">Get in Touch</a>
+  <div class="hero-badge inline-flex items-center gap-1 bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-full px-4 py-1 text-sm text-blue-400">
+    <span class="dot w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+    Open to opportunities
   </div>
-</div>
+  <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+    Building AI systems<br>that <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">actually ship.</span>
+  </h1>
+  <p class="subtitle text-lg text-gray-300 max-w-2xl mb-8">
+    Agentic AI Systems Architect specializing in multi‑agent orchestration, autonomous asynchronous workflows, and secure intelligent infrastructure — built and deployed on zero‑cost tooling.
+  </p>
+  <div class="hero-buttons flex flex-col md:flex-row gap-4">
+    <a href="#work" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full hover:opacity-90 transition">View My Work</a>
+    <a href="services.html" class="bg-gray-800/60 backdrop-blur-sm text-gray-300 px-6 py-3 rounded-full border border-gray-700 hover:border-gray-600 hover:text-white transition">Services &amp; Pricing</a>
+    <a href="#contact" class="bg-gray-800/60 backdrop-blur-sm text-gray-300 px-6 py-3 rounded-full border border-gray-700 hover:border-gray-600 hover:text-white transition">Get in Touch</a>
+  </div>
+</section>
 
 <!-- TECH MARQUEE -->
 <div class="tech-strip">
@@ -998,23 +1011,23 @@ footer a:hover { color: var(--accent); }
 </div>
 
 <!-- STATS -->
-<div class="stats-strip scroll-animate">
-  <div class="stats-grid">
-    <div class="stat-item">
-      <div class="stat-num">6</div>
-      <div class="stat-label">AI Agents Built</div>
+<div class="stats-strip bg-gray-900/30 border border-gray-700 rounded-xl p-8 my-12 mx-auto max-w-4xl">
+  <div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div class="stat-item text-center">
+      <div class="stat-num text-3xl font-bold text-white">6</div>
+      <div class="stat-label text-gray-400">AI Agents Built</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">52</div>
-      <div class="stat-label">Tests Passing</div>
+    <div class="stat-item text-center">
+      <div class="stat-num text-3xl font-bold text-white">52</div>
+      <div class="stat-label text-gray-400">Tests Passing</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">26</div>
-      <div class="stat-label">Automated Cron Jobs</div>
+    <div class="stat-item text-center">
+      <div class="stat-num text-3xl font-bold text-white">26</div>
+      <div class="stat-label text-gray-400">Automated Cron Jobs</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">$0</div>
-      <div class="stat-label">Monthly Infra Cost</div>
+    <div class="stat-item text-center">
+      <div class="stat-num text-3xl font-bold text-white">$0</div>
+      <div class="stat-label text-gray-400">Monthly Infra Cost</div>
     </div>
   </div>
 </div>
@@ -1070,92 +1083,83 @@ footer a:hover { color: var(--accent); }
     <button class="project-tab" onclick="filterProjects('infra', this)"><span>Infrastructure</span></button>
   </div>
 
-  <div class="projects-grid">
-
-    <div class="project-card scroll-animate" data-category="agents">
-      <div class="project-header">
-        <h3 class="project-title">Multi-Agent AI System</h3>
-        <span class="project-tag">● $0/month</span>
-      </div>
-      <p class="project-desc">
-        Six autonomous AI agents working in concert — CEO, Market Analyst, Content Growth, Finance, Ops, and Research. 
-        A complete business automation pipeline built with production delegation patterns.
-      </p>
-      <ul class="project-bullets">
-        <li>Agent delegation bridge with shared task queue</li>
-        <li>Live Streamlit dashboard for real-time monitoring</li>
-        <li>52 integration tests, all passing</li>
-        <li>Docker containerized with docker-compose orchestration</li>
-        <li>Demo mode for instant showcase — no backend needed</li>
-      </ul>
-      <div class="tech-tags">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">FastAPI</span>
-        <span class="tech-tag">Streamlit</span>
-        <span class="tech-tag">Docker</span>
-        <span class="tech-tag">Paperclip</span>
-        <span class="tech-tag">pgvector</span>
-        <span class="tech-tag">Ollama</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/SaintChris/portfolio-agentic-infra" target="_blank">View on GitHub</a>
-      </div>
+  <div class="projects-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <!-- Card 1 -->
+  <div class="project-card bg-gray-900/30 border border-gray-700 rounded-xl p-6 hover:scale-105 transition transform">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-white">Multi-Agent AI System</h3>
+      <span class="text-sm text-green-400 bg-green-900/30 px-2 py-0.5 rounded-full">● $0/month</span>
     </div>
-
-    <div class="project-card scroll-animate" data-category="infra">
-      <div class="project-header">
-        <h3 class="project-title">AI Agent Infrastructure Showcase</h3>
-        <span class="project-tag">● Live</span>
-      </div>
-      <p class="project-desc">
-        Full production AI agent framework with multi-agent orchestration, automated knowledge management, 
-        and 26 autonomous cron workflows handling P&L tracking, market analysis, and content pipelines.
-      </p>
-      <ul class="project-bullets">
-        <li>Hermes agent framework with 6 specialized agent inboxes</li>
-        <li>Obsidian-based knowledge management system</li>
-        <li>Automated P&L tracking and financial reporting</li>
-        <li>26 cron jobs managing autonomous workflows</li>
-        <li>Paperclip orchestration for multi-agent coordination</li>
-      </ul>
-      <div class="tech-tags">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">Hermes</span>
-        <span class="tech-tag">Paperclip</span>
-        <span class="tech-tag">Obsidian</span>
-        <span class="tech-tag">PostgreSQL</span>
-        <span class="tech-tag">Cron</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/SaintChris/hermes-setup-showcase" target="_blank">View on GitHub</a>
-      </div>
+    <p class="text-gray-300 mb-4">
+      Six autonomous AI agents working in concert — CEO, Market Analyst, Content Growth, Finance, Ops, and Research. A complete business automation pipeline built with production delegation patterns.
+    </p>
+    <ul class="list-disc list-inside text-gray-400 mb-4 space-y-1">
+      <li>Agent delegation bridge with shared task queue</li>
+      <li>Live Streamlit dashboard for real-time monitoring</li>
+      <li>52 integration tests, all passing</li>
+      <li>Docker containerized with docker-compose orchestration</li>
+      <li>Demo mode for instant showcase — no backend needed</li>
+    </ul>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Python</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">FastAPI</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Streamlit</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Docker</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Paperclip</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">pgvector</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Ollama</span>
     </div>
-
-    <div class="project-card scroll-animate" data-category="infra">
-      <div class="project-header">
-        <h3 class="project-title">5-Layer AI Memory Stack</h3>
-        <span class="project-tag">● Published</span>
-      </div>
-      <p class="project-desc">
-        Deep technical article explaining how I built a persistent, multi-layer memory system on an M1 Mac — pgvector, Redis, SQLite FTS5, Obsidian vault, and cross-session recall.
-      </p>
-      <ul class="project-bullets">
-        <li>Published on saintlex.sbs — full technical deep-dive</li>
-        <li>Covers async file-based routing between 6 AI agents</li>
-        <li>Explains the inbox_bridge.py pattern for microservice-style communication</li>
-        <li>Real architecture, real numbers, real production system</li>
-      </ul>
-      <div class="tech-tags">
-        <span class="tech-tag">Technical Writing</span>
-        <span class="tech-tag">Architecture</span>
-        <span class="tech-tag">Agentic AI</span>
-      </div>
-      <div class="project-links">
-        <a href="https://saintlex.sbs/articles/5-layer-memory-stack" target="_blank">Read Article</a>
-      </div>
-    </div>
-
+    <a href="https://github.com/SaintChris/portfolio-agentic-infra" target="_blank" class="text-blue-400 hover:underline">View on GitHub</a>
   </div>
+  <!-- Card 2 -->
+  <div class="project-card bg-gray-900/30 border border-gray-700 rounded-xl p-6 hover:scale-105 transition transform">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-white">AI Agent Infrastructure Showcase</h3>
+      <span class="text-sm text-blue-400 bg-blue-900/30 px-2 py-0.5 rounded-full">● Live</span>
+    </div>
+    <p class="text-gray-300 mb-4">
+      Full production AI agent framework with multi-agent orchestration, automated knowledge management, and 26 autonomous cron workflows handling P&L tracking, market analysis, and content pipelines.
+    </p>
+    <ul class="list-disc list-inside text-gray-400 mb-4 space-y-1">
+      <li>Hermes agent framework with 6 specialized agent inboxes</li>
+      <li>Obsidian-based knowledge management system</li>
+      <li>Automated P&L tracking and financial reporting</li>
+      <li>26 cron jobs managing autonomous workflows</li>
+      <li>Paperclip orchestration for multi-agent coordination</li>
+    </ul>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Python</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Hermes</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Paperclip</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Obsidian</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">PostgreSQL</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Cron</span>
+    </div>
+    <a href="https://github.com/SaintChris/hermes-setup-showcase" target="_blank" class="text-blue-400 hover:underline">View on GitHub</a>
+  </div>
+  <!-- Card 3 -->
+  <div class="project-card bg-gray-900/30 border border-gray-700 rounded-xl p-6 hover:scale-105 transition transform">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-white">5-Layer AI Memory Stack</h3>
+      <span class="text-sm text-purple-400 bg-purple-900/30 px-2 py-0.5 rounded-full">● Published</span>
+    </div>
+    <p class="text-gray-300 mb-4">
+      Deep technical article explaining how I built a persistent, multi-layer memory system on an M1 Mac — pgvector, Redis, SQLite FTS5, Obsidian vault, and cross-session recall.
+    </p>
+    <ul class="list-disc list-inside text-gray-400 mb-4 space-y-1">
+      <li>Published on saintlex.sbs — full technical deep-dive</li>
+      <li>Covers async file-based routing between 6 AI agents</li>
+      <li>Explains the inbox_bridge.py pattern for microservice-style communication</li>
+      <li>Real architecture, real numbers, real production system</li>
+    </ul>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Technical Writing</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Architecture</span>
+      <span class="bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full text-xs">Agentic AI</span>
+    </div>
+    <a href="https://saintlex.sbs/articles/5-layer-memory-stack" target="_blank" class="text-blue-400 hover:underline">Read Article</a>
+  </div>
+</div>
 </section>
 
 <!-- MID-PAGE CTA -->
@@ -1329,9 +1333,9 @@ window.addEventListener('scroll', () => {
 // ── Mobile menu ──
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navToggle.addEventListener('click', () => navLinks.classList.toggle('hidden'));
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
+  a.addEventListener('click', () => navLinks.classList.add('hidden'));
 });
 
 // ── Project filtering ──
