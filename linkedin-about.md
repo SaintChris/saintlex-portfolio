@@ -33,7 +33,7 @@ Python · FastAPI · Streamlit · Docker · LangChain · Paperclip · PostgreSQL
 **Looking for:**
 Agentic AI Engineer · AI Solutions Architect · MLOps Engineer roles. Open to remote — based in Kingston, Jamaica (EST timezone).
 
-📧 bogle.alex@hotmail.com
+📧 bogle.alex@hotmail.com.com.com.com.com.com.com.com.com.com.com.com.com.com
 🌐 saintlex.sbs
 🐙 github.com/SaintChris
 
