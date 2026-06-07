@@ -1,8 +1,15 @@
 # 🌐 Alex Bogle — Portfolio Site
 
+## Table of Contents
+- [Live Site](#live-site)
+- [About](#about)
+- [Tech](#tech)
+- [Author](#author)
+
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-saintlex.sbs-blue)](https://saintlex.sbs/)
 [![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-orange)](https://saintchris.github.io/saintlex-portfolio)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE) [![Readers](https://img.shields.io/badge/Readers-0-blue)](https://github.com/SaintChris/saintlex-portfolio)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Watchers](https://img.shields.io/github/watchers/SaintChris/saintlex-portfolio?label=Watchers)](https://github.com/SaintChris/saintlex-portfolio/watchers)
 
 > Portfolio site for Alex Bogle — AI Engineer.
 

@@ -1,5 +1,14 @@
 # Multi-Agent AI System — Portfolio
 
+## Table of Contents
+- [Quick Start](#quick-start)
+- [Architecture](#architecture)
+- [Agents](#agents)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Testing](#testing)
+- [License](#license)
+
 > **6 autonomous AI agents working in concert. All running on free-tier models at $0/month.**
 > Built as a production-grade portfolio piece for Applied AI Engineer roles.
 
