@@ -365,13 +365,14 @@ footer a:hover { color: var(--accent); }
 <section id="architecture">
   <div class="section-label scroll-animate">How It Works</div>
   <h2 class="section-title scroll-animate">Enterprise-grade AI, deployed for your business</h2>
-  <p class="section-desc scroll-animate">Not a chatbot. Not a wrapper. A dedicated multi-agent system with departmental routing, persistent memory, and hands-free communication — running 24/7 on secure infrastructure.</p>
+  <p class="section-desc scroll-animate">Not a chatbot. Not a wrapper. A dedicated multi-agent system with departmental routing, persistent memory, and hands-free communication — running 24/7 on secure local infrastructure.</p>
 
   <div class="arch-grid">
-    <div class="arch-card scroll-left">
+    <div class="arch-card scroll-left" style="position: relative;">
+      <div style="position: absolute; top: 1rem; right: 1rem;"><span class="live-badge" style="display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.5rem; border-radius: 9999px; background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #10B981; display: inline-block;"></span> LIVE</span></div>
       <div class="arch-icon">📬</div>
       <h3>Departmental AI Silos</h3>
-      <p>Your data isn't processed by one generic chatbot. Information is automatically routed to specialized AI workers — Market Analyst, Finance Agent, IT Operations, Content & Growth — that handle tasks simultaneously without bottlenecking.</p>
+      <p style="font-size: 0.85rem; color: #d1d5db; margin-bottom: 0.5rem;"><strong>Your data isn't processed by one generic chatbot.</strong> Information is automatically routed to specialized AI workers — Market Analyst, Finance Agent, IT Operations, Content & Growth — that handle tasks simultaneously without bottlenecking.</p>
       <div class="tech-list">
         <span class="tech-tag">6-inbox routing</span>
         <span class="tech-tag">Async file-based</span>
@@ -379,10 +380,11 @@ footer a:hover { color: var(--accent); }
       </div>
     </div>
 
-    <div class="arch-card scroll-right">
+    <div class="arch-card scroll-right" style="position: relative;">
+      <div style="position: absolute; top: 1rem; right: 1rem;"><span class="live-badge" style="display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.5rem; border-radius: 9999px; background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #10B981; display: inline-block;"></span> LIVE</span></div>
       <div class="arch-icon">🧠</div>
       <h3>Zero-Loss Corporate Memory</h3>
-      <p>The AI doesn't forget. Every interaction, transaction, and decision is stored in a secure local database — a digital brain for your operations that never gets wiped, never loses context, and never leaks to third-party cloud providers.</p>
+      <p style="font-size: 0.85rem; color: #d1d5db; margin-bottom: 0.5rem;"><strong>The AI doesn't forget.</strong> Every interaction, transaction, and decision is stored in a secure local database — a digital brain for your operations that never gets wiped, never loses context, and never leaks to third-party cloud providers.</p>
       <div class="tech-list">
         <span class="tech-tag">pgvector</span>
         <span class="tech-tag">SQLite FTS5</span>
@@ -390,10 +392,11 @@ footer a:hover { color: var(--accent); }
       </div>
     </div>
 
-    <div class="arch-card scroll-left">
+    <div class="arch-card scroll-left" style="position: relative;">
+      <div style="position: absolute; top: 1rem; right: 1rem;"><span class="new-badge" style="display: inline-flex; align-items: center; gap: 0.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.45rem; border-radius: 9999px; background: rgba(245, 158, 11, 0.1); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.2);">NEW · v2.0</span></div>
       <div class="arch-icon">📧</div>
       <h3>Hands-Free Executive Communication</h3>
-      <p>Automated agents monitor your inbox, surface payout alerts, update external trackers, and flag business-critical issues directly to your messaging channels in real time. You see what matters. The rest is handled.</p>
+      <p style="font-size: 0.85rem; color: #d1d5db; margin-bottom: 0.5rem;"><strong>You shouldn't have to check 5 apps to know what's happening.</strong> Automated agents monitor your inbox, surface payout alerts, update external trackers, and flag business-critical issues directly to your messaging channels in real time.</p>
       <div class="tech-list">
         <span class="tech-tag">Zapier MCP</span>
         <span class="tech-tag">Himalaya CLI</span>
@@ -401,10 +404,11 @@ footer a:hover { color: var(--accent); }
       </div>
     </div>
 
-    <div class="arch-card scroll-right">
+    <div class="arch-card scroll-right" style="position: relative;">
+      <div style="position: absolute; top: 1rem; right: 1rem;"><span class="live-badge" style="display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.5rem; border-radius: 9999px; background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #10B981; display: inline-block;"></span> LIVE</span></div>
       <div class="arch-icon">🔒</div>
       <h3>Local-First Security</h3>
-      <p>Your data stays on your infrastructure. All containers bind to localhost only — no external exposure. API keys stored in isolated .env files, never in code. Docker-isolated agents that can't bleed into each other.</p>
+      <p style="font-size: 0.85rem; color: #d1d5db; margin-bottom: 0.5rem;"><strong>Your data stays on your infrastructure.</strong> All containers bind to localhost only — no external exposure. API keys stored in isolated .env files, never in code. Docker-isolated agents that can't bleed into each other.</p>
       <div class="tech-list">
         <span class="tech-tag">Docker isolation</span>
         <span class="tech-tag">localhost-only</span>
@@ -418,7 +422,7 @@ footer a:hover { color: var(--accent); }
 <section id="pricing">
   <div class="section-label scroll-animate">Pricing</div>
   <h2 class="section-title scroll-animate">Three tiers. Pick your level.</h2>
-  <p class="section-desc scroll-animate">Every package includes installation, configuration, and training. No monthly lock-ins for setup tiers — you own the system.</p>
+  <p class="section-desc scroll-animate"><strong>Stop paying monthly for AI tools that don't understand your business.</strong> Every package includes installation, configuration, and training. No monthly lock-ins for setup tiers — you own the system.</p>
 
   <div class="pricing-grid">
     <div class="pricing-card scroll-animate">
@@ -454,7 +458,8 @@ footer a:hover { color: var(--accent); }
       <a href="#contact" class="btn-primary">Get Started</a>
     </div>
 
-    <div class="pricing-card scroll-animate">
+    <div class="pricing-card scroll-animate" style="position: relative;">
+      <div style="position: absolute; top: -10px; right: 1rem;"><span style="display: inline-flex; align-items: center; gap: 0.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.45rem; border-radius: 9999px; background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3);">NEW</span></div>
       <div class="pricing-tier">Tier 3</div>
       <div class="pricing-name">White-Glove Ongoing</div>
       <div class="pricing-price">$800 <span>/month</span></div>
@@ -476,7 +481,7 @@ footer a:hover { color: var(--accent); }
 <section id="proof">
   <div class="section-label scroll-animate">Proof</div>
   <h2 class="section-title scroll-animate">This isn't theoretical. It's running now.</h2>
-  <p class="section-desc scroll-animate">Every stat below is from my own production system — the same architecture I deploy for clients. Real numbers, real infrastructure, running right now.</p>
+  <p class="section-desc scroll-animate"><strong>Every stat below is from my own production system</strong> — the same architecture I deploy for clients. Real numbers, real infrastructure, real results.</p>
 
   <div class="proof-grid" style="gap: 1.5rem;">
     <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
@@ -510,7 +515,7 @@ footer a:hover { color: var(--accent); }
 <section id="contact">
   <div class="section-label scroll-animate">Contact</div>
   <h2 class="section-title scroll-animate">Let's build your system</h2>
-  <p class="section-desc scroll-animate" style="margin: 0 auto 2rem;">Tell me about your operations. I'll tell you exactly what can be automated — and what it would cost. No pitch, just a straight answer.</p>
+  <p class="section-desc scroll-animate" style="margin: 0 auto 2rem;"><strong>You're tired of AI demos that don't survive contact with reality.</strong> Tell me about your operations. I'll tell you exactly what can be automated — and what it would cost. No pitch, just a straight answer.</p>
 
   <div class="contact-links">
     <a href="mailto:bogle.alex@hotmail.com.com.com.com.com.com.com.com.com.com.com.com.com.com" class="contact-link scroll-left">

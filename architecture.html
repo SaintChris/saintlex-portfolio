@@ -181,6 +181,13 @@ h1 {
   .stats-bar { grid-template-columns: 1fr 1fr; }
   body { padding: 1rem; }
 }
+
+/* ── LIVE BADGE PULSE ── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 </style>
 </head>
 <body>
@@ -200,7 +207,7 @@ h1 {
 </nav>
 
 <h1>⚙️ System Architecture</h1>
-<p class="subtitle">Alex Bogle — OWL Ops | M1 Mac | Zero cloud cost | 6 Agents | 26 Cron Jobs</p>
+<p class="subtitle">Alex Bogle — OWL Ops | M1 Mac | Zero cloud cost | 6 Agents | 26 Cron Jobs | 108 Skills</p>
 
 <!-- STATS BAR -->
 <div class="stats-bar">
@@ -231,7 +238,8 @@ h1 {
 </div>
 
 <!-- MAIN FLOW DIAGRAM -->
-<div class="section">
+<div class="section" style="position: relative;">
+  <div style="position: absolute; top: 1.25rem; right: 1.5rem; z-index: 2;"><span style="display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.5rem; border-radius: 9999px; background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #10B981; animation: pulse 2s ease-in-out infinite; display: inline-block;"></span> LIVE</span></div>
   <div class="section-title"><span class="icon">🔄</span><span class="label">Data Flow — How It All Connects</span></div>
   <div class="flow-container">
     <svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:1200px;">

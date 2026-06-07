@@ -39,6 +39,49 @@
         .glow-btn-secondary:hover {
             box-shadow: 0 0 15px rgba(156, 163, 175, 0.1), 0 0 30px rgba(156, 163, 175, 0.05);
         }
+        /* LIVE badge pulse */
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+        .live-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        /* NEW badge */
+        .new-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
         /* Architecture node hover glow */
         .arch-node {
             transition: all 0.3s ease;
@@ -48,10 +91,123 @@
             border-color: rgba(16, 185, 129, 0.4) !important;
             transform: translateY(-2px);
         }
+        /* Stats bar */
+        .stat-box {
+            text-align: center;
+            padding: 1.25rem 0.75rem;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .stat-box:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.08);
+        }
+        .stat-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: #9CA3AF;
+            margin-top: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        /* Pipeline step */
+        .pipeline-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem 0;
+        }
+        .pipeline-num {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.08);
+        }
+        .pipeline-content {
+            flex: 1;
+            padding-top: 0.25rem;
+        }
+        .pipeline-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #e5e7eb;
+            margin-bottom: 0.15rem;
+        }
+        .pipeline-desc {
+            font-size: 0.78rem;
+            color: #9CA3AF;
+            line-height: 1.5;
+        }
+        /* Code block */
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+        .code-block .comment { color: #6B7280; }
+        .code-block .keyword { color: #10B981; }
+        .code-block .string { color: #F59E0B; }
+        .code-block .value { color: #60A5FA; }
+        /* Before/After blocks */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .compare-block {
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.7;
+        }
+        .compare-before {
+            background: rgba(239, 68, 68, 0.06);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .compare-after {
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .compare-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+        }
+        .compare-before .compare-label { color: #EF4444; }
+        .compare-after .compare-label { color: #10B981; }
+        @media (max-width: 640px) {
+            .compare-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
 
+    <!-- ═══ NAV ═══ -->
     <header class="sticky top-0 z-50 backdrop-blur-md bg-obsidian/70 border-b border-gray-800/60 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="font-mono font-bold tracking-wider text-xl text-white">
@@ -118,16 +274,110 @@
             </div>
         </section>
 
+        <!-- ═══ STATS BAR (Pattern 3) ═══ -->
+        <section class="grid grid-cols-3 md:grid-cols-6 gap-3">
+            <div class="stat-box">
+                <div class="stat-num text-cyberGreen">6</div>
+                <div class="stat-label">AI Agents</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num text-teal-400">26</div>
+                <div class="stat-label">Cron Jobs</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num text-purple-400">108</div>
+                <div class="stat-label">Custom Skills</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num text-amber-400">5</div>
+                <div class="stat-label">Memory Layers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num text-cyan-400">359 MB</div>
+                <div class="stat-label">History Indexed</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num text-cyberGreen">$0</div>
+                <div class="stat-label">Monthly Cost</div>
+            </div>
+        </section>
+
         <!-- ═══ SYSTEMS ═══ -->
         <section id="systems" class="space-y-8 scroll-mt-24">
-            <div class="border-l-2 border-cyberGreen pl-4">
-                <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">01 // System Architecture</h2>
-                <p class="text-2xl font-bold text-white tracking-tight">The Async Core Graph Router (OWL Ops)</p>
+            <div class="flex items-center gap-3">
+                <div class="border-l-2 border-cyberGreen pl-4 flex-1">
+                    <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">01 // System Architecture</h2>
+                    <p class="text-2xl font-bold text-white tracking-tight">The Async Core Graph Router (OWL Ops)</p>
+                </div>
+                <span class="live-badge"><span class="dot"></span> LIVE</span>
             </div>
+
+            <!-- Problem → Solution (Pattern 7) -->
+            <p class="text-slateText max-w-2xl">
+                <strong class="text-white">Most multi-agent systems rely on cloud message queues and polling loops.</strong> They're slow, fragile, and expensive. Every API call costs money. Every network hop adds latency. And when the cloud goes down, your agents go silent.
+            </p>
             <p class="text-slateText max-w-2xl">
                 My custom LangGraph router replaces brittle directory-polling scripts with an event-driven state machine that streams token-level payloads through asynchronous nodes. Each node validates intent, performs lightweight transformations, and routes the result to the appropriate subsystem — market analysis, finance core, automation — without blocking the main loop.
             </p>
-            <p class="text-sm text-cyberGreen/70 max-w-2xl font-mono">→ Why this matters: Eliminates file-system race conditions, cuts inter-agent latency to near-zero, and scales gracefully on a single M1 thread pool. No cloud message queues needed.</p>
+            <p class="text-sm text-cyberGreen/70 max-w-2xl font-mono">→ End of "your AI stops working because AWS had a bad day."</p>
+
+            <!-- Pipeline Viz (Pattern 5) -->
+            <div class="bg-cardBg border border-gray-800 rounded-xl p-6">
+                <p class="text-xs uppercase tracking-widest text-slateText font-mono font-bold mb-4">OWL Ops — 7-Step Message Pipeline</p>
+                <div class="space-y-1">
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">01</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Intent Recognition</div>
+                            <div class="pipeline-desc">Classifies incoming payload by type: market data, finance query, automation trigger, research request</div>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">02</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Context Classification</div>
+                            <div class="pipeline-desc">Determines urgency, required agent, and whether the task can run async or needs immediate response</div>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">03</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Agent Routing</div>
+                            <div class="pipeline-desc">Dispatches to one of 6 specialized agents via file-based inbox — no cloud message queue needed</div>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">04</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Async Execution</div>
+                            <div class="pipeline-desc">Agent processes the task independently. Main thread stays unblocked. Other agents keep running.</div>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">05</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Memory Persistence</div>
+                            <div class="pipeline-desc">Results written to Obsidian vault + Honcho vector store. Survives restarts, available for future context.</div>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">06</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Response Generation</div>
+                            <div class="pipeline-desc">Output formatted with live data — numbers, not generics. Concrete actions, not suggestions.</div>
+                        </div>
+                    </div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">07</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Delivery</div>
+                            <div class="pipeline-desc">Result routed back via Telegram, email, or dashboard — whichever channel the request came from</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Diagram -->
             <div class="bg-cardBg border border-gray-800 rounded-xl p-8 flex justify-center items-center overflow-x-auto shadow-inner">
                 <div class="min-w-[600px] flex flex-col items-center space-y-6 font-mono text-xs">
                     <div class="bg-black/60 border border-cyberGreen/40 text-cyberGreen px-6 py-3 rounded-md glow-btn">[ Input Payload Stream ]</div>
@@ -144,20 +394,63 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Before/After (Pattern 6) -->
+            <div>
+                <p class="text-xs uppercase tracking-widest text-slateText font-mono font-bold mb-3">Before OWL vs. After OWL</p>
+                <div class="compare-grid">
+                    <div class="compare-block compare-before">
+                        <div class="compare-label">❌ Before: Polling-Based</div>
+                        <div class="text-gray-400">
+                            <span class="comment"># agent loop (every 5 min)</span><br>
+                            <span class="keyword">while</span> <span class="value">True</span>:<br>
+                            &nbsp;&nbsp;files = <span class="function">scan_dir</span>(<span class="string">"/inbox"</span>)<br>
+                            &nbsp;&nbsp;<span class="keyword">for</span> f <span class="keyword">in</span> files:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;process(f) <span class="comment"># blocking</span><br>
+                            &nbsp;&nbsp;sleep(<span class="value">300</span>) <span class="comment"># 5 min gap</span>
+                        </div>
+                        <div class="text-red-400/70 text-[10px] mt-2">↑ Latency: 0–300s · Race conditions · Wasted CPU</div>
+                    </div>
+                    <div class="compare-block compare-after">
+                        <div class="compare-label">✅ After: Event-Driven OWL</div>
+                        <div class="text-gray-400">
+                            <span class="comment"># event-driven router</span><br>
+                            <span class="keyword">on</span> <span class="function">payload_received</span>(msg):<br>
+                            &nbsp;&nbsp;intent = <span class="function">classify</span>(msg)<br>
+                            &nbsp;&nbsp;agent = <span class="function">route</span>(intent)<br>
+                            &nbsp;&nbsp;<span class="function">dispatch_async</span>(agent, msg)<br>
+                            &nbsp;&nbsp;<span class="comment"># non-blocking, instant</span>
+                        </div>
+                        <div class="text-cyberGreen/70 text-[10px] mt-2">↑ Latency: &lt;10ms · No races · Zero wasted cycles</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ═══ HISTORY ═══ -->
         <section id="history" class="space-y-8 scroll-mt-24">
-            <div class="border-l-2 border-cyberGreen pl-4">
-                <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">02 // Infrastructure Foundations</h2>
-                <p class="text-2xl font-bold text-white tracking-tight">Systems, Hardware & Network Controls</p>
+            <div class="flex items-center gap-3">
+                <div class="border-l-2 border-cyberGreen pl-4 flex-1">
+                    <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">02 // Infrastructure Foundations</h2>
+                    <p class="text-2xl font-bold text-white tracking-tight">Systems, Hardware & Network Controls</p>
+                </div>
+                <span class="live-badge"><span class="dot"></span> LIVE</span>
             </div>
+
+            <!-- Problem → Solution (Pattern 7) -->
             <p class="text-slateText max-w-2xl">
-                My background in real-world infrastructure engineering provides a deep understanding of hardware execution limits, physical routing protocols, and error isolation — knowledge that translates directly into building fault-tolerant agent networks.
+                <strong class="text-white">Most AI engineers have never touched physical infrastructure.</strong> They've never traced a cable, diagnosed a hardware fault, or managed a corporate asset grid. They understand cloud abstractions — but not the metal underneath.
             </p>
+            <p class="text-slateText max-w-2xl">
+                My background in real-world infrastructure engineering provides a deep understanding of hardware execution limits, physical routing protocols, and error isolation — knowledge that translates directly into building fault-tolerant agent networks that survive in production.
+            </p>
+
             <div class="space-y-6 max-w-4xl">
                 <div class="border-l-4 border-cyberGreen bg-cardBg/30 p-5 rounded-r-xl border-gray-800 relative group hover:bg-cardBg/50 transition-all duration-300">
-                    <span class="absolute top-4 right-4 font-mono text-xs text-cyberGreen">ADMIN_EXEC</span>
+                    <div class="absolute top-4 right-4 flex items-center gap-2">
+                        <span class="new-badge">NEW · 2026</span>
+                        <span class="font-mono text-xs text-cyberGreen">ADMIN_EXEC</span>
+                    </div>
                     <h3 class="text-xl font-bold text-white">Sterling Carter Technology</h3>
                     <p class="text-xs text-cyberGreen font-mono mb-2">Systems & IT Administration // 2026—Present</p>
                     <p class="text-sm text-slateText leading-relaxed">
@@ -193,10 +486,36 @@
 
         <!-- ═══ MEMORY ═══ -->
         <section id="memory" class="space-y-8 scroll-mt-24">
-            <div class="border-l-2 border-cyberGreen pl-4">
-                <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">03 // Tiered Persistence</h2>
-                <p class="text-2xl font-bold text-white tracking-tight">Local-First Storage Showcases</p>
+            <div class="flex items-center gap-3">
+                <div class="border-l-2 border-cyberGreen pl-4 flex-1">
+                    <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">03 // Tiered Persistence</h2>
+                    <p class="text-2xl font-bold text-white tracking-tight">Local-First Storage Showcases</p>
+                </div>
+                <span class="live-badge"><span class="dot"></span> 5 LAYERS</span>
             </div>
+
+            <!-- Problem → Solution (Pattern 7) -->
+            <p class="text-slateText max-w-2xl">
+                <strong class="text-white">Most AI agents forget everything when you close the session.</strong> New conversation, blank slate. No memory of what you discussed yesterday, what decisions were made, or what mistakes to avoid. Users repeat themselves. Agents repeat errors.
+            </p>
+            <p class="text-slateText max-w-2xl">
+                My 5-layer memory stack solves this with tiered persistence — from in-mrompt personality injection to full conversational history search. Each layer serves a specific function. Together, they give agents something close to institutional memory.
+            </p>
+
+            <!-- How-It-Works Callout (Pattern 2) -->
+            <div class="bg-cardBg border border-gray-800 rounded-xl p-5">
+                <p class="text-xs uppercase tracking-widest text-slateText font-mono font-bold mb-3">Memory Recall — Live Example</p>
+                <div class="code-block">
+                    <span class="comment"># Alex asks: "What was that trading setup from Tuesday?"</span><br><br>
+                    <span class="keyword">Layer 1</span> <span class="value">Honcho</span> → peer card: "Alex trades MNQ, uses SMC model"<br>
+                    <span class="keyword">Layer 2</span> <span class="value">soul.md</span> → "Direct communication, no fluff, faith-driven"<br>
+                    <span class="keyword">Layer 3</span> <span class="value">Obsidian</span> → daily-log/2026-06-03.md: "Reviewed Apex payout thresholds"<br>
+                    <span class="keyword">Layer 4</span> <span class="value">Built-in</span> → email: [EMAIL]<br>
+                    <span class="keyword">Layer 5</span> <span class="value">Session Search</span> → "Tuesday: discussed 11AM ET short setup on MNQ"<br><br>
+                    <span class="comment"># Response: specific, contextual, zero repetition</span>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="arch-node bg-cardBg border border-gray-800 rounded-xl p-6 space-y-4 flex flex-col justify-between">
                     <div class="space-y-2">
