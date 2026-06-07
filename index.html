@@ -24,6 +24,31 @@
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Glow button effect */
+        .glow-btn {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1);
+        }
+        .glow-btn-secondary {
+            transition: all 0.3s ease;
+        }
+        .glow-btn-secondary:hover {
+            box-shadow: 0 0 15px rgba(156, 163, 175, 0.1), 0 0 30px rgba(156, 163, 175, 0.05);
+        }
+        /* Architecture node hover glow */
+        .arch-node {
+            transition: all 0.3s ease;
+        }
+        .arch-node:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15), 0 0 40px rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.4) !important;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
 
@@ -36,13 +61,14 @@
                 <a href="#systems" class="hover:text-cyberGreen transition-colors duration-200">.systems()</a>
                 <a href="#history" class="hover:text-cyberGreen transition-colors duration-200">.infrastructure_history()</a>
                 <a href="#memory" class="hover:text-cyberGreen transition-colors duration-200">.persistence()</a>
-                <a href="#contact" class="px-4 py-1.5 border border-cyberGreen/30 rounded-md text-cyberGreen bg-cyberGreen/5 hover:bg-cyberGreen hover:text-black transition-all duration-300 shadow-sm shadow-cyberGreen/10">.deploy_contact()</a>
+                <a href="#contact" class="px-4 py-1.5 border border-cyberGreen/30 rounded-md text-cyberGreen bg-cyberGreen/5 hover:bg-cyberGreen hover:text-black transition-all duration-300 glow-btn">.deploy_contact()</a>
             </nav>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto px-6 py-12 space-y-32">
 
+        <!-- ═══ HERO ═══ -->
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[70vh]">
             <div class="lg:col-span-7 space-y-6">
                 <div class="inline-flex items-center space-x-2 font-mono text-xs text-cyberGreen bg-cyberGreen/10 px-3 py-1 rounded-full uppercase tracking-wider">
@@ -50,19 +76,19 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyberGreen opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-cyberGreen"></span>
                     </span>
-                    <span>Systems Operational</span>
+                    <span>Production Systems Online</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
-                    Engineering Resilient, <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyberGreen to-teal-400">Local-First</span> Multi-Agent Networks.
+                    Production-Grade AI.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyberGreen to-teal-400">Zero Cloud Tax.</span>
                 </h1>
                 <p class="text-lg text-slateText max-w-xl font-normal leading-relaxed">
-                    I architect autonomous, local‑first multi‑agent pipelines that run entirely on a consumer‑grade M1 Mac with a $0 monthly cloud spend. By fusing offline inference, event‑driven state machines, and tiered on‑device storage, I deliver production‑grade AI systems that stay performant and resilient without ever depending on fragile cloud APIs.
+                    I architect autonomous multi-agent systems that run entirely on local hardware — no fragile cloud APIs, no monthly inference bills, no vendor lock-in. Real production infrastructure on a single M1 Mac.
                 </p>
                 <div class="pt-4 font-mono flex flex-wrap gap-4 text-sm">
-                    <a href="#systems" class="bg-cyberGreen text-black font-bold px-6 py-3 rounded-md hover:bg-emerald-400 transition-all duration-300 shadow-md">
+                    <a href="#systems" class="glow-btn bg-cyberGreen text-black font-bold px-6 py-3 rounded-md hover:bg-emerald-400 transition-all duration-300">
                         Inspect Architecture
                     </a>
-                    <a href="#contact" class="bg-gray-800 text-white px-6 py-3 rounded-md border border-gray-700 hover:bg-gray-700 transition-all duration-300">
+                    <a href="#contact" class="glow-btn-secondary bg-gray-800 text-white px-6 py-3 rounded-md border border-gray-700 hover:bg-gray-700 transition-all duration-300">
                         Initiate Strategy Review
                     </a>
                 </div>
@@ -92,39 +118,42 @@
             </div>
         </section>
 
+        <!-- ═══ SYSTEMS ═══ -->
         <section id="systems" class="space-y-8 scroll-mt-24">
             <div class="border-l-2 border-cyberGreen pl-4">
                 <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">01 // System Architecture</h2>
                 <p class="text-2xl font-bold text-white tracking-tight">The Async Core Graph Router (OWL Ops)</p>
             </div>
             <p class="text-slateText max-w-2xl">
-                My custom LangGraph router replaces brittle directory-polling scripts with an event-driven state machine that streams token-level payloads through asynchronous nodes. Each node validates intent, performs lightweight transformations, and routes the result to the appropriate subsystem (market analysis, finance core, automation) without blocking the main loop. This eliminates file-system race conditions, cuts latency, and scales gracefully on local single-core thread pools.
+                My custom LangGraph router replaces brittle directory-polling scripts with an event-driven state machine that streams token-level payloads through asynchronous nodes. Each node validates intent, performs lightweight transformations, and routes the result to the appropriate subsystem — market analysis, finance core, automation — without blocking the main loop.
             </p>
+            <p class="text-sm text-cyberGreen/70 max-w-2xl font-mono">→ Why this matters: Eliminates file-system race conditions, cuts inter-agent latency to near-zero, and scales gracefully on a single M1 thread pool. No cloud message queues needed.</p>
             <div class="bg-cardBg border border-gray-800 rounded-xl p-8 flex justify-center items-center overflow-x-auto shadow-inner">
                 <div class="min-w-[600px] flex flex-col items-center space-y-6 font-mono text-xs">
-                    <div class="bg-black/60 border border-cyberGreen/40 text-cyberGreen px-6 py-3 rounded-md shadow-sm">[ Input Payload Stream ]</div>
+                    <div class="bg-black/60 border border-cyberGreen/40 text-cyberGreen px-6 py-3 rounded-md glow-btn">[ Input Payload Stream ]</div>
                     <div class="text-slateText font-bold">│ (Asynchronous Token Push)</div>
-                    <div class="w-full max-w-md bg-black/40 border border-gray-700 rounded-lg p-4 text-center relative">
+                    <div class="w-full max-w-md bg-black/40 border border-gray-700 rounded-lg p-4 text-center relative arch-node">
                         <span class="absolute -top-2.5 left-4 bg-cardBg px-2 text-[10px] uppercase text-slateText tracking-wider font-bold border border-gray-800 rounded">LangGraph Engine</span>
                         <p class="text-white font-bold text-sm mb-1">OWL Centralized Router Node</p>
                         <p class="text-slateText text-[10px]">Evaluates intents & maps transaction state schemas</p>
                     </div>
                     <div class="w-full flex justify-between px-4 max-w-2xl text-slateText">
-                        <div class="text-center">⬇️ <span class="block text-[10px] bg-black/50 p-2 border border-gray-800 rounded mt-1 text-white">Market Analyst</span></div>
-                        <div class="text-center">⬇️ <span class="block text-[10px] bg-black/50 p-2 border border-gray-800 rounded mt-1 text-white">Finance Core</span></div>
-                        <div class="text-center">⬇️ <span class="block text-[10px] bg-black/50 p-2 border border-gray-800 rounded mt-1 text-white">Automation Node</span></div>
+                        <div class="text-center">⬇️ <span class="block text-[10px] bg-black/50 p-2 border border-gray-800 rounded mt-1 text-white arch-node">Market Analyst</span></div>
+                        <div class="text-center">⬇️ <span class="block text-[10px] bg-black/50 p-2 border border-gray-800 rounded mt-1 text-white arch-node">Finance Core</span></div>
+                        <div class="text-center">⬇️ <span class="block text-[10px] bg-black/50 p-2 border border-gray-800 rounded mt-1 text-white arch-node">Automation Node</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- ═══ HISTORY ═══ -->
         <section id="history" class="space-y-8 scroll-mt-24">
             <div class="border-l-2 border-cyberGreen pl-4">
                 <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">02 // Infrastructure Foundations</h2>
                 <p class="text-2xl font-bold text-white tracking-tight">Systems, Hardware & Network Controls</p>
             </div>
             <p class="text-slateText max-w-2xl">
-                My background in real-world infrastructure engineering provides a deep, foundational understanding of hardware execution limits, physical routing protocols, and error isolation lines.
+                My background in real-world infrastructure engineering provides a deep understanding of hardware execution limits, physical routing protocols, and error isolation — knowledge that translates directly into building fault-tolerant agent networks.
             </p>
             <div class="space-y-6 max-w-4xl">
                 <div class="border-l-4 border-cyberGreen bg-cardBg/30 p-5 rounded-r-xl border-gray-800 relative group hover:bg-cardBg/50 transition-all duration-300">
@@ -132,7 +161,7 @@
                     <h3 class="text-xl font-bold text-white">Sterling Carter Technology</h3>
                     <p class="text-xs text-cyberGreen font-mono mb-2">Systems & IT Administration // 2026—Present</p>
                     <p class="text-sm text-slateText leading-relaxed">
-                        Orchestrating system infrastructure and platform stability controls across corporate asset grids. Spearheaded automated configuration validation schemas and drift detection rules. This administrative experience maps directly to enforcing strict execution barriers and runtime state determinism within multi-agent networks.
+                        Orchestrating system infrastructure and platform stability controls across corporate asset grids. Spearheaded automated configuration validation schemas and drift detection rules. This maps directly to enforcing strict execution barriers and runtime state determinism within multi-agent networks.
                     </p>
                 </div>
                 <div class="border-l-4 border-gray-700 bg-cardBg/30 p-5 rounded-r-xl border-gray-800 relative group hover:bg-cardBg/50 transition-all duration-300">
@@ -140,7 +169,7 @@
                     <h3 class="text-xl font-bold text-white">IslandNet</h3>
                     <p class="text-xs text-slateText font-mono mb-2">Asset Framework & Inventory Control // 2025</p>
                     <p class="text-sm text-slateText leading-relaxed">
-                        Engineered transactional inventory reconciliation schemas to govern enterprise network assets. Managed high-accuracy data synchronization loops, reducing state mismatch discrepancies. This domain knowledge ensures that state-persistence checkpointers in local AI systems survive mid-execution exceptions.
+                        Engineered transactional inventory reconciliation schemas to govern enterprise network assets. Managed high-accuracy data synchronization loops, reducing state mismatch discrepancies. This ensures state-persistence checkpointers in local AI systems survive mid-execution exceptions.
                     </p>
                 </div>
                 <div class="border-l-4 border-gray-700 bg-cardBg/30 p-5 rounded-r-xl border-gray-800 relative group hover:bg-cardBg/50 transition-all duration-300">
@@ -156,19 +185,20 @@
                     <h3 class="text-xl font-bold text-white">Google IT Support Professional</h3>
                     <p class="text-xs text-slateText font-mono mb-2">Technical Professional Certification // Dec 2025</p>
                     <p class="text-sm text-slateText leading-relaxed">
-                        Completed intense training in systemic network architecture, terminal diagnostic automation, and access authorization trees. This forms the basis of the fast-failing error catching and self-healing tools embedded in my local agent infrastructure.
+                        Completed intensive training in systemic network architecture, terminal diagnostic automation, and access authorization trees. This forms the basis of the fast-failing error catching and self-healing tools embedded in my local agent infrastructure.
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- ═══ MEMORY ═══ -->
         <section id="memory" class="space-y-8 scroll-mt-24">
             <div class="border-l-2 border-cyberGreen pl-4">
                 <h2 class="text-xs uppercase tracking-widest text-cyberGreen font-mono font-bold">03 // Tiered Persistence</h2>
                 <p class="text-2xl font-bold text-white tracking-tight">Local-First Storage Showcases</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-cardBg border border-gray-800 rounded-xl p-6 space-y-4 hover:border-gray-700 transition-all duration-300 flex flex-col justify-between">
+                <div class="arch-node bg-cardBg border border-gray-800 rounded-xl p-6 space-y-4 flex flex-col justify-between">
                     <div class="space-y-2">
                         <div class="flex items-center justify-between font-mono text-xs">
                             <span class="text-cyberGreen bg-cyberGreen/10 px-2 py-0.5 rounded font-bold">MEMORY ENGINE</span>
@@ -184,7 +214,7 @@
                         <a href="https://dev.to" class="text-white hover:text-cyberGreen flex items-center space-x-1 font-bold"><span>Read Blueprint</span> <span>→</span></a>
                     </div>
                 </div>
-                <div class="bg-cardBg border border-gray-800 rounded-xl p-6 space-y-4 hover:border-gray-700 transition-all duration-300 flex flex-col justify-between">
+                <div class="arch-node bg-cardBg border border-gray-800 rounded-xl p-6 space-y-4 flex flex-col justify-between">
                     <div class="space-y-2">
                         <div class="flex items-center justify-between font-mono text-xs">
                             <span class="text-teal-400 bg-teal-400/10 px-2 py-0.5 rounded font-bold">MCP LAYER</span>
@@ -203,15 +233,16 @@
             </div>
         </section>
 
+        <!-- ═══ CONTACT ═══ -->
         <section id="contact" class="scroll-mt-24">
             <div class="bg-gradient-to-br from-cardBg to-black border border-gray-800 rounded-2xl p-8 md:p-12 text-center max-w-3xl mx-auto space-y-6 relative overflow-hidden">
                 <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-cyberGreen/10 rounded-full blur-3xl"></div>
-                <h2 class="text-3xl font-extrabold text-white tracking-tight">Optimize Your Local Framework Compute.</h2>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">Let's Build Something That Runs Without the Cloud.</h2>
                 <p class="text-slateText text-base max-w-xl mx-auto leading-relaxed">
-                    If you are scaling multi-agent operations or seeking to eliminate unpredictable cloud vendor infrastructure costs—let's deploy an optimized architecture review.
+                    If you're scaling multi-agent operations or looking to eliminate unpredictable cloud vendor costs — let's deploy an architecture review.
                 </p>
                 <div class="pt-2 font-mono">
-                    <a href="mailto:[EMAIL]" class="inline-block bg-white text-black font-bold px-8 py-4 rounded-md hover:bg-gray-200 transition-all duration-300 shadow-xl tracking-tight">
+                    <a href="mailto:[EMAIL]" class="inline-block bg-white text-black font-bold px-8 py-4 rounded-md hover:bg-gray-200 transition-all duration-300 shadow-xl glow-btn tracking-tight">
                         EXECUTE ARCHITECTURE INTERVIEW
                     </a>
                 </div>
@@ -229,11 +260,6 @@
                 <a href="https://www.linkedin.com/in/alex-bogle" class="hover:text-cyberGreen transition-colors">LinkedIn</a>
                 <a href="https://dev.to/saintchris_21" class="hover:text-cyberGreen transition-colors">Dev.to</a>
             </div>
-        </div>
-            <div class="flex space-x-6 text-slateText mt-4">
-            <a href="https://dev.to/saintchris_21" class="hover:text-cyberGreen transition-colors">Dev.to</a>
-            <a href="https://www.linkedin.com/in/alex-bogle" class="hover:text-cyberGreen transition-colors">LinkedIn</a>
-            <a href="https://github.com/SaintChris" class="hover:text-cyberGreen transition-colors">GitHub</a>
         </div>
     </footer>
 

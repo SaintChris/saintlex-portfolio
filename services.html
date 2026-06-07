@@ -188,11 +188,11 @@ nav .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(59
   color: #fff; padding: 0.9rem 2.2rem; border-radius: var(--radius-full);
   text-decoration: none; font-weight: 600; font-size: 0.92rem;
   transition: all var(--transition); border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
+  box-shadow: 0 4px 20px rgba(59,130,246,0.25), 0 0 15px rgba(59,130,246,0.1);
   display: inline-flex; align-items: center; gap: 0.5rem; position: relative; overflow: hidden;
 }
 .btn-primary::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1)); opacity: 0; transition: opacity var(--transition); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); border-color: rgba(255,255,255,0.2); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4), 0 0 25px rgba(59,130,246,0.15); border-color: rgba(255,255,255,0.2); }
 .btn-primary:hover::before { opacity: 1; }
 .btn-secondary {
   background: rgba(17,17,24,0.6); backdrop-filter: blur(8px);
@@ -347,29 +347,13 @@ footer a:hover { color: var(--accent); }
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
 </nav>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="index.html" class="logo">alex<span>.</span>bogle</a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html#work">Work</a></li>
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="architecture.html">Architecture</a></li>
-    <li><a href="#architecture">How It Works</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#proof">Proof</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Book a Call</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
-</nav>
-
 <!-- HERO -->
 <div class="hero">
   <div class="hero-grid"></div>
   <div class="hero-badge"><span class="dot"></span> Now accepting 2 new clients</div>
-  <h1>AI agent infrastructure<br>that <span class="accent">runs your business.</span></h1>
+  <h1>AI agent infrastructure<br>that <span class="accent">runs without the cloud.</span></h1>
   <p class="subtitle">
-    I build and deploy multi-agent AI systems that automate your operations — email, scheduling, research, reporting — so you can focus on growth, not busywork.
+    I build and deploy multi-agent AI systems that automate your operations — email, scheduling, research, reporting — on secure local infrastructure with zero monthly cloud costs.
   </p>
   <div class="hero-buttons">
     <a href="#pricing" class="btn-primary">View Packages</a>
@@ -492,30 +476,30 @@ footer a:hover { color: var(--accent); }
 <section id="proof">
   <div class="section-label scroll-animate">Proof</div>
   <h2 class="section-title scroll-animate">This isn't theoretical. It's running now.</h2>
-  <p class="section-desc scroll-animate">Every stat below is from my own production system — the same architecture I deploy for clients.</p>
+  <p class="section-desc scroll-animate">Every stat below is from my own production system — the same architecture I deploy for clients. Real numbers, real infrastructure, running right now.</p>
 
-  <div class="proof-grid">
-    <div class="proof-card scroll-animate">
+  <div class="proof-grid" style="gap: 1.5rem;">
+    <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
       <div class="proof-stat">6</div>
       <div class="proof-label">AI Agents in Production</div>
     </div>
-    <div class="proof-card scroll-animate">
+    <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
       <div class="proof-stat">26</div>
       <div class="proof-label">Automated Cron Workflows</div>
     </div>
-    <div class="proof-card scroll-animate">
+    <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
       <div class="proof-stat">120+</div>
       <div class="proof-label">Skills Installed</div>
     </div>
-    <div class="proof-card scroll-animate">
+    <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
       <div class="proof-stat">359 MB</div>
       <div class="proof-label">Conversational History Indexed</div>
     </div>
-    <div class="proof-card scroll-animate">
+    <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
       <div class="proof-stat">102</div>
       <div class="proof-label">Knowledge Base Pages</div>
     </div>
-    <div class="proof-card scroll-animate">
+    <div class="proof-card scroll-animate" style="padding: 2rem 1.75rem;">
       <div class="proof-stat">$0</div>
       <div class="proof-label">Monthly Cloud Cost</div>
     </div>
@@ -526,7 +510,7 @@ footer a:hover { color: var(--accent); }
 <section id="contact">
   <div class="section-label scroll-animate">Contact</div>
   <h2 class="section-title scroll-animate">Let's build your system</h2>
-  <p class="section-desc scroll-animate" style="margin: 0 auto 2rem;">Tell me about your business. I'll tell you exactly what I can automate. No pitch — just a straight answer.</p>
+  <p class="section-desc scroll-animate" style="margin: 0 auto 2rem;">Tell me about your operations. I'll tell you exactly what can be automated — and what it would cost. No pitch, just a straight answer.</p>
 
   <div class="contact-links">
     <a href="mailto:bogle.alex@hotmail.com.com.com.com.com.com.com.com.com.com.com.com.com.com" class="contact-link scroll-left">
