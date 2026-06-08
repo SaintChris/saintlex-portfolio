@@ -43,7 +43,7 @@ Built to showcase production-grade AI agent systems and data engineering project
 - 🌐 [saintlex.sbs](https://saintlex.sbs/)
 - 💼 [linkedin.com/in/alex-bogle](https://linkedin.com/in/alex-bogle)
 - 🐙 [github.com/SaintChris](https://github.com/SaintChris)
-- 📧 [bogle.alex@hotmail.com.com.com.com.com.com.com.com.com.com.com.com.com](mailto:bogle.alex@hotmail.com.com.com.com.com.com.com.com.com.com.com.com.com)
+- 📧 [bogle.alex@hotmail.com
 
 ---
 
