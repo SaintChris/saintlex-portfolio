@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Bogle — AI Engineer & Agentic Systems Architect</title>
+    <title>Alex Bogle — AI Engineer &amp; Agentic Systems Architect</title>
+    <meta name="description" content="Alex Bogle — AI Engineer & Agentic Systems Architect. Production multi-agent AI systems on zero cloud cost. Based in Jamaica, open to remote roles.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -30,34 +31,10 @@
         .glow-btn:hover { box-shadow: 0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(16,185,129,0.1); }
         .glow-btn-secondary { transition: all 0.3s ease; }
         .glow-btn-secondary:hover { box-shadow: 0 0 15px rgba(156,163,175,0.1), 0 0 30px rgba(156,163,175,0.05); }
-        .live-badge { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.55rem; border-radius: 9999px; background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
-        .live-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: #10B981; animation: pulse 2s ease-in-out infinite; display: inline-block; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .new-badge { display: inline-flex; align-items: center; gap: 0.2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.45rem; border-radius: 9999px; background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.2); }
-        .arch-node { transition: all 0.3s ease; }
-        .arch-node:hover { box-shadow: 0 0 20px rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4) !important; transform: translateY(-2px); }
         .stat-box { text-align: center; padding: 1rem 0.65rem; background: rgba(15,21,36,0.7); border: 1px solid rgba(31,41,55,0.6); border-radius: 10px; transition: all 0.3s ease; }
         .stat-box:hover { border-color: rgba(16,185,129,0.3); box-shadow: 0 0 12px rgba(16,185,129,0.06); }
         .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
         .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #9CA3AF; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        .pipeline-step { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.65rem 0; }
-        .pipeline-num { flex-shrink: 0; width: 1.75rem; height: 1.75rem; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; border: 1px solid rgba(16,185,129,0.25); color: #10B981; background: rgba(16,185,129,0.06); }
-        .pipeline-content { flex: 1; padding-top: 0.2rem; }
-        .pipeline-title { font-weight: 700; font-size: 0.8rem; color: #e5e7eb; margin-bottom: 0.1rem; }
-        .pipeline-desc { font-size: 0.72rem; color: #9CA3AF; line-height: 1.5; }
-        .code-block { background: rgba(0,0,0,0.4); border: 1px solid rgba(31,41,55,0.5); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 1.7; overflow-x: auto; }
-        .code-block .comment { color: #6B7280; }
-        .code-block .keyword { color: #10B981; }
-        .code-block .string { color: #F59E0B; }
-        .code-block .value { color: #60A5FA; }
-        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .compare-block { padding: 1rem; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 1.7; }
-        .compare-before { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.15); }
-        .compare-after { background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.15); }
-        .compare-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
-        .compare-before .compare-label { color: #EF4444; }
-        .compare-after .compare-label { color: #10B981; }
-        @media (max-width: 640px) { .compare-grid { grid-template-columns: 1fr; } }
         .hud-card { position: relative; }
         .hud-card .hud-tl { position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid transparent; border-left: 2px solid transparent; border-radius: 4px 0 0 0; transition: border-color 0.3s ease; }
         .hud-card .hud-br { position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px; border-bottom: 2px solid transparent; border-right: 2px solid transparent; border-radius: 0 0 4px 0; transition: border-color 0.3s ease; }
@@ -66,33 +43,17 @@
         .nav-link.active { color: #10B981; font-weight: 700; }
         .nav-link.active .nav-indicator { background: #10B981; }
         .section-label-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; }
-        .section { background: rgba(15,21,36,0.5); border: 1px solid rgba(31,41,55,0.4); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; }
-        .section-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .section-title .icon { font-size: 1.1rem; }
-        .flow-container { overflow-x: auto; padding: 0.75rem 0; }
-        .node { background: rgba(255,255,255,0.03); border: 1px solid rgba(31,41,55,0.5); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .node:hover { border-color: rgba(16,185,129,0.3); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 15px rgba(16,185,129,0.06); }
-        .node-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
-        .node-title { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.2rem; }
-        .node-desc { font-size: 0.68rem; color: #9CA3AF; line-height: 1.5; }
-        .node-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.15rem 0.45rem; border-radius: 9999px; margin-top: 0.4rem; font-weight: 500; }
-        .badge-green { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.15); }
-        .badge-blue { background: rgba(59,130,246,0.1); color: #60A5FA; border: 1px solid rgba(59,130,246,0.15); }
-        .badge-purple { background: rgba(168,85,247,0.1); color: #A855F7; border: 1px solid rgba(168,85,247,0.15); }
-        .badge-cyan { background: rgba(34,211,238,0.1); color: #22D3EE; border: 1px solid rgba(34,211,238,0.15); }
-        .badge-amber { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.15); }
-        .badge-pink { background: rgba(236,72,153,0.1); color: #EC4899; border: 1px solid rgba(236,72,153,0.15); }
-        .stats-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; }
-        @media (max-width: 900px) { .stats-bar { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 600px) { .stats-bar { grid-template-columns: repeat(2, 1fr); } }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
-        .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.6rem; }
-        @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } .grid-4 { grid-template-columns: 1fr 1fr; } .grid-6 { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 600px) { .grid-3, .grid-4 { grid-template-columns: 1fr; } .grid-6 { grid-template-columns: 1fr 1fr; } }
-        .pricing-card { transition: all 0.3s ease; }
-        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+        .article-card { display: block; text-decoration: none; color: inherit; background: rgba(15,21,36,0.7); border: 1px solid rgba(31,41,55,0.6); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; }
+        .article-card:hover { border-color: rgba(16,185,129,0.3); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        .article-card .meta { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; align-items: center; }
+        .article-card .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: #10B981; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.15); padding: 0.15rem 0.45rem; border-radius: 9999px; }
+        .article-card .date { font-size: 0.7rem; color: #9CA3AF; }
+        .article-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; color: #e5e7eb; }
+        .article-card p { font-size: 0.8rem; color: #9CA3AF; line-height: 1.5; }
+        .tech-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.3rem 0.7rem; border-radius: 6px; background: rgba(31,41,55,0.5); color: #d1d5db; border: 1px solid rgba(31,41,55,0.7); transition: all 0.2s ease; display: inline-block; }
+        .tech-pill:hover { border-color: rgba(16,185,129,0.3); color: #10B981; }
     </style>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
 
@@ -108,14 +69,10 @@
                 <nav id="sidebar-nav" class="flex flex-col space-y-3 font-mono text-[11px] uppercase tracking-wider text-slateText">
                     <a href="#hero" class="nav-link active flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-cyberGreen transition-all duration-200"></span><span>Home</span></a>
                     <a href="#about" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>About</span></a>
-                    <a href="#systems" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Architecture</span></a>
-                    <a href="#architecture-diagram" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Data Flow</span></a>
                     <a href="#history" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Experience</span></a>
-                    <a href="#memory" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Memory</span></a>
-                    <a href="#telemetry" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Operations</span></a>
                     <a href="#projects" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Projects</span></a>
+                    <a href="#skills" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Skills</span></a>
                     <a href="#articles" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Articles</span></a>
-                    <a href="#proof" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Proof</span></a>
                     <a href="#contact" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Contact</span></a>
                 </nav>
             </div>
@@ -125,8 +82,9 @@
         </aside>
 
         <!-- ═══ RIGHT CONTENT ═══ -->
-        <main class="flex-1 md:ml-60 lg:ml-64 p-6 md:p-12 lg:p-16 space-y-32">
-            <!-- ═══ ZONE A: HERO ═══ -->
+        <main class="flex-1 md:ml-60 lg:ml-64 p-6 md:p-12 lg:p-16 space-y-28">
+
+            <!-- ═══ 1. HERO ═══ -->
             <section id="hero" class="space-y-8 pt-4 scroll-mt-16">
                 <div class="inline-flex items-center space-x-2 font-mono text-[10px] text-cyberGreen bg-cyberGreen/10 px-2.5 py-1 rounded border border-cyberGreen/20 uppercase tracking-widest">
                     <span class="h-1.5 w-1.5 rounded-full bg-cyberGreen animate-pulse"></span>
@@ -162,16 +120,14 @@
                             <div>Requests:</div><div class="text-white">22K+ Processed</div>
                             <div>Uptime:</div><div class="text-white">24/7 Local</div>
                         </div>
-                        <p class="text-gray-500 animate-pulse text-[10px] font-bold mt-1">> Awaiting next instruction...</p>
+                        <p class="text-gray-500 animate-pulse text-[10px] font-bold mt-1">&gt; Awaiting next instruction...</p>
                     </div>
                 </div>
             </section>
 
-            <!-- ═══ ABOUT ═══ -->
+            <!-- ═══ 2. ABOUT ═══ -->
             <section id="about" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// About Me</div>
-                </div>
+                <div class="section-label-mono">// About Me</div>
                 <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Who I Am</h2>
                 <div class="max-w-2xl space-y-3">
                     <p class="text-slateText leading-relaxed">I'm <strong class="text-white">Alex Bogle</strong> — an AI Engineer and Agentic Systems Architect based in Portmore, Jamaica. I started in IT operations: troubleshooting hardware, managing 6,000+ assets, building automation workflows that cut processing time by 40%. That operational discipline is what sets me apart in AI engineering.</p>
@@ -186,412 +142,183 @@
                 </div>
             </section>
 
-            <!-- ═══ STATS BAR ═══ -->
-            <section class="stats-bar">
-                <div class="stat-box"><div class="stat-num text-cyberGreen">6</div><div class="stat-label">AI Agents</div></div>
-                <div class="stat-box"><div class="stat-num text-teal-400">26</div><div class="stat-label">Cron Jobs</div></div>
-                <div class="stat-box"><div class="stat-num text-purple-400">~70</div><div class="stat-label">Custom Skills</div></div>
-                <div class="stat-box"><div class="stat-num text-amber-400">5</div><div class="stat-label">Memory Layers</div></div>
-                <div class="stat-box"><div class="stat-num text-cyan-400">359 MB</div><div class="stat-label">History Indexed</div></div>
-                <div class="stat-box"><div class="stat-num text-cyberGreen">$0</div><div class="stat-label">Monthly Cost</div></div>
-            </section>
-
-            <!-- ═══ ZONE B: LIVE SYSTEM STATUS ═══ -->
-            <section class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// LIVE // System Status</div>
-                    <span class="live-badge"><span class="dot"></span> LIVE</span>
-                </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Real-Time System Metrics</h2>
-                <p class="text-slateText max-w-2xl">Live data from the production AI agent infrastructure running on this M1 Mac. Updated on every page load via GitHub API.</p>
-                <div class="grid-3" id="live-stats">
-                    <div class="node">
-                        <div class="node-icon">📦</div>
-                        <div class="node-title" id="gh-repos">7</div>
-                        <div class="node-desc">Public Repos</div>
-                        <span class="node-badge badge-green">GitHub</span>
-                    </div>
-                    <div class="node">
-                        <div class="node-icon">⭐</div>
-                        <div class="node-title" id="gh-stars">0</div>
-                        <div class="node-desc">Total Stars</div>
-                        <span class="node-badge badge-amber">GitHub</span>
-                    </div>
-                    <div class="node">
-                        <div class="node-icon">👥</div>
-                        <div class="node-title" id="gh-followers">2</div>
-                        <div class="node-desc">Followers</div>
-                        <span class="node-badge badge-purple">GitHub</span>
-                    </div>
-                    <div class="node">
-                        <div class="node-icon">🤖</div>
-                        <div class="node-title">6</div>
-                        <div class="node-desc">AI Agents Active</div>
-                        <span class="node-badge badge-cyan">Hermes</span>
-                    </div>
-                    <div class="node">
-                        <div class="node-icon">⏰</div>
-                        <div class="node-title">26</div>
-                        <div class="node-desc">Cron Workflows</div>
-                        <span class="node-badge badge-green">Hermes</span>
-                    </div>
-                    <div class="node">
-                        <div class="node-icon">💰</div>
-                        <div class="node-title">$0</div>
-                        <div class="node-desc">Monthly Cloud Cost</div>
-                        <span class="node-badge badge-pink">Verified</span>
-                    </div>
-                </div>
-                <p class="text-slateText text-xs font-mono">Last updated: <span id="last-updated">loading...</span> · Data from api.github.com/users/SaintChris</p>
-            </section>
-
-            <!-- ═══ ZONE C: SYSTEMS ARCHITECTURE ═══ -->
-            <section id="systems" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 01 // System Architecture</div>
-                    <span class="live-badge"><span class="dot"></span> LIVE</span>
-                </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">How I Build AI Systems</h2>
-                <div class="max-w-2xl space-y-3">
-                    <p class="text-slateText leading-relaxed"><strong class="text-white">Most multi-agent systems rely on cloud message queues and polling loops.</strong> They're slow, fragile, and expensive. Every API call costs money. Every network hop adds latency. When the cloud goes down, your agents go silent.</p>
-                    <p class="text-slateText leading-relaxed">My custom LangGraph router replaces brittle directory-polling scripts with an event-driven state machine. Token payloads push through asynchronous validation nodes, routing to specialized subsystems without blocking the main loop.</p>
-                    <p class="text-cyberGreen/70 font-mono text-xs">→ End of "your AI stops working because AWS had a bad day."</p>
-                </div>
-                <!-- Pipeline Viz -->
-                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
-                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-4">OWL Ops — 7-Step Message Pipeline</p>
-                    <div class="space-y-0.5">
-                        <div class="pipeline-step"><div class="pipeline-num">01</div><div class="pipeline-content"><div class="pipeline-title">Intent Recognition</div><div class="pipeline-desc">Classifies incoming payload by type: market data, finance query, automation trigger, research request</div></div></div>
-                        <div class="pipeline-step"><div class="pipeline-num">02</div><div class="pipeline-content"><div class="pipeline-title">Context Classification</div><div class="pipeline-desc">Determines urgency, required agent, and whether the task can run async or needs immediate response</div></div></div>
-                        <div class="pipeline-step"><div class="pipeline-num">03</div><div class="pipeline-content"><div class="pipeline-title">Agent Routing</div><div class="pipeline-desc">Dispatches to one of 6 specialized agents via file-based inbox — no cloud message queue needed</div></div></div>
-                        <div class="pipeline-step"><div class="pipeline-num">04</div><div class="pipeline-content"><div class="pipeline-title">Async Execution</div><div class="pipeline-desc">Agent processes the task independently. Main thread stays unblocked. Other agents keep running.</div></div></div>
-                        <div class="pipeline-step"><div class="pipeline-num">05</div><div class="pipeline-content"><div class="pipeline-title">Memory Persistence</div><div class="pipeline-desc">Results written to Obsidian vault + Honcho vector store. Survives restarts, available for future context.</div></div></div>
-                        <div class="pipeline-step"><div class="pipeline-num">06</div><div class="pipeline-content"><div class="pipeline-title">Response Generation</div><div class="pipeline-desc">Output formatted with live data — numbers, not generics. Concrete actions, not suggestions.</div></div></div>
-                        <div class="pipeline-step"><div class="pipeline-num">07</div><div class="pipeline-content"><div class="pipeline-title">Delivery</div><div class="pipeline-desc">Result routed back via Telegram, email, or dashboard — whichever channel the request came from</div></div></div>
-                    </div>
-                </div>
-                <!-- Before/After -->
-                <div>
-                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Before OWL vs. After OWL</p>
-                    <div class="compare-grid">
-                        <div class="compare-block compare-before">
-                            <div class="compare-label">❌ Before: Polling-Based</div>
-                            <div class="text-gray-400"><span style="color:#6B7280"># agent loop (every 5 min)</span><br><span style="color:#10B981">while</span> <span style="color:#F59E0B">True</span>:<br>&nbsp;&nbsp;files = <span style="color:#60A5FA">scan_dir</span>(<span style="color:#F59E0B">"/inbox"</span>)<br>&nbsp;&nbsp;<span style="color:#10B981">for</span> f <span style="color:#10B981">in</span> files:<br>&nbsp;&nbsp;&nbsp;&nbsp;process(f) <span style="color:#6B7280"># blocking</span><br>&nbsp;&nbsp;sleep(<span style="color:#60A5FA">300</span>) <span style="color:#6B7280"># 5 min gap</span></div>
-                            <div class="text-red-400/60 text-[9px] mt-2">↑ Latency: 0-300s · Race conditions · Wasted CPU</div>
-                        </div>
-                        <div class="compare-block compare-after">
-                            <div class="compare-label">✅ After: Event-Driven OWL</div>
-                            <div class="text-gray-400"><span style="color:#6B7280"># event-driven router</span><br><span style="color:#10B981">on</span> <span style="color:#60A5FA">payload_received</span>(msg):<br>&nbsp;&nbsp;intent = <span style="color:#60A5FA">classify</span>(msg)<br>&nbsp;&nbsp;agent = <span style="color:#60A5FA">route</span>(intent)<br>&nbsp;&nbsp;<span style="color:#60A5FA">dispatch_async</span>(agent, msg)<br>&nbsp;&nbsp;<span style="color:#6B7280"># non-blocking, instant</span></div>
-                            <div class="text-cyberGreen/60 text-[9px] mt-2">↑ Latency: &lt;10ms · No races · Zero wasted cycles</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ═══ ZONE C: ARCHITECTURE DIAGRAM (from architecture.html) ═══ -->
-            <section id="architecture-diagram" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 02 // System Architecture Diagram</div>
-                    <span class="live-badge"><span class="dot"></span> LIVE</span>
-                </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Complete Data Flow</h2>
-                <p class="text-slateText max-w-2xl leading-relaxed">From user input through the OWL router to specialized agents, memory persistence, and service delivery.</p>
-                <div class="section">
-                    <div class="flow-container">
-<svg viewBox="0 0 1100 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:1100px;display:block;margin:0 auto;">
-                            <defs>
-                                <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/></marker>
-                                <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#10B981"/></marker>
-                                <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#A855F7"/></marker>
-                                <marker id="arrowCyan" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#22D3EE"/></marker>
-                                <marker id="arrowAmber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#F59E0B"/></marker>
-                                <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                            </defs>
-                            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F2937" stroke-width="0.3"/></pattern>
-                            <rect width="1100" height="480" fill="url(#grid)"/>
-
-                            <!-- LAYER 1: USER INPUT -->
-                            <rect x="20" y="20" width="140" height="60" rx="8" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-width="0.8"/>
-                            <text x="90" y="42" text-anchor="middle" fill="#60A5FA" font-family="Inter,sans-serif" font-size="10" font-weight="600">📱 Telegram</text>
-                            <text x="90" y="56" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="8">User Input</text>
-                            <rect x="200" y="20" width="140" height="60" rx="8" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-width="0.8"/>
-                            <text x="270" y="42" text-anchor="middle" fill="#60A5FA" font-family="Inter,sans-serif" font-size="10" font-weight="600">🖥️ Desktop</text>
-                            <text x="270" y="56" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="8">Tauri v0.15.1</text>
-                            <line x1="160" y1="50" x2="195" y2="50" stroke="#3b82f6" stroke-width="1" marker-end="url(#arrowBlue)"/>
-
-                            <!-- LAYER 2: ROUTER -->
-                            <rect x="370" y="15" width="180" height="70" rx="10" fill="rgba(168,85,247,0.12)" stroke="#A855F7" stroke-width="1.5" filter="url(#glow)"/>
-                            <text x="460" y="38" text-anchor="middle" fill="#C084FC" font-family="Inter,sans-serif" font-size="11" font-weight="800">🦉 OWL (CEO)</text>
-                            <text x="460" y="52" text-anchor="middle" fill="#A855F7" font-family="JetBrains Mono,monospace" font-size="8">Router + Dispatcher</text>
-                            <text x="460" y="64" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="7">ROUTING_RULES.md → 6 inboxes</text>
-                            <line x1="340" y1="50" x2="365" y2="50" stroke="#3b82f6" stroke-width="1" marker-end="url(#arrowBlue)"/>
-
-                            <!-- LAYER 3: AGENTS -->
-                            <rect x="20" y="150" width="155" height="70" rx="8" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="0.8"/>
-                            <text x="97" y="172" text-anchor="middle" fill="#4ADE80" font-family="Inter,sans-serif" font-size="9" font-weight="600">📊 Market Analyst</text>
-                            <text x="97" y="186" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">NQ/MNQ, liquidity</text>
-                            <text x="97" y="197" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">sweeps, displacement</text>
-
-                            <rect x="190" y="150" width="155" height="70" rx="8" fill="rgba(34,211,238,0.08)" stroke="#22D3EE" stroke-width="0.8"/>
-                            <text x="267" y="172" text-anchor="middle" fill="#67E8F9" font-family="Inter,sans-serif" font-size="9" font-weight="600">✍️ Content & Growth</text>
-                            <text x="267" y="186" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">LinkedIn, portfolio</text>
-                            <text x="267" y="197" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">articles, content</text>
-
-                            <rect x="360" y="150" width="155" height="70" rx="8" fill="rgba(245,158,11,0.08)" stroke="#F59E0B" stroke-width="0.8"/>
-                            <text x="437" y="172" text-anchor="middle" fill="#FBBF24" font-family="Inter,sans-serif" font-size="9" font-weight="600">🔧 Founding Engineer</text>
-                            <text x="437" y="186" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">Infra, code, deploy</text>
-                            <text x="437" y="197" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">Docker, scripts</text>
-
-                            <rect x="530" y="150" width="155" height="70" rx="8" fill="rgba(236,72,153,0.08)" stroke="#EC4899" stroke-width="0.8"/>
-                            <text x="607" y="172" text-anchor="middle" fill="#F472B6" font-family="Inter,sans-serif" font-size="9" font-weight="600">🖥️ IT Operations</text>
-                            <text x="607" y="186" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">Health, debug, monitor</text>
-                            <text x="607" y="197" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">cron watchdog</text>
-
-                            <rect x="700" y="150" width="155" height="70" rx="8" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="0.8"/>
-                            <text x="777" y="172" text-anchor="middle" fill="#4ADE80" font-family="Inter,sans-serif" font-size="9" font-weight="600">💰 Finance Agent</text>
-                            <text x="777" y="186" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">P&L, bank statements</text>
-                            <text x="777" y="197" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">reports, payouts</text>
-
-                            <rect x="870" y="150" width="155" height="70" rx="8" fill="rgba(168,85,247,0.08)" stroke="#A855F7" stroke-width="0.8"/>
-                            <text x="947" y="172" text-anchor="middle" fill="#C084FC" font-family="Inter,sans-serif" font-size="9" font-weight="600">🔬 Research</text>
-                            <text x="947" y="186" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">Deep research, analysis</text>
-                            <text x="947" y="197" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">market intel</text>
-
-                            <!-- Arrows from Router to Agents -->
-                            <line x1="460" y1="85" x2="97" y2="145" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowPurple)" opacity="0.5"/>
-                            <line x1="460" y1="85" x2="267" y2="145" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowPurple)" opacity="0.5"/>
-                            <line x1="460" y1="85" x2="437" y2="145" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowPurple)" opacity="0.5"/>
-                            <line x1="460" y1="85" x2="607" y2="145" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowPurple)" opacity="0.5"/>
-                            <line x1="460" y1="85" x2="777" y2="145" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowPurple)" opacity="0.5"/>
-                            <line x1="460" y1="85" x2="947" y2="145" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowPurple)" opacity="0.5"/>
-
-                            <!-- LAYER 4: INBOX BRIDGE -->
-                            <rect x="370" y="270" width="180" height="50" rx="8" fill="rgba(34,211,238,0.1)" stroke="#22D3EE" stroke-width="1"/>
-                            <text x="460" y="290" text-anchor="middle" fill="#67E8F9" font-family="Inter,sans-serif" font-size="9" font-weight="600">📬 Inbox Bridge</text>
-                            <text x="460" y="304" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">inbox_bridge.py · every 5 min</text>
-
-                            <!-- Arrows from Agents to Bridge -->
-                            <line x1="97" y1="220" x2="380" y2="280" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowCyan)" opacity="0.3"/>
-                            <line x1="267" y1="220" x2="390" y2="280" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowCyan)" opacity="0.3"/>
-                            <line x1="437" y1="220" x2="440" y2="275" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowCyan)" opacity="0.3"/>
-                            <line x1="607" y1="220" x2="480" y2="280" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowCyan)" opacity="0.3"/>
-                            <line x1="777" y1="220" x2="510" y2="285" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowCyan)" opacity="0.3"/>
-                            <line x1="947" y1="220" x2="530" y2="285" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowCyan)" opacity="0.3"/>
-
-                            <!-- LAYER 5: MEMORY STACK -->
-                            <text x="180" y="395" text-anchor="middle" fill="#C084FC" font-family="Inter,sans-serif" font-size="8" font-weight="700">5-LAYER MEMORY STACK</text>
-                            <rect x="20" y="405" width="130" height="55" rx="6" fill="rgba(168,85,247,0.06)" stroke="#A855F7" stroke-width="0.6"/>
-                            <text x="85" y="422" text-anchor="middle" fill="#C084FC" font-family="Inter,sans-serif" font-size="8" font-weight="600">① Honcho</text>
-                            <text x="85" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">pgvector + Redis</text>
-                            <text x="85" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">localhost:8000</text>
-
-                            <rect x="160" y="405" width="130" height="55" rx="6" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" stroke-width="0.6"/>
-                            <text x="225" y="422" text-anchor="middle" fill="#60A5FA" font-family="Inter,sans-serif" font-size="8" font-weight="600">② soul.md</text>
-                            <text x="225" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">Personality + rules</text>
-                            <text x="225" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">every prompt</text>
-
-                            <rect x="300" y="405" width="130" height="55" rx="6" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="0.6"/>
-                            <text x="365" y="422" text-anchor="middle" fill="#4ADE80" font-family="Inter,sans-serif" font-size="8" font-weight="600">③ Obsidian</text>
-                            <text x="365" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">102 pages, 15 MB</text>
-                            <text x="365" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">knowledge catalog</text>
-
-                            <rect x="440" y="405" width="130" height="55" rx="6" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="0.6"/>
-                            <text x="505" y="422" text-anchor="middle" fill="#FBBF24" font-family="Inter,sans-serif" font-size="8" font-weight="600">④ Built-in</text>
-                            <text x="505" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">2,200 char limit</text>
-                            <text x="505" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">routing essentials</text>
-
-                            <rect x="580" y="405" width="130" height="55" rx="6" fill="rgba(34,211,238,0.06)" stroke="#22D3EE" stroke-width="0.6"/>
-                            <text x="645" y="422" text-anchor="middle" fill="#67E8F9" font-family="Inter,sans-serif" font-size="8" font-weight="600">⑤ Session Search</text>
-                            <text x="645" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">SQLite FTS5</text>
-                            <text x="645" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">359 MB indexed</text>
-
-                            <line x1="460" y1="320" x2="365" y2="400" stroke="#A855F7" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#arrowPurple)" opacity="0.4"/>
-
-                            <!-- LAYER 6: SERVICES -->
-                            <text x="850" y="395" text-anchor="middle" fill="#FBBF24" font-family="Inter,sans-serif" font-size="8" font-weight="700">SERVICES</text>
-                            <rect x="740" y="405" width="115" height="55" rx="6" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="0.6"/>
-                            <text x="797" y="422" text-anchor="middle" fill="#4ADE80" font-family="Inter,sans-serif" font-size="8" font-weight="600">🐳 Docker</text>
-                            <text x="797" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">PG, Redis, Ollama</text>
-                            <text x="797" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">localhost only</text>
-
-                            <rect x="865" y="405" width="115" height="55" rx="6" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="0.6"/>
-                            <text x="922" y="422" text-anchor="middle" fill="#FBBF24" font-family="Inter,sans-serif" font-size="8" font-weight="600">🤖 Ollama</text>
-                            <text x="922" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">qwen3:4b, 1.7b</text>
-                            <text x="922" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">nomic-embed</text>
-
-                            <rect x="990" y="405" width="90" height="55" rx="6" fill="rgba(236,72,153,0.06)" stroke="#EC4899" stroke-width="0.6"/>
-                            <text x="1035" y="422" text-anchor="middle" fill="#F472B6" font-family="Inter,sans-serif" font-size="8" font-weight="600">🔗 MCP</text>
-                            <text x="1035" y="435" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">cua-driver</text>
-                            <text x="1035" y="445" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="6.5">zapier</text>
-
-                            <line x1="645" y1="405" x2="790" y2="400" stroke="#F59E0B" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowAmber)" opacity="0.3"/>
-                            <line x1="645" y1="405" x2="915" y2="400" stroke="#F59E0B" stroke-width="0.5" stroke-dasharray="2,2" marker-end="url(#arrowAmber)" opacity="0.3"/>
-
-                            <!-- CRON JOBS -->
-                            <rect x="620" y="270" width="160" height="45" rx="8" fill="rgba(245,158,11,0.08)" stroke="#F59E0B" stroke-width="1"/>
-                            <text x="700" y="288" text-anchor="middle" fill="#FBBF24" font-family="Inter,sans-serif" font-size="9" font-weight="600">⏰ 26 Cron Jobs</text>
-                            <text x="700" y="302" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">Daily / Weekly / Monthly</text>
-                            <line x1="550" y1="290" x2="615" y2="290" stroke="#F59E0B" stroke-width="0.8" marker-end="url(#arrowAmber)"/>
-
-                            <!-- PAPERCLIP -->
-                            <rect x="820" y="270" width="140" height="45" rx="8" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="1"/>
-                            <text x="890" y="288" text-anchor="middle" fill="#4ADE80" font-family="Inter,sans-serif" font-size="9" font-weight="600">🎯 Paperclip</text>
-                            <text x="890" y="302" text-anchor="middle" fill="#6B7280" font-family="JetBrains Mono,monospace" font-size="7">Multi-agent orchestration</text>
-                            <line x1="550" y1="280" x2="815" y2="285" stroke="#10B981" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#arrowGreen)" opacity="0.5"/>
-
-                            <!-- LEGEND -->
-                            <rect x="20" y="270" width="130" height="45" rx="8" fill="rgba(15,21,36,0.6)" stroke="#1F2937" stroke-width="0.6"/>
-                            <text x="85" y="286" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="7" font-weight="600">LEGEND</text>
-                            <text x="85" y="298" text-anchor="middle" fill="#4B5563" font-family="JetBrains Mono,monospace" font-size="6.5">━━━ direct flow</text>
-                            <text x="85" y="308" text-anchor="middle" fill="#4B5563" font-family="JetBrains Mono,monospace" font-size="6.5">╌╌╌ async / routed</text>
-                        </svg>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ═══ ZONE D: AGENTS DETAIL ═══ -->
-            <section class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 6 AI Agents — Specialized Workers</div>
-                </div>
-                <div class="grid-3">
-                    <div class="node"><div class="node-icon">📊</div><div class="node-title">Market Analyst</div><div class="node-desc">NQ/MNQ trading analysis, liquidity sweeps, displacement, supply/demand zones</div><span class="node-badge badge-green">trade · market · NQ · MNQ</span></div>
-                    <div class="node"><div class="node-icon">✍️</div><div class="node-title">Content & Growth</div><div class="node-desc">LinkedIn posts, portfolio content, technical articles, social distribution</div><span class="node-badge badge-cyan">linkedin · post · article</span></div>
-                    <div class="node"><div class="node-icon">🔧</div><div class="node-title">Founding Engineer</div><div class="node-desc">Infrastructure, code, Docker deployments, scripts, system builds</div><span class="node-badge badge-amber">setup · deploy · code</span></div>
-                    <div class="node"><div class="node-icon">🖥️</div><div class="node-title">IT Operations</div><div class="node-desc">System health monitoring, debugging, cron watchdog, error triage</div><span class="node-badge badge-pink">health · cron · debug</span></div>
-                    <div class="node"><div class="node-icon">💰</div><div class="node-title">Finance Agent</div><div class="node-desc">P&L tracking, bank statement parsing, financial reports, payout detection</div><span class="node-badge badge-green">finance · P&L · bank</span></div>
-                    <div class="node"><div class="node-icon">🔬</div><div class="node-title">Research</div><div class="node-desc">Deep research, market intelligence, competitive analysis, data synthesis</div><span class="node-badge badge-purple">research · analysis</span></div>
-                </div>
-            </section>
-
-            <!-- ═══ ZONE E: INFRASTRUCTURE HISTORY ═══ -->
+            <!-- ═══ 3. EXPERIENCE ═══ -->
             <section id="history" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 03 // Infrastructure History</div>
-                    <span class="live-badge"><span class="dot"></span> LIVE</span>
-                </div>
+                <div class="section-label-mono">// Experience</div>
                 <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Professional Background</h2>
                 <div class="max-w-2xl space-y-3">
                     <p class="text-slateText leading-relaxed"><strong class="text-white">My edge is combining real infrastructure experience with AI engineering.</strong> Most AI engineers have never touched physical hardware, diagnosed a network fault, or managed a corporate asset grid. I have.</p>
-                    <p class="text-slateText leading-relaxed">This hands-on infrastructure background gives me a deep understanding of hardware execution limits, physical routing protocols, and error isolation — knowledge that translates directly into building fault-tolerant, production-grade agent systems.</p>
                 </div>
                 <div class="space-y-3 max-w-3xl">
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>Feb 2026 – May 2026 // ADMINISTRATOR</span><span class="text-cyberGreen text-[10px] font-bold">STERLING CARTER TECH</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Coordinated procurement, shipping, and partner documentation for technology distribution operations. Maintained structured records, confidential partner files, and operational documents supporting business decisions for the Managing Director.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>Feb 2025 – Nov 2025 // ASSET MGMT OFFICER / TIER 2</span><span class="text-teal-400 text-[10px] font-bold">ISLAND NETWORKS</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Owned remote and hands-on technical triage for provisioning teams — device imaging, OS configuration, firmware checks, network troubleshooting. Managed end-to-end lifecycle for 6,000+ assets in Asset Tiger CMDB. Reduced return-to-service lag by 35%. Built Slack workflow automations cutting processing time by 40%.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>Jan 2023 – Aug 2024 // ASST. WAREHOUSE MANAGER</span><span class="text-slateText text-[10px] font-bold">SECURITY OPTIONS LTD</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Standardized receiving, dispatch, and inventory-control SOPs — reduced fulfillment errors by 30%. Used QuickBooks Enterprise to maintain real-time inventory accuracy, reconcile discrepancies, and support audit-ready records.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>2022 – 2023 // ENTERPRISE TECH SUPPORT</span><span class="text-slateText text-[10px] font-bold">IBEX (FITBIT)</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Troubleshot consumer IoT hardware and app issues — Bluetooth, firmware, sensor data, biometrics, account access. Managed high-volume inbound voice and email queues with detailed CRM documentation and plain-English resolutions.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>Aug 2020 – Nov 2022 // IT SUPPORT TECH</span><span class="text-slateText text-[10px] font-bold">RELIABLE COURIER JA</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Frontline support for desktop, printer, network, email, and platform issues. Installed and maintained routers, switches, Wi-Fi, laptops, printers. Built Google Sheets automation reducing daily processing from 7 hours to 3 hours (57% improvement).</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>Dec 2025 // CERTIFICATION</span><span class="text-amber-400 text-[10px] font-bold">GOOGLE IT SUPPORT</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Google IT Support Professional Certificate. Systemic network architecture, terminal diagnostic automation, and access authorization — the foundation of self-healing agent infrastructure. Also: EF SET English C2 Proficient (79/100).</p></div>
-                </div>
-            </section>
-
-            <!-- ═══ ZONE F: MEMORY / PERSISTENCE ═══ -->
-            <section id="memory" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 04 // Tiered Persistence</div>
-                    <span class="live-badge"><span class="dot"></span> 5 LAYERS</span>
-                </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Agent Memory & Persistence</h2>
-                <div class="max-w-2xl space-y-3">
-                    <p class="text-slateText leading-relaxed"><strong class="text-white">Most AI agents forget everything when you close the session.</strong> New conversation, blank slate. No memory of what you discussed yesterday, what decisions were made, or what mistakes to avoid.</p>
-                    <p class="text-slateText leading-relaxed">My 5-layer memory stack solves this with tiered persistence — from in-prompt personality injection to full conversational history search. Each layer serves a specific function. Together, they give agents something close to institutional memory.</p>
-                </div>
-                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
-                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Memory Recall — Live Example</p>
-                    <div class="code-block">
-                        <span class="comment"># Alex asks: "What was that trading setup from Tuesday?"</span><br><br>
-                        <span class="keyword">Layer 1</span> <span class="value">Honcho</span> → peer card: "Alex trades MNQ, uses SMC model"<br>
-                        <span class="keyword">Layer 2</span> <span class="value">soul.md</span> → "Direct communication, no fluff, faith-driven"<br>
-                        <span class="keyword">Layer 3</span> <span class="value">Obsidian</span> → daily-log/2026-06-03.md: "Reviewed Apex payout thresholds"<br>
-                        <span class="keyword">Layer 4</span> <span class="value">Built-in</span> → email: [EMAIL]<br>
-                        <span class="keyword">Layer 5</span> <span class="value">Session Search</span> → "Tuesday: discussed 11AM ET short setup on MNQ"<br><br>
-                        <span class="comment"># Response: specific, contextual, zero repetition</span>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="flex justify-between text-white font-bold text-sm items-center"><span>Feb 2026 – May 2026 // ADMINISTRATOR</span><span class="text-cyberGreen text-[10px] font-bold">STERLING CARTER TECH</span></div>
+                        <p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Coordinated procurement, shipping, and partner documentation for technology distribution operations. Maintained structured records, confidential partner files, and operational documents supporting business decisions for the Managing Director.</p>
+                    </div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="flex justify-between text-white font-bold text-sm items-center"><span>Feb 2025 – Nov 2025 // ASSET MGMT OFFICER / TIER 2</span><span class="text-teal-400 text-[10px] font-bold">ISLAND NETWORKS</span></div>
+                        <p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Owned remote and hands-on technical triage for provisioning teams — device imaging, OS configuration, firmware checks, network troubleshooting. Managed end-to-end lifecycle for 6,000+ assets in Asset Tiger CMDB. Reduced return-to-service lag by 35%. Built Slack workflow automations cutting processing time by 40%.</p>
+                    </div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="flex justify-between text-white font-bold text-sm items-center"><span>Jan 2023 – Aug 2024 // ASST. WAREHOUSE MGR</span><span class="text-slateText text-[10px] font-bold">SECURITY OPTIONS LTD</span></div>
+                        <p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Standardized receiving, dispatch, and inventory-control SOPs — reduced fulfillment errors by 30%. Used QuickBooks Enterprise to maintain real-time inventory accuracy, reconcile discrepancies, and support audit-ready records.</p>
+                    </div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="flex justify-between text-white font-bold text-sm items-center"><span>2022 – 2023 // ENTERPRISE TECH SUPPORT</span><span class="text-slateText text-[10px] font-bold">IBEX (FITBIT)</span></div>
+                        <p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Troubleshot consumer IoT hardware and app issues — Bluetooth, firmware, sensor data, biometrics, account access. Managed high-volume inbound voice and email queues with detailed CRM documentation and plain-English resolutions.</p>
+                    </div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="flex justify-between text-white font-bold text-sm items-center"><span>Aug 2020 – Nov 2022 // IT SUPPORT TECH</span><span class="text-slateText text-[10px] font-bold">RELIABLE COURIER JA</span></div>
+                        <p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Frontline support for desktop, printer, network, email, and platform issues. Installed and maintained routers, switches, Wi-Fi, laptops, printers. Built Google Sheets automation reducing daily processing from 7 hours to 3 hours (57% improvement).</p>
+                    </div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="flex justify-between text-white font-bold text-sm items-center"><span>Dec 2025 // CERTIFICATION</span><span class="text-amber-400 text-[10px] font-bold">GOOGLE IT SUPPORT</span></div>
+                        <p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Google IT Support Professional Certificate. Systemic network architecture, terminal diagnostic automation, and access authorization — the foundation of self-healing agent infrastructure. Also: EF SET English C2 Proficient (79/100).</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-44 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="space-y-1.5"><div class="font-mono text-[9px] text-cyberGreen bg-cyberGreen/10 px-2 py-0.5 rounded w-max font-bold">PERSISTENCE_CORE</div><h3 class="text-sm font-bold text-white uppercase tracking-tight">5-Layer Hybrid Memory Stack</h3><p class="text-[11px] text-slateText leading-relaxed font-sans">Fusing in-process LRU contexts with local pgvector databases and SQLite FTS5 index schemas for sub-second semantic queries.</p></div><div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between"><span>INFRA: SQLITE5 / PGVECTOR</span><a href="https://saintlex.sbs/articles/5-layer-memory-stack.html" class="text-white hover:text-cyberGreen font-bold">ARTICLE →</a></div></div>
-                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-44 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="space-y-1.5"><div class="font-mono text-[9px] text-teal-400 bg-teal-400/10 px-2 py-0.5 rounded w-max font-bold">MCP_INTEGRATION</div><h3 class="text-sm font-bold text-white uppercase tracking-tight">Model Context Protocols</h3><p class="text-[11px] text-slateText leading-relaxed font-sans">Converting bare OS subprocess actions into strongly typed JSON transaction payloads, preventing arbitrary terminal shell drift.</p></div><div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between"><span>PROTOCOL: JSON_RPC_CORE</span><a href="https://github.com" class="text-white hover:text-cyberGreen font-bold">REPOS ↗</a></div></div>
-                </div>
             </section>
 
-            <!-- ═══ ZONE G: CRON JOBS ═══ -->
-            <section class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 26 Automated Cron Workflows</div>
-                </div>
-                <div class="grid-4">
-                    <div class="node"><div class="node-icon">🌙</div><div class="node-title">Nightly Brain Sync</div><div class="node-desc">00:00 daily — consolidates memory</div><span class="node-badge badge-green">✅ 00:00</span></div>
-                    <div class="node"><div class="node-icon">🌅</div><div class="node-title">Morning Brief</div><div class="node-desc">07:00 daily — priorities, schedule</div><span class="node-badge badge-green">✅ 07:00</span></div>
-                    <div class="node"><div class="node-icon">📧</div><div class="node-title">Email Triage</div><div class="node-desc">12:00 daily — surfaces important emails</div><span class="node-badge badge-green">✅ 12:00</span></div>
-                    <div class="node"><div class="node-icon">📈</div><div class="node-title">Market Events</div><div class="node-desc">08:00 weekdays — economic calendar</div><span class="node-badge badge-blue">✅ 08:00 M-F</span></div>
-                    <div class="node"><div class="node-icon">💵</div><div class="node-title">P&L Summary</div><div class="node-desc">Sunday 18:00 — weekly trading P&L</div><span class="node-badge badge-green">✅ Sun 18:00</span></div>
-                    <div class="node"><div class="node-icon">🔍</div><div class="node-title">Payout Detector</div><div class="node-desc">Sunday 10:00 — scans for payouts</div><span class="node-badge badge-green">✅ Sun 10:00</span></div>
-                    <div class="node"><div class="node-icon">🐕</div><div class="node-title">Cron Watchdog</div><div class="node-desc">Sunday 11:00 — checks all cron health</div><span class="node-badge badge-green">✅ Sun 11:00</span></div>
-                    <div class="node"><div class="node-icon">🧹</div><div class="node-title">PG Retention</div><div class="node-desc">03:00 daily — Postgres cleanup</div><span class="node-badge badge-blue">✅ 03:00</span></div>
-                    <div class="node"><div class="node-icon">🔄</div><div class="node-title">Model Router Refresh</div><div class="node-desc">20:00 daily — updates models</div><span class="node-badge badge-green">✅ 20:00</span></div>
-                    <div class="node"><div class="node-icon">📋</div><div class="node-title">Job Tracker Update</div><div class="node-desc">Every 4h — syncs to Sheets</div><span class="node-badge badge-cyan">✅ 4h</span></div>
-                    <div class="node"><div class="node-icon">💀</div><div class="node-title">Dead Man's Switch</div><div class="node-desc">Every 30m — CEO heartbeat</div><span class="node-badge badge-pink">✅ 30m</span></div>
-                    <div class="node"><div class="node-icon">📊</div><div class="node-title">Adaptive Monitor</div><div class="node-desc">Every 2h — system health</div><span class="node-badge badge-amber">✅ 2h</span></div>
-                </div>
-            </section>
-
-            <!-- ═══ ZONE H: BUILD LOG ═══ -->
-            <section class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 03 // Build Log</div>
-                    <span class="live-badge"><span class="dot"></span> LIVE</span>
-                </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Proof of Work</h2>
-                <p class="text-slateText max-w-2xl">Chronological log of what was actually built. Not claims — verifiable commits, deployments, and metrics.</p>
-                <div class="space-y-3 max-w-3xl">
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>June 8, 2026 // PORTFOLIO REMEDIATION</span><span class="text-cyberGreen text-[10px] font-bold">DEPLOYED</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Rebuilt all 4 article pages with unified design system. Removed 973 lines of dead code (Tailwind CDN, duplicate navs, broken links, filler sections). Added live GitHub telemetry widget. Extracted pricing to standalone page. Kill count: architecture.html, services.html, script.js, CONTRIBUTING.md, rag-eval-system card.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>June 8, 2026 // GITHUB AUDIT & SECURITY</span><span class="text-cyberGreen text-[10px] font-bold">PATCHED</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Sanitized real COMPANY_ID from .env.example. Closed security issue #1. Added CI workflow (pytest + flake8) to portfolio-agentic-infra. Tagged v1.0.0 on portfolio-agentic-infra and saintlex-portfolio. Added MIT license to hermes-setup-showcase. Enabled branch protection on all repos. Added topics to all repos.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>June 3, 2026 // HERMES INFRASTRUCTURE</span><span class="text-cyberGreen text-[10px] font-bold">OPERATIONAL</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Deployed Hermes Agent v0.16.0 on M1 Mac. 26 cron jobs active. 5-layer memory stack: Honcho (pgvector + Redis), soul.md, Obsidian (102 pages), built-in (2,200 char), Session Search (SQLite FTS5, 359 MB indexed). 22K+ production requests, 1.74B tokens, $0.05 total cloud spend.</p></div>
-                </div>
-            </section>
-
-
-
-                                                            <!-- ═══ ZONE L: PROJECTS & SYSTEMS ═══ -->
+            <!-- ═══ 4. PROJECTS ═══ -->
             <section id="projects" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3"><div class="section-label-mono">// 07 // Projects & Systems</div><span class="live-badge"><span class="dot"></span> LIVE</span></div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Production Systems Portfolio</h2>
-                <p class="text-slateText max-w-2xl leading-relaxed"><strong class="text-white">Every system below is deployed and running.</strong> Not mockups. Not tutorials. Production-grade infrastructure with real data pipelines, automated testing, and measurable outcomes.</p>
+                <div class="section-label-mono">// Projects</div>
+                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">What I've Built</h2>
+                <p class="text-slateText max-w-2xl leading-relaxed"><strong class="text-white">Every system below is deployed and running.</strong> Not mockups. Not tutorials. Production-grade infrastructure with real data pipelines and measurable outcomes.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="space-y-2"><div class="flex items-center gap-2"><div class="font-mono text-[9px] text-cyberGreen bg-cyberGreen/10 px-2 py-0.5 rounded font-bold">MULTI_AGENT_INFRA</div><span class="text-[9px] text-slateText font-mono">v2.0</span></div><h3 class="text-sm font-bold text-white uppercase tracking-tight">Portfolio Agentic Infrastructure</h3><p class="text-[11px] text-slateText leading-relaxed font-sans">6 autonomous AI agents with production delegation patterns. 52 integration tests passing. Docker Compose with FastAPI, Streamlit, Qdrant, Paperclip.</p></div><div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Python · FastAPI · Docker</span><a href="https://github.com/SaintChris/portfolio-agentic-infra" class="text-white hover:text-cyberGreen font-bold">REPO ↗</a></div></div>
-                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="space-y-2"><div class="flex items-center gap-2"><div class="font-mono text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded font-bold">HERMES_FRAMEWORK</div><span class="text-[9px] text-slateText font-mono">v1.7.8</span></div><h3 class="text-sm font-bold text-white uppercase tracking-tight">Hermes Agent Infrastructure</h3><p class="text-[11px] text-slateText leading-relaxed font-sans">26 cron jobs, inbox_bridge.py routing, Paperclip orchestration, Obsidian knowledge management. All containerized.</p></div><div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Hermes · Paperclip · PostgreSQL</span><a href="#systems" class="text-white hover:text-cyberGreen font-bold">DETAILS →</a></div></div>
-                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="space-y-2"><div class="flex items-center gap-2"><div class="font-mono text-[9px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded font-bold">MEMORY_STACK</div><span class="text-[9px] text-slateText font-mono">v2.0.26</span></div><h3 class="text-sm font-bold text-white uppercase tracking-tight">5-Layer Memory Architecture</h3><p class="text-[11px] text-slateText leading-relaxed font-sans">102-page Obsidian vault. pgvector embeddings, Redis caching, SQLite FTS5 across 359 MB. Cross-session agent memory.</p></div><div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Obsidian · pgvector · Redis</span><a href="#memory" class="text-white hover:text-cyberGreen font-bold">DETAILS →</a></div></div>
-                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="space-y-2"><div class="flex items-center gap-2"><div class="font-mono text-[9px] text-teal-400 bg-teal-400/10 px-2 py-0.5 rounded font-bold">SHOWCASE_SITE</div><span class="text-[9px] text-slateText font-mono">v1.0</span></div><h3 class="text-sm font-bold text-white uppercase tracking-tight">AI Agent Setup Service</h3><p class="text-[11px] text-slateText leading-relaxed font-sans">Service landing page for Hermes AI agent infrastructure setup. 3 tiers, live pricing, custom domain.</p></div><div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>HTML/CSS · GitHub Pages</span><a href="https://github.com/SaintChris/hermes-setup-showcase" class="text-white hover:text-cyberGreen font-bold">REPO ↗</a></div></div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2"><div class="font-mono text-[9px] text-cyberGreen bg-cyberGreen/10 px-2 py-0.5 rounded font-bold">MULTI_AGENT_INFRA</div><span class="text-[9px] text-slateText font-mono">v2.0</span></div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">Portfolio Agentic Infrastructure</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">6 autonomous AI agents with production delegation patterns. 52 integration tests passing. Docker Compose with FastAPI, Streamlit, Qdrant, Paperclip.</p>
+                        </div>
+                        <div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Python · FastAPI · Docker</span><a href="https://github.com/SaintChris/portfolio-agentic-infra" class="text-white hover:text-cyberGreen font-bold">REPO ↗</a></div>
+                    </div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2"><div class="font-mono text-[9px] text-teal-400 bg-teal-400/10 px-2 py-0.5 rounded font-bold">RAG_EVAL_SYSTEM</div><span class="text-[9px] text-slateText font-mono">v1.0</span></div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">RAG with Eval Pipeline</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">Retrieval-Augmented Generation with LLM-as-judge evaluation. Measures retrieval accuracy, answer relevance, and faithfulness.</p>
+                        </div>
+                        <div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Python · pgvector · Ollama</span><a href="https://github.com/SaintChris/rag-eval-system" class="text-white hover:text-cyberGreen font-bold">REPO ↗</a></div>
+                    </div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2"><div class="font-mono text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded font-bold">HERMES_FRAMEWORK</div><span class="text-[9px] text-slateText font-mono">v1.7.8</span></div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">Hermes Agent Infrastructure</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">26 cron jobs, async routing, Paperclip orchestration, Obsidian knowledge management, 5-layer memory. All containerized.</p>
+                        </div>
+                        <div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Hermes · Paperclip · PostgreSQL</span><a href="#skills" class="text-white hover:text-cyberGreen font-bold">DETAILS →</a></div>
+                    </div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-52 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2"><div class="font-mono text-[9px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded font-bold">HOME_LAB</div><span class="text-[9px] text-slateText font-mono">2024–Present</span></div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">Linux, Containers &amp; Observability</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">Administer Linux environments for staging microservices, Docker Compose services, SSH access control, Prometheus + Grafana monitoring.</p>
+                        </div>
+                        <div class="font-mono text-[9px] text-slateText border-t border-hudGray/40 pt-2 flex justify-between items-center"><span>Linux · Docker · Grafana</span><span class="text-slateText">Independent</span></div>
+                    </div>
                 </div>
                 <!-- Tech Stack -->
-                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5"><p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Core Technology Stack</p><div class="flex flex-wrap gap-2"><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Python 3.11+</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">FastAPI</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Streamlit</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Docker</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">LangChain</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Paperclip</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">PostgreSQL</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">pgvector</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Ollama</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">MCP</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">nomic-embed</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Redis</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">SQLite FTS5</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Qdrant</span><span class="font-mono text-[10px] px-2.5 py-1 rounded bg-hudGray/40 text-gray-300 border border-hudGray/50">Hermes</span></div></div>
-            </section>
-
-            <!-- ═══ ZONE M: PROOF ═══ -->
-            <section id="proof" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3"><div class="section-label-mono">// Proof</div></div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">By the Numbers</h2>
-                <p class="text-slateText max-w-2xl leading-relaxed"><strong class="text-white">Every stat below is from my production system</strong> — real numbers, real infrastructure, real results. Not a portfolio mockup.</p>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    <div class="stat-box"><div class="stat-num text-cyberGreen">6</div><div class="stat-label">AI Agents</div></div>
-                    <div class="stat-box"><div class="stat-num text-teal-400">26</div><div class="stat-label">Cron Workflows</div></div>
-                    <div class="stat-box"><div class="stat-num text-purple-400">108</div><div class="stat-label">Custom Skills</div></div>
-                    <div class="stat-box"><div class="stat-num text-amber-400">52</div><div class="stat-label">Tests Passing</div></div>
-                    <div class="stat-box"><div class="stat-num text-cyan-400">359 MB</div><div class="stat-label">History Indexed</div></div>
-                    <div class="stat-box"><div class="stat-num text-cyberGreen">$0</div><div class="stat-label">Monthly Cost</div></div>
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
+                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Tech Stack</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-pill">Python 3.11+</span><span class="tech-pill">FastAPI</span><span class="tech-pill">Streamlit</span><span class="tech-pill">Docker</span><span class="tech-pill">LangChain</span><span class="tech-pill">Paperclip</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">pgvector</span><span class="tech-pill">Ollama</span><span class="tech-pill">MCP</span><span class="tech-pill">Redis</span><span class="tech-pill">SQLite FTS5</span><span class="tech-pill">Qdrant</span><span class="tech-pill">Prometheus</span><span class="tech-pill">Grafana</span><span class="tech-pill">PyTorch</span><span class="tech-pill">MLflow</span><span class="tech-pill">Git</span><span class="tech-pill">Linux</span><span class="tech-pill">Bash</span>
+                    </div>
                 </div>
             </section>
 
-            <!-- ═══ ZONE O: ARTICLES ═══ -->
-            <section id="articles" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3"><div class="section-label-mono">// 08 // Articles</div></div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Technical Articles</h2>
-                <p class="text-slateText max-w-2xl leading-relaxed">Deep-dives on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.</p>
-                <a href="articles/index.html" class="inline-flex items-center gap-2 text-cyberGreen font-mono text-sm hover:text-emerald-400 transition-colors">
-                    View All Articles →
-                </a>
+            <!-- ═══ 5. SKILLS ═══ -->
+            <section id="skills" class="space-y-6 scroll-mt-24">
+                <div class="section-label-mono">// Skills</div>
+                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Capabilities</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <div class="stat-box"><div class="stat-num text-cyberGreen">6</div><div class="stat-label">AI Agents</div></div>
+                    <div class="stat-box"><div class="stat-num text-teal-400">26</div><div class="stat-label">Workflows</div></div>
+                    <div class="stat-box"><div class="stat-num text-purple-400">~70</div><div class="stat-label">Skills</div></div>
+                    <div class="stat-box"><div class="stat-num text-amber-400">5</div><div class="stat-label">Memory Layers</div></div>
+                    <div class="stat-box"><div class="stat-num text-cyan-400">22K+</div><div class="stat-label">Requests</div></div>
+                    <div class="stat-box"><div class="stat-num text-cyberGreen">$0</div><div class="stat-label">Monthly Cost</div></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-44 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-1.5">
+                            <div class="font-mono text-[9px] text-cyberGreen bg-cyberGreen/10 px-2 py-0.5 rounded w-max font-bold">AGENTIC_SYSTEMS</div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">Multi-Agent Orchestration</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">Building and deploying autonomous AI agent networks with event-driven routing, persistent memory, and async execution. LangGraph, Paperclip, Hermes.</p>
+                        </div>
+                    </div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-44 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-1.5">
+                            <div class="font-mono text-[9px] text-teal-400 bg-teal-400/10 px-2 py-0.5 rounded w-max font-bold">MLOPS_INFRA</div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">MLOps &amp; Infrastructure</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">Docker containerization, CI/CD pipelines, model serving, monitoring (Prometheus/Grafana), automated health checks and cron orchestration.</p>
+                        </div>
+                    </div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-44 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-1.5">
+                            <div class="font-mono text-[9px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded w-max font-bold">AI_ML_ENGINEERING</div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">AI/ML Engineering</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">Transformers, RAG pipelines, fine-tuning (LoRA/QLoRA), embeddings (pgvector, nomic-embed), local inference with Ollama, evaluation frameworks.</p>
+                        </div>
+                    </div>
+                    <div class="hud-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col justify-between h-44 hover:border-hudGray/80 transition-all duration-300">
+                        <div class="hud-tl"></div><div class="hud-br"></div>
+                        <div class="space-y-1.5">
+                            <div class="font-mono text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded w-max font-bold">IT_OPS_FOUNDATION</div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-tight">IT Operations Foundation</h3>
+                            <p class="text-[11px] text-slateText leading-relaxed font-sans">4+ years hands-on: asset management (6K+), network troubleshooting, Slack/Sheets automation, Google IT Support certified, C2 English.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
-            <!-- ═══ ZONE N: CONTACT ═══ -->
+
+            <!-- ═══ 6. ARTICLES ═══ -->
+            <section id="articles" class="space-y-6 scroll-mt-24">
+                <div class="section-label-mono">// Writing</div>
+                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Writing &amp; Research</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <a href="articles/5-layer-memory-stack.html" class="article-card">
+                        <div class="meta">
+                            <span class="tag">Architecture</span>
+                            <span class="tag">Agentic AI</span>
+                            <span class="date">June 2026</span>
+                        </div>
+                        <h3>Why I Built a 5-Layer AI Memory Stack on an M1 Mac</h3>
+                        <p>Every AI agent forgets. Here's how I built persistent, multi-layer memory that survives session restarts, API failures, and model changes — at $0/month.</p>
+                    </a>
+                    <a href="articles/linkedin-article_2.html" class="article-card">
+                        <div class="meta">
+                            <span class="tag">Benchmark</span>
+                            <span class="tag">AI</span>
+                            <span class="date">June 2026</span>
+                        </div>
+                        <h3>What Happens When You Push Free AI Models to Their Limits</h3>
+                        <p>Exploring the practical boundaries of free, locally-run AI models on a consumer Mac. Benchmarks, pitfalls, and lessons learned.</p>
+                    </a>
+                    <a href="articles/hermes-agent-blueprint.html" class="article-card">
+                        <div class="meta">
+                            <span class="tag">Architecture</span>
+                            <span class="tag">Blueprint</span>
+                            <span class="date">June 2026</span>
+                        </div>
+                        <h3>Hermes Agent – Zero-Cost AI Operations Blueprint</h3>
+                        <p>Technical deep-dive showing how a production-grade AI agent runs on a single M1 Mac with zero cloud cost.</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- ═══ 7. CONTACT ═══ -->
             <section id="contact" class="scroll-mt-24 pb-12">
                 <div class="bg-gradient-to-br from-cardBg to-obsidian border border-hudGray/60 rounded-2xl p-8 text-center max-w-2xl mx-auto space-y-4">
                     <h2 class="text-2xl font-black text-white uppercase tracking-tight">Let's Talk</h2>
@@ -610,7 +337,7 @@
         </main>
     </div>
 
-    <!-- ═══ SCROLLSPY CONTROLLER ═══ -->
+    <!-- ═══ SCROLLSPY ═══ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('section[id]');
