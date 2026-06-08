@@ -125,22 +125,23 @@ footer a:hover { color: var(--accent); }
 
   <h1>I Built an AI Agent to Track My Job Applications. Here's What Broke — And How I Fixed It.</h1>
 
-  <p>I track every job application in a Google Sheet. Company, role, date, status, notes. Simple.</p>
+  <p>I track every job application in a spreadsheet. Company, role, date, status, notes. Simple.</p>
 
-  <p>The problem: I was updating it manually. Every few days, I'd remember to check my sent folder, scan for new applications, copy them into the sheet. I'd miss things. Status changes would sit in my inbox for a week before I noticed.</p>
+  <p>The problem: I was updating it manually. Every few days, I'd remember to check my sent folder, scan for new applications, copy them in. I'd miss things. Status changes would sit in my inbox for a week before I noticed. Rejections would land in Junk and I wouldn't see them at all.</p>
 
   <p>So I built an AI agent to do it for me.</p>
 
   <h2>The Setup</h2>
-  <p>The system runs on Hermes Agent on a single M1 Mac. Every 4 hours, a cron job fires and the agent scans Outlook Sent for new applications, scans Inbox, Junk, and Spam for responses — interview invites, rejections, offers. Searches Gmail. Reads the current Google Sheet. Adds new rows, updates status changes, and sends a Telegram summary if anything changed.</p>
+  <p>The system runs on Hermes Agent on a single M1 Mac. Every 4 hours, a cron job fires and the agent scans Outlook Sent for new applications, scans Inbox, Junk, and Spam for responses — interview invites, rejections, offers, next steps. Searches Gmail. Reads the current spreadsheet. Adds new rows, updates status changes, and sends a Telegram summary if anything changed.</p>
   <p>All of it runs through Zapier MCP. No custom API code. No OAuth tokens to manage. Zapier handles authentication for Outlook, Gmail, Google Sheets, and Telegram.</p>
+  <p>The sheet had around 50 existing entries when I started. Applications from LinkedIn, job boards, direct email — all tracked manually.</p>
 
   <h2>What Broke</h2>
   <p>The cron job was running. The status said "ok." But the sheet wasn't updating.</p>
 
-  <p><strong>Problem 1: Wrong API path.</strong> The agent was looking for a local OAuth token file (<code style="font-family:var(--mono);font-size:0.85em;color:var(--accent-bright);">~/.hermes/google_token.json</code>) that didn't exist. It was trying to use the Google API directly instead of going through Zapier, which already had Google Sheets connected.</p>
+  <p><strong>Problem 1: Wrong API path.</strong> The agent was looking for a local OAuth token file that didn't exist. It was trying to use the Google API directly instead of going through Zapier, which already had Google Sheets connected.</p>
 
-  <p><strong>Problem 2: Unknown action names.</strong> Even when trying Zapier, the agent didn't know the exact action keys. Zapier's actions aren't guessable — <code style="font-family:var(--mono);font-size:0.85em;color:var(--accent-bright);">google_sheets_create_spreadsheet_row</code> isn't something you infer. The agent guessed, failed, and fell back to the non-existent token file.</p>
+  <p><strong>Problem 2: Unknown action names.</strong> Even when trying Zapier, the agent didn't know the exact action keys. Zapier's actions aren't guessable. The agent guessed, failed, and fell back to the non-existent token file.</p>
 
   <p><strong>Problem 3: Outlook folder IDs.</strong> The agent passed "Sent" as the folder ID. Zapier needs the actual encoded folder ID string. Without it, searches returned nothing.</p>
 
@@ -149,24 +150,15 @@ footer a:hover { color: var(--accent); }
   <h2>The Fix</h2>
   <p>Four specific changes to the cron job prompt:</p>
   <ul>
-    <li><strong>Call <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">list_enabled_zapier_actions</code> first.</strong> Returns exact action keys for every connected app. No guessing.</li>
-    <li><strong>Use <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$A</code>, <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$B</code> for column mapping.</strong> The sheet has no header row — first row is data. Zapier read "Bioprist Group" as the column name. Using <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$A</code> maps directly to spreadsheet columns.</li>
-    <li><strong>Include all formatting params.</strong> Every write call now includes <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">text_format_bold: false</code>, <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">background_color: "#FFFFFF"</code>. No stalled follow-ups.</li>
+    <li><strong>Call <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">list_enabled_zapier_actions</code> first.</strong> Returns exact action keys. No guessing.</li>
+    <li><strong>Use <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$A</code>, <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$B</code> for column mapping.</strong> No header row — first row is data. Using <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$A</code> maps directly to spreadsheet columns.</li>
+    <li><strong>Include all formatting params.</strong> Every write call includes <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">text_format_bold: false</code>, <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">background_color: "#FFFFFF"</code>. No stalled follow-ups.</li>
     <li><strong>Expand email search to all folders.</strong> Inbox, Sent, Junk Email, and Spam. Job responses get filtered into Junk constantly.</li>
   </ul>
 
   <h2>The Result</h2>
-  <p>After the fix, one manual run found <strong>7 untracked applications</strong>:</p>
-  <ul>
-    <li><strong>Talentoma</strong> — Remote IT Support Assistant (LinkedIn, June 8)</li>
-    <li><strong>Experfy</strong> — Tech Support Associate Contractor (LinkedIn, June 7)</li>
-    <li><strong>Vintti</strong> — Computer Vision &amp; ML Expert for AI Training (LinkedIn, June 4)</li>
-    <li><strong>Anedot</strong> — Customer Support Specialist (Gusto, June 8) — Rejected</li>
-    <li><strong>Reboot Monkey</strong> — Data Center Technician, Kingston (LinkedIn, June 8)</li>
-    <li><strong>PurpleDot Logistics</strong> — Freelance Pickup Personnel (LinkedIn, June 8)</li>
-    <li><strong>OneVision Resources</strong> — IT Spec (Outlook, June 8) — Rejected after AI role-play interview</li>
-  </ul>
-  <p>Sheet went from 58 to 75 rows. The cron now runs automatically every 4 hours.</p>
+  <p>After the fix, one manual run found several applications I'd missed — responses sitting in Junk, confirmations I'd forgotten about, status changes that never got recorded. The sheet grew by about 15 entries in one pass.</p>
+  <p>The cron now runs automatically every 4 hours. I get a Telegram ping when something changes. If nothing new, it stays silent.</p>
 
   <hr class="divider">
 
