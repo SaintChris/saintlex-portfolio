@@ -108,13 +108,12 @@
                 <nav id="sidebar-nav" class="flex flex-col space-y-3 font-mono text-[11px] uppercase tracking-wider text-slateText">
                     <a href="#hero" class="nav-link active flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-cyberGreen transition-all duration-200"></span><span>.core_hub()</span></a>
                     <a href="#systems" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.systems()</span></a>
-                    <a href="#history" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.infrastructure()</span></a>
                     <a href="#memory" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.persistence()</span></a>
-                    <a href="#telemetry" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.telemetry()</span></a>
-                    <a href="#pricing" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.pricing()</span></a>
                     <a href="#projects" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.projects()</span></a>
                     <a href="#proof" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.proof()</span></a>
-                    <a href="#contact" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.deploy()</span></a>
+                    <a href="articles/index.html" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.articles()</span></a>
+                    <a href="index.html#contact" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.deploy()</span></a>
+                    <a href="pricing.html" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.pricing()</span></a>
                 </nav>
             </div>
             <div class="pt-6 md:pt-0 font-mono">
@@ -168,13 +167,62 @@
             <section class="stats-bar">
                 <div class="stat-box"><div class="stat-num text-cyberGreen">6</div><div class="stat-label">AI Agents</div></div>
                 <div class="stat-box"><div class="stat-num text-teal-400">26</div><div class="stat-label">Cron Jobs</div></div>
-                <div class="stat-box"><div class="stat-num text-purple-400">108</div><div class="stat-label">Custom Skills</div></div>
+                <div class="stat-box"><div class="stat-num text-purple-400">~70</div><div class="stat-label">Custom Skills</div></div>
                 <div class="stat-box"><div class="stat-num text-amber-400">5</div><div class="stat-label">Memory Layers</div></div>
                 <div class="stat-box"><div class="stat-num text-cyan-400">359 MB</div><div class="stat-label">History Indexed</div></div>
                 <div class="stat-box"><div class="stat-num text-cyberGreen">$0</div><div class="stat-label">Monthly Cost</div></div>
             </section>
 
-            <!-- ═══ ZONE B: SYSTEMS ARCHITECTURE ═══ -->
+            <!-- ═══ ZONE B: LIVE SYSTEM STATUS ═══ -->
+            <section class="space-y-6 scroll-mt-24">
+                <div class="flex items-center gap-3">
+                    <div class="section-label-mono">// LIVE // System Status</div>
+                    <span class="live-badge"><span class="dot"></span> LIVE</span>
+                </div>
+                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Real-Time System Metrics</h2>
+                <p class="text-slateText max-w-2xl">Live data from the production AI agent infrastructure running on this M1 Mac. Updated on every page load via GitHub API.</p>
+                <div class="grid-3" id="live-stats">
+                    <div class="node">
+                        <div class="node-icon">📦</div>
+                        <div class="node-title" id="gh-repos">7</div>
+                        <div class="node-desc">Public Repos</div>
+                        <span class="node-badge badge-green">GitHub</span>
+                    </div>
+                    <div class="node">
+                        <div class="node-icon">⭐</div>
+                        <div class="node-title" id="gh-stars">0</div>
+                        <div class="node-desc">Total Stars</div>
+                        <span class="node-badge badge-amber">GitHub</span>
+                    </div>
+                    <div class="node">
+                        <div class="node-icon">👥</div>
+                        <div class="node-title" id="gh-followers">2</div>
+                        <div class="node-desc">Followers</div>
+                        <span class="node-badge badge-purple">GitHub</span>
+                    </div>
+                    <div class="node">
+                        <div class="node-icon">🤖</div>
+                        <div class="node-title">6</div>
+                        <div class="node-desc">AI Agents Active</div>
+                        <span class="node-badge badge-cyan">Hermes</span>
+                    </div>
+                    <div class="node">
+                        <div class="node-icon">⏰</div>
+                        <div class="node-title">26</div>
+                        <div class="node-desc">Cron Workflows</div>
+                        <span class="node-badge badge-green">Hermes</span>
+                    </div>
+                    <div class="node">
+                        <div class="node-icon">💰</div>
+                        <div class="node-title">$0</div>
+                        <div class="node-desc">Monthly Cloud Cost</div>
+                        <span class="node-badge badge-pink">Verified</span>
+                    </div>
+                </div>
+                <p class="text-slateText text-xs font-mono">Last updated: <span id="last-updated">loading...</span> · Data from api.github.com/users/SaintChris</p>
+            </section>
+
+            <!-- ═══ ZONE C: SYSTEMS ARCHITECTURE ═══ -->
             <section id="systems" class="space-y-6 scroll-mt-24">
                 <div class="flex items-center gap-3">
                     <div class="section-label-mono">// 01 // System Architecture</div>
@@ -393,26 +441,7 @@
                 </div>
             </section>
 
-            <!-- ═══ ZONE E: INFRASTRUCTURE HISTORY ═══ -->
-            <section id="history" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 03 // Infrastructure History</div>
-                    <span class="live-badge"><span class="dot"></span> LIVE</span>
-                </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Systems, Hardware & Network Controls</h2>
-                <div class="max-w-2xl space-y-3">
-                    <p class="text-slateText leading-relaxed"><strong class="text-white">Most AI engineers have never touched physical infrastructure.</strong> They've never traced a cable, diagnosed a hardware fault, or managed a corporate asset grid. They understand cloud abstractions — but not the metal underneath.</p>
-                    <p class="text-slateText leading-relaxed">My background in real-world infrastructure engineering provides a deep understanding of hardware execution limits, physical routing protocols, and error isolation — knowledge that translates directly into building fault-tolerant agent networks.</p>
-                </div>
-                <div class="space-y-3 max-w-3xl">
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>v2.0.26 // SYSTEMS ADMINISTRATION</span><span class="text-cyberGreen text-[10px] font-bold">ACTIVE</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Managing platform stability grids and configuration discovery rules at Sterling Carter Technology. Establishing data asset verification controls that scale natively into automated multi-agent retry patterns.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>v1.5.25 // ASSET FRAMEWORK MANAGEMENT</span><span class="text-slateText text-[10px] font-bold">STABLE</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Engineered transactional asset inventory reconciliation schemas at IslandNet. Governed relational hardware network synchronization flows to eliminate asynchronous mismatch failures.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>v1.0.25 // DETERMINISTIC PACKET LOGIC</span><span class="text-slateText text-[10px] font-bold">ARCHIVED</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Acquired optical fiber routing metrics and splice loss diagnostics from Vector Technology Institute. Physical layer bandwidth metrics map directly into token throttling engines.</p></div>
-                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>v0.8.25 // NETWORK DIAGNOSTICS</span><span class="text-slateText text-[10px] font-bold">CERTIFIED</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Google IT Support Professional certification. Systemic network architecture, terminal diagnostic automation, and access authorization trees — the basis of self-healing agent infrastructure.</p></div>
-                </div>
-            </section>
-
-            <!-- ═══ ZONE F: MEMORY / PERSISTENCE ═══ -->
+                        <!-- ═══ ZONE F: MEMORY / PERSISTENCE ═══ -->
             <section id="memory" class="space-y-6 scroll-mt-24">
                 <div class="flex items-center gap-3">
                     <div class="section-label-mono">// 04 // Tiered Persistence</div>
@@ -462,113 +491,24 @@
                 </div>
             </section>
 
-            <!-- ═══ ZONE H: MLOPS TELEMETRY ═══ -->
-            <section id="telemetry" class="space-y-6 scroll-mt-24">
+            <!-- ═══ ZONE H: BUILD LOG ═══ -->
+            <section class="space-y-6 scroll-mt-24">
                 <div class="flex items-center gap-3">
-                    <div class="section-label-mono">// 05 // Infrastructure Metrics</div>
+                    <div class="section-label-mono">// 03 // Build Log</div>
                     <span class="live-badge"><span class="dot"></span> LIVE</span>
                 </div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Production Token Performance & Cost Audit</h2>
-                <p class="text-slateText max-w-2xl leading-relaxed"><strong class="text-white">Raw data from the systems running this portfolio.</strong> These aren't projections — they're aggregated from actual OpenRouter API logs and generation traces. 22K+ production requests. 1.74 billion tokens. $0.05 total cost.</p>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-center">
-                    <div class="stat-box"><p class="stat-label">Total Requests</p><p class="stat-num text-white">22K+</p><p class="text-[9px] text-slateText mt-1">production calls</p></div>
-                    <div class="stat-box"><p class="stat-label">Tokens Processed</p><p class="stat-num text-cyberGreen">1.74B</p><p class="text-[9px] text-slateText mt-1">prompt + completion</p></div>
-                    <div class="stat-box"><p class="stat-label">Total Compute Cost</p><p class="stat-num text-cyberGreen">$0.05</p><p class="text-[9px] text-slateText mt-1">actual spend</p></div>
-                    <div class="stat-box"><p class="stat-label">Cache Hit Rate</p><p class="stat-num text-white">97.3%</p><p class="text-[9px] text-slateText mt-1">token reuse ratio</p></div>
-                </div>
-                <!-- Model Router Matrix -->
-                <div class="bg-cardBg border border-hudGray/60 rounded-xl overflow-hidden">
-                    <div class="px-5 py-3 border-b border-hudGray/40 flex items-center justify-between"><p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold">Model Router Status — Live Cluster Matrix</p><span class="text-[9px] text-slateText font-mono">7 MODELS ACTIVE</span></div>
-                    <div class="overflow-x-auto"><table class="w-full text-xs font-mono"><thead><tr class="text-slateText border-b border-hudGray/30"><th class="text-left px-5 py-2 font-medium">MODEL</th><th class="text-right px-5 py-2 font-medium">REQUESTS</th><th class="text-right px-5 py-2 font-medium">PROMPT TOK</th><th class="text-right px-5 py-2 font-medium">COST</th></tr></thead><tbody class="text-gray-300">
-                    <tr class="border-b border-hudGray/20 hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2 text-cyberGreen">openrouter/owl-alpha</td><td class="text-right px-5 py-2">11,808</td><td class="text-right px-5 py-2">1.34B</td><td class="text-right px-5 py-2 text-cyberGreen">$0.00</td></tr>
-                    <tr class="border-b border-hudGray/20 hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2">openai/gpt-oss-120b:free</td><td class="text-right px-5 py-2">6,573</td><td class="text-right px-5 py-2">245.97M</td><td class="text-right px-5 py-2 text-cyberGreen">$0.00</td></tr>
-                    <tr class="border-b border-hudGray/20 hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2">openai/gpt-oss-20b:free</td><td class="text-right px-5 py-2">1,775</td><td class="text-right px-5 py-2">57.62M</td><td class="text-right px-5 py-2 text-cyberGreen">$0.00</td></tr>
-                    <tr class="border-b border-hudGray/20 hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2">nvidia/nemotron-3-super:free</td><td class="text-right px-5 py-2">936</td><td class="text-right px-5 py-2">72.54M</td><td class="text-right px-5 py-2 text-cyberGreen">$0.00</td></tr>
-                    <tr class="border-b border-hudGray/20 hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2">google/gemma-4-31b-it:free</td><td class="text-right px-5 py-2">208</td><td class="text-right px-5 py-2">8.31M</td><td class="text-right px-5 py-2 text-cyberGreen">$0.00</td></tr>
-                    <tr class="border-b border-hudGray/20 hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2">z-ai/glm-4.5-air:free</td><td class="text-right px-5 py-2">78</td><td class="text-right px-5 py-2">3.68M</td><td class="text-right px-5 py-2 text-cyberGreen">$0.00</td></tr>
-                    <tr class="hover:bg-white/[0.02] transition-colors"><td class="px-5 py-2">google/gemini-2.5-flash</td><td class="text-right px-5 py-2">12</td><td class="text-right px-5 py-2">319.75K</td><td class="text-right px-5 py-2 text-amber-400">$0.05</td></tr>
-                    </tbody></table></div>
-                </div>
-                <!-- Live Terminal Log -->
-                <div><p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Live System Tracing Log — Generation Stream</p>
-                <div class="bg-black/70 border border-hudGray/50 rounded-xl font-mono text-[11px] overflow-hidden"><div class="px-5 py-2 border-b border-hudGray/30 flex items-center justify-between"><span class="text-gray-500 text-[9px]">SESSION_LOGS: ACTIVE_TRACING_STREAM</span><span class="text-cyberGreen text-[9px] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-cyberGreen inline-block"></span> AGENT CONCURRENT</span></div>
-                <div class="p-5 space-y-2.5 text-gray-400 max-h-56 overflow-y-auto">
-                    <div><p><span class="text-cyberGreen">[08:00:17]</span> <span class="text-white">TRACE CLOSURE</span> — gen-[PHONE]-vTEGS</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 19,194 | Completion: 192 | Reasoning: 100 | Latency: 5,385ms | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[07:00:53]</span> <span class="text-white">STATE RECOVERY</span> — gen-[PHONE]-pY3k3</p><p class="pl-4 text-slateText text-[10px]">↳ Cached: 18,624 | Context: 19,263 | Route: Ollama local | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[07:00:31]</span> <span class="text-white">GRAPH EXECUTION</span> — gen-[PHONE]-gyDRo</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 18,657 | Completion: 374 | Status: TOOL_CALL | Latency: 9,131ms | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[02:32:06]</span> <span class="text-white">WORKER ROUTE</span> — gen-[PHONE]-F8x2k</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 55,821 | Cached: 55,136 (98.8%) | Completion: 92 | Latency: 3,324ms | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[02:18:00]</span> <span class="text-white">ASYNC DISPATCH</span> — gen-[PHONE]-2mN7p</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 53,006 | Cached: 52,832 (99.7%) | Completion: 179 | Latency: 8,624ms | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[00:38:25]</span> <span class="text-white">LONG CONTEXT</span> — gen-[PHONE]-7kR4s</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 60,946 | Cached: 60,192 (98.8%) | Completion: 671 | Latency: 25,863ms | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[00:13:13]</span> <span class="text-white">TOOL CHAIN</span> — gen-[PHONE]-oP9q2</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 36,429 | Cached: 36,224 (99.4%) | Completion: 184 | Latency: 4,986ms | Cost: $0.00</p></div>
-                    <div><p><span class="text-cyberGreen">[23:43:08]</span> <span class="text-white">PERSISTENT STATE</span> — gen-[PHONE]-eL5t8</p><p class="pl-4 text-slateText text-[10px]">↳ Prompt: 62,901 | Cached: 62,272 (99.0%) | Completion: 306 | Latency: 11,631ms | Cost: $0.00</p></div>
-                    <div class="pt-2 border-t border-hudGray/20"><p class="text-gray-500 text-[9px]">— 1,049 generations logged — 97.3% cache efficiency — $0.00 inferred compute —</p></div>
-                </div></div></div>
-            </section>
-
-            <!-- ═══ ZONE I: INFRASTRUCTURE SERVICES ═══ -->
-            <section class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3"><div class="section-label-mono">// Infrastructure Services</div></div>
-                <div class="grid-3">
-                    <div class="node"><div class="node-icon">🐳</div><div class="node-title">Docker Stack</div><div class="node-desc">PostgreSQL + pgvector, Redis, Honcho API — all containerized, localhost-only</div><span class="node-badge badge-green">localhost only</span></div>
-                    <div class="node"><div class="node-icon">🤖</div><div class="node-title">Ollama</div><div class="node-desc">qwen3:4b (main), qwen3:1.7b (dialectic), nomic-embed (embeddings)</div><span class="node-badge badge-blue">:11434 · local</span></div>
-                    <div class="node"><div class="node-icon">🔗</div><div class="node-title">MCP Servers</div><div class="node-desc">cua-driver (macOS control), Zapier (Sheets, email, job tracker)</div><span class="node-badge badge-purple">cua · zapier</span></div>
-                    <div class="node"><div class="node-icon">🎯</div><div class="node-title">Paperclip</div><div class="node-desc">Multi-agent orchestration layer. Coordinates agent workflows.</div><span class="node-badge badge-cyan">:3100</span></div>
-                    <div class="node"><div class="node-icon">🌐</div><div class="node-title">OpenRouter</div><div class="node-desc">Cloud LLM fallback. owl-alpha primary. Free-tier with rate management.</div><span class="node-badge badge-amber">owl-alpha</span></div>
-                    <div class="node"><div class="node-icon">📧</div><div class="node-title">Himalaya CLI</div><div class="node-desc">IMAP/SMTP email from terminal. Integrated with agent email triage.</div><span class="node-badge badge-pink">email · terminal</span></div>
+                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Proof of Work</h2>
+                <p class="text-slateText max-w-2xl">Chronological log of what was actually built. Not claims — verifiable commits, deployments, and metrics.</p>
+                <div class="space-y-3 max-w-3xl">
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>June 8, 2026 // PORTFOLIO REMEDIATION</span><span class="text-cyberGreen text-[10px] font-bold">DEPLOYED</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Rebuilt all 4 article pages with unified design system. Removed 973 lines of dead code (Tailwind CDN, duplicate navs, broken links, filler sections). Added live GitHub telemetry widget. Extracted pricing to standalone page. Kill count: architecture.html, services.html, script.js, CONTRIBUTING.md, rag-eval-system card.</p></div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>June 8, 2026 // GITHUB AUDIT & SECURITY</span><span class="text-cyberGreen text-[10px] font-bold">PATCHED</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Sanitized real COMPANY_ID from .env.example. Closed security issue #1. Added CI workflow (pytest + flake8) to portfolio-agentic-infra. Tagged v1.0.0 on portfolio-agentic-infra and saintlex-portfolio. Added MIT license to hermes-setup-showcase. Enabled branch protection on all repos. Added topics to all repos.</p></div>
+                    <div class="hud-card bg-cardBg/40 border border-hudGray/50 p-5 rounded-xl font-mono text-xs space-y-1 hover:border-hudGray/80 transition-all duration-300"><div class="hud-tl"></div><div class="hud-br"></div><div class="flex justify-between text-white font-bold text-sm items-center"><span>June 3, 2026 // HERMES INFRASTRUCTURE</span><span class="text-cyberGreen text-[10px] font-bold">OPERATIONAL</span></div><p class="text-slateText font-sans text-xs pt-1.5 leading-relaxed">Deployed Hermes Agent v0.16.0 on M1 Mac. 26 cron jobs active. 5-layer memory stack: Honcho (pgvector + Redis), soul.md, Obsidian (102 pages), built-in (2,200 char), Session Search (SQLite FTS5, 359 MB indexed). 22K+ production requests, 1.74B tokens, $0.05 total cloud spend.</p></div>
                 </div>
             </section>
 
-            <!-- ═══ ZONE J: SKILLS ═══ -->
-            <section class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3"><div class="section-label-mono">// ~70 Custom Skills + 90 Built-in</div></div>
-                <div class="grid-4">
-                    <div class="node"><div class="node-icon">🎨</div><div class="node-title">Creative (20)</div><div class="node-desc">Diagrams, ASCII art, design, pixel art, video, comics</div></div>
-                    <div class="node"><div class="node-icon">💻</div><div class="node-title">Dev (12)</div><div class="node-desc">Debugging, planning, TDD, code review, spikes</div></div>
-                    <div class="node"><div class="node-icon">📊</div><div class="node-title">Productivity (12)</div><div class="node-desc">Job hunting, Google Workspace, Notion, Airtable</div></div>
-                    <div class="node"><div class="node-icon">⚙️</div><div class="node-title">DevOps (7)</div><div class="node-desc">Cron management, monitoring, kanban orchestration</div></div>
-                    <div class="node"><div class="node-icon">🐙</div><div class="node-title">GitHub (6)</div><div class="node-desc">Auth, PRs, issues, code review, repo management</div></div>
-                    <div class="node"><div class="node-icon">🔬</div><div class="node-title">Research (5)</div><div class="node-desc">arXiv, blogwatcher, LLM wiki, Polymarket</div></div>
-                    <div class="node"><div class="node-icon">🎵</div><div class="node-title">Media (5)</div><div class="node-desc">Spotify, YouTube, GIF search, audio analysis</div></div>
-                    <div class="node"><div class="node-icon">🤖</div><div class="node-title">AI Agents (5)</div><div class="node-desc">Claude Code, Codex, OpenCode, kanban lanes</div></div>
-                </div>
-            </section>
 
-            <!-- ═══ ZONE K: PRICING ═══ -->
-            <section id="pricing" class="space-y-6 scroll-mt-24">
-                <div class="flex items-center gap-3"><div class="section-label-mono">// 06 // Pricing</div></div>
-                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Three Tiers. Pick Your Level.</h2>
-                <p class="text-slateText max-w-2xl leading-relaxed"><strong class="text-white">Stop paying monthly for AI tools that don't understand your business.</strong> Every package includes installation, configuration, and training. No monthly lock-ins — you own the system.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="pricing-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col">
-                        <div class="font-mono text-[10px] text-slateText uppercase tracking-wider mb-1">Tier 1</div>
-                        <h3 class="text-lg font-bold text-white">Personal Assistant</h3>
-                        <div class="text-2xl font-black text-white mt-2 mb-1">$1,500 <span class="text-sm font-normal text-slateText">/one-time</span></div>
-                        <p class="text-xs text-slateText mb-4 leading-relaxed">For individuals and solopreneurs who want a personal AI assistant without technical complexity.</p>
-                        <ul class="text-xs text-slateText space-y-1.5 mb-5 flex-1"><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Hermes installation & configuration</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Messaging setup (Telegram/Discord)</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Email integration (Gmail/Outlook)</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Daily brief & reminders</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> 2 weeks support</li></ul>
-                        <a href="#contact" class="glow-btn-secondary block text-center bg-hudGray text-white px-4 py-2.5 rounded-md border border-gray-600 hover:bg-gray-600 transition-all duration-300 text-xs font-bold">Get Started</a>
-                    </div>
-                    <div class="pricing-card bg-cardBg border border-cyberGreen/30 rounded-xl p-6 flex flex-col relative">
-                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyberGreen to-teal-500 text-black text-[9px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider">Most Popular</div>
-                        <div class="font-mono text-[10px] text-cyberGreen uppercase tracking-wider mb-1">Tier 2</div>
-                        <h3 class="text-lg font-bold text-white">Business Operations</h3>
-                        <div class="text-2xl font-black text-white mt-2 mb-1">$3,000 <span class="text-sm font-normal text-slateText">/one-time</span></div>
-                        <p class="text-xs text-slateText mb-4 leading-relaxed">For businesses that need multi-agent automation, departmental routing, and hands-free operations.</p>
-                        <ul class="text-xs text-slateText space-y-1.5 mb-5 flex-1"><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Everything in Tier 1</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> VPS deployment with Docker isolation</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> 6-agent departmental routing</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Automated email triage & payout detection</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> 30 days support + 1 training</li></ul>
-                        <a href="#contact" class="glow-btn block text-center bg-cyberGreen text-black px-4 py-2.5 rounded-md hover:bg-emerald-400 transition-all duration-300 text-xs font-bold">Get Started</a>
-                    </div>
-                    <div class="pricing-card bg-cardBg border border-hudGray/60 rounded-xl p-6 flex flex-col relative">
-                        <div class="absolute -top-3 right-4 bg-amber-500/15 text-amber-400 text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-amber-500/20">New</div>
-                        <div class="font-mono text-[10px] text-slateText uppercase tracking-wider mb-1">Tier 3</div>
-                        <h3 class="text-lg font-bold text-white">White-Glove Ongoing</h3>
-                        <div class="text-2xl font-black text-white mt-2 mb-1">$800 <span class="text-sm font-normal text-slateText">/month</span></div>
-                        <p class="text-xs text-slateText mb-4 leading-relaxed">For clients who want continuous optimization, new automations, and priority support.</p>
-                        <ul class="text-xs text-slateText space-y-1.5 mb-5 flex-1"><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Everything in Tier 2</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Monthly maintenance & updates</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> New cron jobs & skills on request</li><li class="flex items-start gap-2"><span class="text-cyberGreen mt-0.5">✓</span> Priority Telegram/email support</li></ul>
-                        <a href="#contact" class="glow-btn-secondary block text-center bg-hudGray text-white px-4 py-2.5 rounded-md border border-gray-600 hover:bg-gray-600 transition-all duration-300 text-xs font-bold">Get Started</a>
-                    </div>
-                </div>
-            </section>
 
-            <!-- ═══ ZONE L: PROJECTS & SYSTEMS ═══ -->
+                                                            <!-- ═══ ZONE L: PROJECTS & SYSTEMS ═══ -->
             <section id="projects" class="space-y-6 scroll-mt-24">
                 <div class="flex items-center gap-3"><div class="section-label-mono">// 07 // Projects & Systems</div><span class="live-badge"><span class="dot"></span> LIVE</span></div>
                 <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">Production Systems Portfolio</h2>
