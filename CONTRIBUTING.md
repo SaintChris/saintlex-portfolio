@@ -3,6 +3,7 @@
 Thank you for your interest in improving this portfolio site.
 
 ## How to Contribute
+
 1. **Fork the repository** on GitHub.
 2. **Clone your fork** locally:
    ```bash
@@ -26,13 +27,14 @@ Thank you for your interest in improving this portfolio site.
 7. **Push and open a Pull Request** against the `main` branch.
 
 ## Code Style
-- Keep HTML tidy; use meaningful indentation.
-- For any CSS, follow the Tailwind utility‑first approach.
-- Keep lines under 120 characters.
+- Pure HTML/CSS — no frameworks, no dependencies
+- Follow the existing dark theme (CSS custom properties in `:root`)
+- Keep lines under 120 characters
+- Use semantic HTML
 
 ## Review Process
 - Maintainers will review PRs for style and correctness.
-- Automated CI checks (Markdown lint) run on each PR.
+- Automated CI checks run on each PR.
 
 ## Issues
 - Use the GitHub Issues tab.
