@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Articles — Alex Bogle</title>
+<meta name="description" content="Technical articles on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -15,18 +17,12 @@
   --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
   --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; color-scheme: dark; }
 body {
   font-family: var(--font); background: var(--bg); color: var(--text);
   line-height: 1.8; -webkit-font-smoothing: antialiased;
-}
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background-image: var(--noise-url); background-repeat: repeat;
-  background-size: 256px 256px; pointer-events: none; z-index: 9999; opacity: 0.4;
 }
 ::selection { background: var(--accent); color: #fff; }
 
@@ -134,26 +130,18 @@ footer a:hover { color: var(--accent); }
   .cta-box { padding: 0 1.5rem; }
 }
 </style>
-<meta name="description" content="Alex Bogle – Agentic AI Systems Architect. Deep‑dives on AI architecture, agentic systems, and building production AI on zero‑cost infrastructure.">
-<meta property="og:title" content="Alex Bogle – Agentic AI Systems Architect">
-<meta property="og:description" content="Technical articles on AI architecture, agentic systems, and free‑AI deployments.">
-<meta property="og:url" content="https://saintlex.sbs/articles/">
-<meta property="og:type" content="website">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<script async defer data-domain="saintlex.sbs" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
+
 <nav>
-  <a href="index.html" class="logo">alex<span>.</span>bogle</a>
+  <a href="../index.html" class="logo">alex<span>.</span>bogle</a>
   <ul class="nav-links">
-    <li><a href="index.html#work">Work</a></li>
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="architecture.html">Architecture</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-    <li><a href="index.html#articles">Articles</a></li>
+    <li><a href="../index.html#systems">Systems</a></li>
+    <li><a href="../index.html#projects">Projects</a></li>
+    <li><a href="../index.html#pricing">Pricing</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
   </ul>
-  <a href="index.html" class="back-link">← Back</a>
+  <a href="../index.html" class="back-link">← Home</a>
 </nav>
 
 <div class="page-header">
@@ -166,21 +154,11 @@ footer a:hover { color: var(--accent); }
     <div class="meta">
       <span class="tag">Architecture</span>
       <span class="tag">Agentic AI</span>
+      <span class="tag">Memory</span>
       <span class="date">June 2026</span>
     </div>
     <h2>Why I Built a 5-Layer AI Memory Stack on an M1 Mac (And Why Stateless Chatbots Are Dead)</h2>
-    <p>Every AI agent you've ever talked to has a problem: it forgets. Here’s how I built a persistent, multi-layer memory system that survives session restarts, API failures, and model changes — all at $0/month.</p>
-    <span class="read-more">Read Article →</span>
-  </a>
-
-  <a href="linkedin-article.html" class="article-card">
-    <div class="meta">
-      <span class="tag">LinkedIn</span>
-      <span class="tag">AI</span>
-      <span class="date">June 2026</span>
-    </div>
-    <h2>What Happens When You Push Free AI Models to Their Limits</h2>
-    <p>Exploring the practical boundaries of free, locally‑run AI models on a consumer Mac. Benchmarks, pitfalls, and lessons learned.</p>
+    <p>Every AI agent you've ever talked to has a problem: it forgets. Here's how I built a persistent, multi-layer memory system that survives session restarts, API failures, and model changes — all at $0/month.</p>
     <span class="read-more">Read Article →</span>
   </a>
 
@@ -188,10 +166,23 @@ footer a:hover { color: var(--accent); }
     <div class="meta">
       <span class="tag">Architecture</span>
       <span class="tag">Agentic AI</span>
+      <span class="tag">Hermes</span>
       <span class="date">June 2026</span>
     </div>
-    <h2>Hermes Agent – Zero‑Cost, Multi‑Layer AI Operations Blueprint</h2>
-    <p>Technical deep‑dive showing how a production‑grade AI agent runs on a single M1 Mac with zero cloud cost.</p>
+    <h2>Hermes Agent – Zero-Cost, Multi-Layer AI Operations Blueprint</h2>
+    <p>Technical deep-dive showing how a production-grade AI agent runs on a single M1 Mac with zero cloud cost. 6 agents, 26 cron jobs, 5-layer memory stack.</p>
+    <span class="read-more">Read Article →</span>
+  </a>
+
+  <a href="linkedin-article.html" class="article-card">
+    <div class="meta">
+      <span class="tag">AI</span>
+      <span class="tag">Free Models</span>
+      <span class="tag">Benchmarks</span>
+      <span class="date">June 2026</span>
+    </div>
+    <h2>What Happens When You Push Free AI Models to Their Limits</h2>
+    <p>Exploring the practical boundaries of free, locally-run AI models on a consumer Mac. Benchmarks, pitfalls, and lessons learned from 22K+ production requests.</p>
     <span class="read-more">Read Article →</span>
   </a>
 </div>
@@ -199,8 +190,8 @@ footer a:hover { color: var(--accent); }
 <div class="cta-box">
   <div class="cta-box-inner">
     <h3>Looking for an Agentic AI Engineer?</h3>
-    <p>I'm currently open to Agentic AI Engineer, AI Solutions Architect, and MLOps roles. Based in Jamaica (EST timezone), available remote. Production experience from day one.</p>
-    <a href="index.html#contact" class="btn">Get in Touch →</a>
+    <p>I'm currently open to Agentic AI Engineer, AI Solutions Architect, and MLOps roles. Based in Jamaica (EST timezone), available remote.</p>
+    <a href="../index.html#contact" class="btn">Get in Touch →</a>
   </div>
 </div>
 

@@ -1,249 +1,178 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2026-06-08" />
-  <title>Hermes Agent – Zero‑Cost, Multi‑Layer AI Operations Blueprint</title>
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    svg {
-      height: auto;
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      white-space: pre-wrap;
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      border: none;
-      border-top: 1px solid #1a1a1a;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent – Zero-Cost, Multi-Layer AI Operations Blueprint — Alex Bogle</title>
+<meta name="description" content="Technical deep-dive showing how a production-grade AI agent runs on a single M1 Mac with zero cloud cost.">
+<meta property="og:title" content="Hermes Agent – Zero-Cost, Multi-Layer AI Operations Blueprint">
+<meta property="og:description" content="Technical deep-dive: production-grade AI agent on a single M1 Mac, $0 cloud cost.">
+<meta property="og:url" content="https://saintlex.sbs/articles/hermes-agent-blueprint.html">
+<meta property="og:type" content="article">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060c; --bg-card: #111118; --border: #1a1a2e;
+  --border-glow: #2a2a4a; --text: #e8e8f0; --text-muted: #7878a0; --text-dim: #4a4a6a;
+  --accent: #3b82f6; --accent-bright: #60a5fa; --accent-dim: #1d4ed8;
+  --accent-glow: rgba(59,130,246,0.18); --accent-soft: rgba(59,130,246,0.06);
+  --green: #22c55e; --purple: #a855f7; --cyan: #22d3ee; --amber: #f59e0b;
+  --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
+  --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.8; -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--accent); color: #fff; }
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; background: rgba(6,6,12,0.8);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+}
+nav .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+nav .logo span { color: var(--accent); }
+nav .nav-links { display: flex; gap: 0.5rem; list-style: none; background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 0.35rem; }
+nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: var(--radius-full); transition: all var(--transition); }
+nav .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+nav .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+
+/* Article */
+.article-wrap { max-width: 720px; margin: 0 auto; padding: 7rem 2rem 4rem; }
+.article-meta { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.article-meta .tag { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--border); padding: 0.2rem 0.65rem; border-radius: var(--radius-full); }
+.article-meta .date { font-size: 0.75rem; color: var(--text-dim); }
+.article-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+.article-subtitle { color: var(--text-muted); font-size: 1.02rem; margin-bottom: 3rem; }
+
+/* Content */
+.content { border-top: 1px solid var(--border); padding-top: 2rem; }
+.content p { margin-bottom: 1.25rem; color: #d1d5db; }
+.content h2 { font-size: 1.4rem; font-weight: 800; color: var(--text); margin: 2.5rem 0 1rem; letter-spacing: -0.01em; }
+.content h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 2rem 0 0.75rem; }
+.content .tech-line { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 1.5rem; }
+.content blockquote { border-left: 3px solid var(--accent); padding-left: 1.25rem; margin: 1.5rem 0; color: var(--text-muted); font-style: italic; }
+.content ul { margin: 1rem 0 1.5rem 1.5rem; color: #d1d5db; }
+.content li { margin-bottom: 0.5rem; }
+.content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+.content th { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 2px solid var(--border); color: var(--text); font-weight: 600; }
+.content td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); color: #d1d5db; }
+.content tr:hover td { background: rgba(255,255,255,0.02); }
+.content code { font-family: var(--mono); font-size: 0.8rem; background: rgba(255,255,255,0.06); padding: 0.15rem 0.4rem; border-radius: 4px; }
+
+/* CTA */
+.cta-box { max-width: 720px; margin: 3rem auto 0; padding: 0 2rem; }
+.cta-box-inner { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; text-align: center; }
+.cta-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+.cta-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.cta-box .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--accent), var(--accent-dim)); color: #fff; padding: 0.85rem 2rem; border-radius: var(--radius-full); text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 20px rgba(59,130,246,0.25); transition: all var(--transition); }
+.cta-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 4rem; }
+footer a { color: var(--text-muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+  .article-wrap { padding: 6rem 1.5rem 3rem; }
+}
+</style>
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">Hermes Agent – Zero‑Cost, Multi‑Layer AI Operations
-Blueprint</h1>
-<p class="date">2026-06-08</p>
-</header>
-<h2 id="tldr">TL;DR</h2>
-<p>Hermes Agent runs on a <strong>single M1 Mac</strong> with <strong>no
-monthly cloud spend</strong> by combining:</p>
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 46%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr>
-<th>Layer</th>
-<th>What it does</th>
-<th>Key tech</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Core inference</strong></td>
-<td>Local Ollama model (<code>qwen3:4b</code>) with OpenRouter
-fall‑backs (<code>owl‑alpha</code>, <code>deepseek‑v4‑flash</code>)</td>
-<td>Ollama, OpenRouter</td>
-</tr>
-<tr>
-<td><strong>Tool orchestration</strong></td>
-<td>40+ built‑in toolsets (web, browser, terminal, file, vision, cron,
-delegation, etc.)</td>
-<td>Python, <code>tools/</code> registry</td>
-</tr>
-<tr>
-<td><strong>Persistent memory</strong></td>
-<td>5‑layer stack (Honcho vector store, Redis cache, SQLite FTS5,
-Obsidian vault, built‑in compact memory)</td>
-<td>Honcho, pgvector, Redis, SQLite</td>
-</tr>
-<tr>
-<td><strong>Task scheduling</strong></td>
-<td><code>cronjob</code> subsystem (26 jobs, &lt; 1 s latency)</td>
-<td>SQLite cron DB, <code>cronjob</code> tool</td>
-</tr>
-<tr>
-<td><strong>Sub‑agent delegation</strong></td>
-<td><code>delegate_task</code> (max 3 parallel children) for heavy
-workloads</td>
-<td>Separate terminal sessions, isolated state</td>
-</tr>
-<tr>
-<td><strong>Collaboration board</strong></td>
-<td>Kanban board (<code>kanban</code> toolset) for multi‑profile
-workstreams</td>
-<td>SQLite kanban DB</td>
-</tr>
-<tr>
-<td><strong>Gateway</strong></td>
-<td>Multi‑platform messaging (Telegram, Discord, Slack, etc.)</td>
-<td>Hermes gateway, platform adapters</td>
-</tr>
-<tr>
-<td><strong>Security</strong></td>
-<td>Secret redaction, PII masking, manual approvals for destructive
-commands</td>
-<td><code>approvals.mode = manual</code></td>
-</tr>
-</tbody>
-</table>
-<p><em>… (rest of article omitted for brevity; full content is in the
-repository)</em></p>
+
+<nav>
+  <a href="../index.html" class="logo">alex<span>.</span>bogle</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#systems">Systems</a></li>
+    <li><a href="../index.html#projects">Projects</a></li>
+    <li><a href="../index.html#pricing">Pricing</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="back-link">← Articles</a>
+</nav>
+
+<div class="article-wrap">
+  <div class="article-meta">
+    <span class="tag">Architecture</span>
+    <span class="tag">Agentic AI</span>
+    <span class="tag">Hermes</span>
+    <span class="date">June 2026</span>
+  </div>
+
+  <h1 class="article-title">Hermes Agent – Zero-Cost, Multi-Layer AI Operations Blueprint</h1>
+  <p class="article-subtitle">Technical deep-dive showing how a production-grade AI agent runs on a single M1 Mac with zero cloud cost.</p>
+
+  <div class="content">
+    <h2>TL;DR</h2>
+    <p>Hermes Agent runs on a <strong>single M1 Mac</strong> with <strong>no monthly cloud spend</strong> by combining local LLM inference, a 5-layer memory stack, 26 automated cron jobs, and multi-agent delegation — all containerized and running 24/7.</p>
+
+    <table>
+      <thead><tr><th>Layer</th><th>What it does</th><th>Key tech</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Core inference</strong></td><td>Local Ollama model (qwen3:4b) with OpenRouter fallbacks (owl-alpha)</td><td>Ollama, OpenRouter</td></tr>
+        <tr><td><strong>Tool orchestration</strong></td><td>40+ built-in toolsets (web, browser, terminal, file, vision, cron, delegation)</td><td>Python, tools registry</td></tr>
+        <tr><td><strong>Persistent memory</strong></td><td>5-layer stack: Honcho vector store, Redis cache, SQLite FTS5, Obsidian vault, built-in compact memory</td><td>Honcho, pgvector, Redis, SQLite</td></tr>
+        <tr><td><strong>Task scheduling</strong></td><td>26 cron jobs, &lt;1s latency</td><td>SQLite cron DB, cronjob tool</td></tr>
+        <tr><td><strong>Sub-agent delegation</strong></td><td>delegate_task (max 3 parallel children) for heavy workloads</td><td>Separate terminal sessions, isolated state</td></tr>
+        <tr><td><strong>Gateway</strong></td><td>Multi-platform messaging (Telegram, Discord, Slack)</td><td>Hermes gateway, platform adapters</td></tr>
+        <tr><td><strong>Security</strong></td><td>Secret redaction, PII masking, manual approvals for destructive commands</td><td>approvals.mode = manual</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Why Local-First?</h2>
+    <p>Cloud AI APIs are convenient until they're not. Rate limits hit mid-task. Providers change pricing. Services go down. Your agent stops working because someone else's server had a bad day.</p>
+    <p>Local-first means your agents run on your hardware, with your data, under your control. The cloud becomes a fallback — not a dependency.</p>
+
+    <h2>The Architecture</h2>
+    <p>At the core: Ollama running qwen3:4b for main inference, with OpenRouter as a cloud fallback for heavier models. Around that: a tool registry with 40+ built-in toolsets. On top: a 5-layer memory stack that gives agents persistent, searchable, cross-session memory.</p>
+    <p>The inbox_bridge.py routing engine handles task distribution across 6 specialized agents. Each agent has its own inbox directory. The CEO agent monitors system health and delegates tasks. Cron jobs handle scheduled workflows — 26 of them, running daily, weekly, and monthly.</p>
+
+    <h2>What It Automates</h2>
+    <ul>
+      <li><strong>Financial tracking:</strong> P&L summaries, bank statement parsing, payout detection</li>
+      <li><strong>Content pipeline:</strong> LinkedIn posts, portfolio articles, social distribution</li>
+      <li><strong>System health:</strong> Monitoring, debugging, cron watchdog, error triage</li>
+      <li><strong>Research:</strong> Deep research, market intelligence, competitive analysis</li>
+      <li><strong>Operations:</strong> Email triage, job tracking, session archiving</li>
+    </ul>
+
+    <h2>The Numbers</h2>
+    <ul>
+      <li>6 autonomous AI agents</li>
+      <li>26 automated cron workflows</li>
+      <li>~70 custom skills</li>
+      <li>52 integration tests — all passing</li>
+      <li>359 MB conversational history indexed</li>
+      <li>$0.05 total cloud spend (one-time Gemini API call)</li>
+    </ul>
+
+    <h2>Why This Matters</h2>
+    <p>This isn't a demo. It's a production system that runs 24/7 on consumer hardware. It handles real work — financial tracking, content creation, system monitoring, research. And it does it all without monthly cloud bills.</p>
+    <p>The future of AI isn't bigger cloud bills. It's smarter local infrastructure.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-inner">
+    <h3>Want to build something like this?</h3>
+    <p>Explore the production systems portfolio or get in touch to discuss your own agent infrastructure.</p>
+    <a href="../index.html#projects" class="btn">View Projects →</a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Alex Bogle · <a href="https://saintlex.sbs">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
+</footer>
+
 </body>
 </html>
