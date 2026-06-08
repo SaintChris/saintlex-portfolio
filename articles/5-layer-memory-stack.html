@@ -1,196 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Why I Built a 5-Layer AI Memory Stack on an M1 Mac — Alex Bogle</title>
-<meta name="description" content="How I built a persistent, multi-layer memory system for AI agents that survives session restarts, API failures, and model changes — all at $0/month on an M1 Mac.">
-<meta property="og:title" content="Why I Built a 5-Layer AI Memory Stack on an M1 Mac">
-<meta property="og:description" content="Every AI agent forgets. Here's how I built a 5-layer memory stack that doesn't.">
-<meta property="og:url" content="https://saintlex.sbs/articles/5-layer-memory-stack.html">
-<meta property="og:type" content="article">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #06060c; --bg-card: #111118; --border: #1a1a2e;
-  --border-glow: #2a2a4a; --text: #e8e8f0; --text-muted: #7878a0; --text-dim: #4a4a6a;
-  --accent: #3b82f6; --accent-bright: #60a5fa; --accent-dim: #1d4ed8;
-  --accent-glow: rgba(59,130,246,0.18); --accent-soft: rgba(59,130,246,0.06);
-  --green: #22c55e; --purple: #a855f7; --cyan: #22d3ee; --amber: #f59e0b;
-  --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
-  --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; color-scheme: dark; }
-body {
-  font-family: var(--font); background: var(--bg); color: var(--text);
-  line-height: 1.8; -webkit-font-smoothing: antialiased;
-}
-::selection { background: var(--accent); color: #fff; }
-
-/* Nav */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 70px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; background: rgba(6,6,12,0.8);
-  backdrop-filter: blur(20px) saturate(1.5);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  border-bottom: 1px solid var(--border);
-}
-nav .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
-nav .logo span { color: var(--accent); }
-nav .nav-links { display: flex; gap: 0.5rem; list-style: none; background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 0.35rem; }
-nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: var(--radius-full); transition: all var(--transition); }
-nav .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-nav .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
-
-/* Article */
-.article-wrap {
-  max-width: 720px; margin: 0 auto; padding: 7rem 2rem 4rem;
-}
-.article-meta {
-  display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;
-}
-.article-meta .tag {
-  font-family: var(--mono); font-size: 0.65rem; color: var(--accent);
-  background: var(--accent-soft); border: 1px solid var(--border);
-  padding: 0.2rem 0.65rem; border-radius: var(--radius-full);
-}
-.article-meta .date { font-size: 0.75rem; color: var(--text-dim); }
-.article-title {
-  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
-  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem;
-}
-.article-subtitle { color: var(--text-muted); font-size: 1.02rem; margin-bottom: 3rem; }
-
-/* Content */
-.content { border-top: 1px solid var(--border); padding-top: 2rem; }
-.content p { margin-bottom: 1.25rem; color: #d1d5db; }
-.content h2 {
-  font-size: 1.4rem; font-weight: 800; color: var(--text);
-  margin: 2.5rem 0 1rem; letter-spacing: -0.01em;
-}
-.content h3 {
-  font-size: 1.1rem; font-weight: 700; color: var(--text);
-  margin: 2rem 0 0.75rem;
-}
-.content .tech-line {
-  font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted);
-  margin-top: 0.5rem; margin-bottom: 1.5rem;
-}
-.content blockquote {
-  border-left: 3px solid var(--accent); padding-left: 1.25rem;
-  margin: 1.5rem 0; color: var(--text-muted); font-style: italic;
-}
-.content ul { margin: 1rem 0 1.5rem 1.5rem; color: #d1d5db; }
-.content li { margin-bottom: 0.5rem; }
-
-/* CTA */
-.cta-box {
-  max-width: 720px; margin: 3rem auto 0; padding: 0 2rem;
-}
-.cta-box-inner {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 2rem; text-align: center;
-}
-.cta-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
-.cta-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-.cta-box .btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-  color: #fff; padding: 0.85rem 2rem; border-radius: var(--radius-full);
-  text-decoration: none; font-weight: 600; font-size: 0.9rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
-  transition: all var(--transition);
-}
-.cta-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
-
-/* Footer */
-footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 4rem; }
-footer a { color: var(--text-muted); text-decoration: none; }
-footer a:hover { color: var(--accent); }
-
-@media (max-width: 768px) {
-  nav .nav-links { display: none; }
-  .article-wrap { padding: 6rem 1.5rem 3rem; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why I Built a 5-Layer AI Memory Stack on an M1 Mac — Alex Bogle</title>
+    <meta name="description" content="How I built a persistent, multi-layer memory system for AI agents that survives session restarts, API failures, and model changes — all at $0/month on an M1 Mac.">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#070A12',
+                        cardBg: '#0F1524',
+                        cyberGreen: '#10B981',
+                        hudGray: '#1F2937',
+                        slateText: '#9CA3AF'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .glow-btn { box-shadow: 0 0 15px rgba(16,185,129,0.15), 0 0 30px rgba(16,185,129,0.05); transition: all 0.3s ease; }
+        .glow-btn:hover { box-shadow: 0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(16,185,129,0.1); }
+        .section-label-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; }
+        .section { background: rgba(15,21,36,0.5); border: 1px solid rgba(31,41,55,0.4); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; }
+        .hud-card { position: relative; }
+        .hud-card .hud-tl { position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid transparent; border-left: 2px solid transparent; border-radius: 4px 0 0 0; transition: border-color 0.3s ease; }
+        .hud-card .hud-br { position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px; border-bottom: 2px solid transparent; border-right: 2px solid transparent; border-radius: 0 0 4px 0; transition: border-color 0.3s ease; }
+        .hud-card:hover .hud-tl, .hud-card:hover .hud-br { border-color: #10B981; }
+        .nav-link { transition: all 0.2s ease; }
+        .nav-link.active { color: #10B981; font-weight: 700; }
+        .nav-link.active .nav-indicator { background: #10B981; }
+        .code-block { background: rgba(0,0,0,0.4); border: 1px solid rgba(31,41,55,0.5); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 1.7; overflow-x: auto; }
+        .code-block .comment { color: #6B7280; }
+        .code-block .keyword { color: #10B981; }
+        .code-block .string { color: #F59E0B; }
+        .code-block .value { color: #60A5FA; }
+        .node { background: rgba(255,255,255,0.03); border: 1px solid rgba(31,41,55,0.5); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .node:hover { border-color: rgba(16,185,129,0.3); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 15px rgba(16,185,129,0.06); }
+        .node-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.15rem 0.45rem; border-radius: 9999px; margin-top: 0.4rem; font-weight: 500; }
+        .badge-green { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.15); }
+        .badge-purple { background: rgba(168,85,247,0.1); color: #A855F7; border: 1px solid rgba(168,85,247,0.15); }
+        .badge-cyan { background: rgba(34,211,238,0.1); color: #22D3EE; border: 1px solid rgba(34,211,238,0.15); }
+        .badge-amber { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.15); }
+    </style>
 </head>
-<body>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
 
-<nav>
-  <a href="../index.html" class="logo">alex<span>.</span>bogle</a>
-  <ul class="nav-links">
-    <li><a href="../index.html#systems">Systems</a></li>
-    <li><a href="../index.html#projects">Projects</a></li>
-    <li><a href="../index.html#pricing">Pricing</a></li>
-    <li><a href="../index.html#contact">Contact</a></li>
-  </ul>
-  <a href="index.html" class="back-link">← Articles</a>
-</nav>
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row min-h-screen relative">
 
-<div class="article-wrap">
-  <div class="article-meta">
-    <span class="tag">Architecture</span>
-    <span class="tag">Agentic AI</span>
-    <span class="tag">Memory</span>
-    <span class="date">June 2026</span>
-  </div>
+        <!-- ═══ LEFT SIDEBAR ═══ -->
+        <aside class="w-full md:w-60 lg:w-64 md:fixed md:top-0 md:bottom-0 md:left-0 md:h-screen p-6 lg:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-hudGray/50 bg-obsidian z-50">
+            <div class="space-y-10">
+                <div>
+                    <div class="font-mono font-black tracking-tighter text-lg text-white leading-none">SAINTLEX<span class="text-cyberGreen">//</span></div>
+                    <div class="text-[9px] tracking-[0.15em] text-slateText font-bold uppercase mt-1">AGENTIC_CORE</div>
+                </div>
+                <nav class="flex flex-col space-y-3 font-mono text-[11px] uppercase tracking-wider text-slateText">
+                    <a href="../index.html#hero" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.core_hub()</span></a>
+                    <a href="../index.html#systems" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.systems()</span></a>
+                    <a href="../index.html#history" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.infrastructure()</span></a>
+                    <a href="../index.html#memory" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.persistence()</span></a>
+                    <a href="../index.html#pricing" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.pricing()</span></a>
+                    <a href="../index.html#projects" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.projects()</span></a>
+                    <a href="../index.html#proof" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.proof()</span></a>
+                    <a href="../index.html#contact" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.deploy()</span></a>
+                </nav>
+            </div>
+            <div class="pt-6 md:pt-0 font-mono">
+                <a href="mailto:[EMAIL]" class="block w-full text-center px-4 py-2.5 border border-cyberGreen/40 text-cyberGreen bg-cyberGreen/5 rounded-lg text-[10px] font-bold hover:bg-cyberGreen hover:text-black transition-all duration-300 glow-btn tracking-wider uppercase">Initialize Contact</a>
+            </div>
+        </aside>
 
-  <h1 class="article-title">Why I Built a 5-Layer AI Memory Stack on an M1 Mac (And Why Stateless Chatbots Are Dead)</h1>
-  <p class="article-subtitle">Every AI agent you've ever talked to has a problem: it forgets. Here's how I built a persistent, multi-layer memory system that survives session restarts, API failures, and model changes — all at $0/month.</p>
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <main class="flex-1 md:ml-60 lg:ml-64 p-6 md:p-12 lg:p-16">
 
-  <div class="content">
-    <p>Every AI agent you've ever talked to has a problem: it forgets. You spend 20 minutes building context, the session ends, and the next conversation starts from zero. That's not intelligence — it's a calculator with a chat interface.</p>
+            <!-- ═══ BREADCRUMB ═══ -->
+            <div class="text-xs font-mono text-slateText mb-6">
+                <a href="../index.html" class="hover:text-white">Home</a>
+                <span class="mx-2">/</span>
+                <a href="index.html" class="hover:text-white">Articles</a>
+                <span class="mx-2">/</span>
+                <span class="text-cyberGreen">5-Layer Memory Stack</span>
+            </div>
 
-    <p>I refused to accept that limitation. So I built a 5-layer memory infrastructure that gives my AI agents persistent, searchable, cross-session memory — running entirely on an M1 Mac with zero cloud cost.</p>
+            <!-- ═══ ARTICLE HEADER ═══ -->
+            <section class="space-y-6 mb-10">
+                <div class="section-label-mono">// Technical Article</div>
+                <h1 class="text-3xl lg:text-4xl font-black text-white tracking-tighter leading-tight">Why I Built a 5-Layer AI Memory Stack on an M1 Mac (And Why Stateless Chatbots Are Dead)</h1>
+                <p class="text-slateText max-w-2xl">Every AI agent you've ever talked to has a problem: it forgets. Here's how I built a persistent, multi-layer memory system that survives session restarts, API failures, and model changes — all at $0/month.</p>
+                <div class="flex items-center gap-3 text-xs">
+                    <span class="node-badge badge-green">Architecture</span>
+                    <span class="node-badge badge-purple">Agentic AI</span>
+                    <span class="node-badge badge-cyan">Memory</span>
+                    <span class="text-slateText">June 2026</span>
+                </div>
+            </section>
 
-    <h2>The Problem: Stateless Agents Are Useless for Real Work</h2>
-    <p>Most AI agents today are stateless. They get a prompt, they respond, they forget. This works for one-off questions. It fails completely for business operations that span days and weeks, financial tracking that requires historical context, research projects that build on previous findings, and personal assistants that need to know who you are.</p>
-    <p>The fix isn't a bigger context window. It's a memory architecture.</p>
+            <!-- ═══ ARTICLE CONTENT ═══ -->
+            <section class="space-y-8">
+                <div class="section">
+                    <p class="text-gray-300 leading-relaxed">Every AI agent you've ever talked to has a problem: it forgets. You spend 20 minutes building context, the session ends, and the next conversation starts from zero. That's not intelligence — it's a calculator with a chat interface.</p>
+                    <p class="text-gray-300 leading-relaxed">I refused to accept that limitation. So I built a 5-layer memory infrastructure that gives my AI agents persistent, searchable, cross-session memory — running entirely on an M1 Mac with zero cloud cost.</p>
+                </div>
 
-    <h2>The Solution: 5 Layers of Persistent Memory</h2>
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">The Problem: Stateless Agents Are Useless for Real Work</h2>
+                <div class="section">
+                    <p class="text-gray-300 leading-relaxed">Most AI agents today are stateless. They get a prompt, they respond, they forget. This works for one-off questions. It fails completely for business operations that span days and weeks, financial tracking that requires historical context, research projects that build on previous findings, and personal assistants that need to know who you are.</p>
+                    <p class="text-gray-300 leading-relaxed">The fix isn't a bigger context window. It's a memory architecture.</p>
+                </div>
 
-    <h3>Layer 1: Honcho — Vector Embeddings (pgvector)</h3>
-    <p>Every conversation, every document, every decision gets converted into a vector embedding using nomic-embed and stored in pgvector running inside Docker. This means my agents can search by meaning, not just keywords. Ask "what did we decide about the trading stop-loss?" and it finds the relevant context even if those exact words were never used.</p>
-    <p class="tech-line">Tech: pgvector, nomic-embed, Docker, PostgreSQL</p>
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">The Solution: 5 Layers of Persistent Memory</h2>
 
-    <h3>Layer 2: Session Cache (Redis)</h3>
-    <p>Active session state lives in Redis. When an agent is mid-task, it doesn't need to re-query the vector database — the current context is cached and instantly accessible. This is the difference between an agent that responds in 200ms and one that takes 8 seconds per tool call.</p>
-    <p class="tech-line">Tech: Redis, Docker</p>
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">Layer 1: Honcho — Vector Embeddings (pgvector)</h3>
+                    <p class="text-gray-300 leading-relaxed">Every conversation, every document, every decision gets converted into a vector embedding using nomic-embed and stored in pgvector running inside Docker. This means my agents can search by meaning, not just keywords. Ask "what did we decide about the trading stop-loss?" and it finds the relevant context even if those exact words were never used.</p>
+                    <p class="text-slateText text-sm font-mono mt-2">Tech: pgvector, nomic-embed, Docker, PostgreSQL</p>
+                </div>
 
-    <h3>Layer 3: Full-Text Search (SQLite FTS5)</h3>
-    <p>Across all my agents, there's 359 MB of raw conversational history. SQLite FTS5 indexes every word, making it searchable in milliseconds. When I need to find a specific decision from 3 months ago, I don't scroll — I search.</p>
-    <p class="tech-line">Tech: SQLite FTS5</p>
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">Layer 2: Session Cache (Redis)</h3>
+                    <p class="text-gray-300 leading-relaxed">Active session state lives in Redis. When an agent is mid-task, it doesn't need to re-query the vector database — the current context is cached and instantly accessible. This is the difference between an agent that responds in 200ms and one that takes 8 seconds per tool call.</p>
+                    <p class="text-slateText text-sm font-mono mt-2">Tech: Redis, Docker</p>
+                </div>
 
-    <h3>Layer 4: Knowledge Catalog (Obsidian Vault)</h3>
-    <p>This is the human-in-the-loop layer. A 102-page Obsidian vault serves as the structured knowledge catalog — project statuses, daily logs, mistake records, session summaries. Agents write to it. I read from it. It's the shared memory between human and AI.</p>
-    <p class="tech-line">Tech: Obsidian API, Markdown</p>
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">Layer 3: Full-Text Search (SQLite FTS5)</h3>
+                    <p class="text-gray-300 leading-relaxed">Across all my agents, there's 359 MB of raw conversational history. SQLite FTS5 indexes every word, making it searchable in milliseconds. When I need to find a specific decision from 3 months ago, I don't scroll — I search.</p>
+                    <p class="text-slateText text-sm font-mono mt-2">Tech: SQLite FTS5</p>
+                </div>
 
-    <h3>Layer 5: Built-in Memory</h3>
-    <p>The smallest but most critical layer. A 2,200 character hard limit stores only the essential routing information — Telegram IDs, email preferences, critical file paths. Injected into every single prompt automatically.</p>
-    <p class="tech-line">Tech: Hermes built-in memory system</p>
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">Layer 4: Knowledge Catalog (Obsidian Vault)</h3>
+                    <p class="text-gray-300 leading-relaxed">This is the human-in-the-loop layer. A 102-page Obsidian vault serves as the structured knowledge catalog — project statuses, daily logs, mistake records, session summaries. Agents write to it. I read from it. It's the shared memory between human and AI.</p>
+                    <p class="text-slateText text-sm font-mono mt-2">Tech: Obsidian API, Markdown</p>
+                </div>
 
-    <h2>Why This Matters</h2>
-    <p>Memory is what separates a chatbot from an agent. Without memory, you're just having the same conversation over and over. With a proper memory stack, your agents build on previous work, learn from mistakes, and maintain context across days, weeks, and months of operation.</p>
-    <p>And it all runs on a single M1 Mac. No cloud. No monthly bills. No vendor lock-in.</p>
-  </div>
-</div>
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">Layer 5: Built-in Memory</h3>
+                    <p class="text-gray-300 leading-relaxed">The smallest but most critical layer. A 2,200 character hard limit stores only the essential routing information — Telegram IDs, email preferences, critical file paths. Injected into every single prompt automatically.</p>
+                    <p class="text-slateText text-sm font-mono mt-2">Tech: Hermes built-in memory system</p>
+                </div>
 
-<div class="cta-box">
-  <div class="cta-box-inner">
-    <h3>Want to see the full architecture?</h3>
-    <p>Explore the production systems portfolio or get in touch to discuss your own agent infrastructure.</p>
-    <a href="../index.html#projects" class="btn">View Projects →</a>
-  </div>
-</div>
+                <div class="section">
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight mb-3">Why This Matters</h2>
+                    <p class="text-gray-300 leading-relaxed">Memory is what separates a chatbot from an agent. Without memory, you're just having the same conversation over and over. With a proper memory stack, your agents build on previous work, learn from mistakes, and maintain context across days, weeks, and months of operation.</p>
+                    <p class="text-gray-300 leading-relaxed">And it all runs on a single M1 Mac. No cloud. No monthly bills. No vendor lock-in.</p>
+                </div>
+            </section>
 
-<footer>
-  © 2026 Alex Bogle · <a href="https://saintlex.sbs">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
-</footer>
+            <!-- ═══ RELATED ARTICLES ═══ -->
+            <section class="pt-10">
+                <div class="section-label-mono mb-4">// Related Articles</div>
+                <div class="grid-3">
+                    <a href="hermes-agent-blueprint.html" class="node">
+                        <div class="node-icon">🏗️</div>
+                        <div class="node-title">Hermes Agent Blueprint</div>
+                        <div class="node-desc">Production-grade AI agent on a single M1 Mac</div>
+                    </a>
+                    <a href="linkedin-article.html" class="node">
+                        <div class="node-icon">🧪</div>
+                        <div class="node-title">Free AI Models to Their Limits</div>
+                        <div class="node-desc">22K+ production requests, $0.05 total spend</div>
+                    </a>
+                    <a href="index.html" class="node">
+                        <div class="node-icon">📚</div>
+                        <div class="node-title">All Articles</div>
+                        <div class="node-desc">Browse the full article archive</div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- ═══ CTA ═══ -->
+            <section class="pt-8">
+                <div class="section text-center">
+                    <h3 class="text-lg font-bold text-white mb-2">Want to see the full architecture?</h3>
+                    <p class="text-sm text-slateText mb-4">Explore the production systems portfolio or get in touch to discuss your own agent infrastructure.</p>
+                    <a href="../index.html#projects" class="glow-btn bg-cyberGreen text-black font-bold px-6 py-2.5 rounded-md hover:bg-emerald-400 transition-all duration-300 text-sm inline-block">View Projects →</a>
+                </div>
+            </section>
+
+            <footer class="pt-8 text-center text-slateText text-xs">
+                © 2026 Alex Bogle · <a href="https://saintlex.sbs" class="text-cyberGreen hover:text-emerald-400">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
+            </footer>
+
+        </main>
+    </div>
 
 </body>
 </html>

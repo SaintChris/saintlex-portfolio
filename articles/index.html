@@ -1,203 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Articles — Alex Bogle</title>
-<meta name="description" content="Technical articles on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #06060c; --bg-card: #111118; --border: #1a1a2e;
-  --border-glow: #2a2a4a; --text: #e8e8f0; --text-muted: #7878a0; --text-dim: #4a4a6a;
-  --accent: #3b82f6; --accent-bright: #60a5fa; --accent-dim: #1d4ed8;
-  --accent-glow: rgba(59,130,246,0.18); --accent-soft: rgba(59,130,246,0.06);
-  --green: #22c55e; --purple: #a855f7; --cyan: #22d3ee; --amber: #f59e0b;
-  --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
-  --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; color-scheme: dark; }
-body {
-  font-family: var(--font); background: var(--bg); color: var(--text);
-  line-height: 1.8; -webkit-font-smoothing: antialiased;
-}
-::selection { background: var(--accent); color: #fff; }
-
-/* Nav */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 70px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; background: rgba(6,6,12,0.8);
-  backdrop-filter: blur(20px) saturate(1.5);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  border-bottom: 1px solid var(--border);
-}
-nav .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
-nav .logo span { color: var(--accent); }
-nav .nav-links { display: flex; gap: 0.5rem; list-style: none; background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 0.35rem; }
-nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: var(--radius-full); transition: all var(--transition); }
-nav .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-nav .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
-
-/* Page */
-.page-header {
-  max-width: 720px; margin: 0 auto; padding: 7rem 2rem 3rem;
-}
-.page-header h1 {
-  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
-  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem;
-}
-.page-header p { color: var(--text-muted); font-size: 1.02rem; }
-
-/* Article list */
-.article-list {
-  max-width: 720px; margin: 0 auto; padding: 0 2rem 4rem;
-  display: flex; flex-direction: column; gap: 1.5rem;
-}
-.article-card {
-  display: block; text-decoration: none; color: inherit;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 2rem;
-  transition: all var(--transition);
-  position: relative; overflow: hidden;
-}
-.article-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--purple), var(--cyan));
-  opacity: 0; transition: opacity var(--transition);
-}
-.article-card:hover {
-  border-color: var(--border-glow);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-}
-.article-card:hover::before { opacity: 1; }
-.article-card .meta {
-  display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap;
-}
-.article-card .tag {
-  font-family: var(--mono); font-size: 0.65rem; color: var(--accent);
-  background: var(--accent-soft); border: 1px solid var(--border);
-  padding: 0.2rem 0.65rem; border-radius: var(--radius-full);
-}
-.article-card .date { font-size: 0.75rem; color: var(--text-dim); }
-.article-card h2 {
-  font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;
-  letter-spacing: -0.01em; color: var(--text);
-}
-.article-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; }
-.article-card .read-more {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  margin-top: 1rem; font-size: 0.82rem; font-weight: 600;
-  color: var(--accent); transition: gap var(--transition);
-}
-.article-card:hover .read-more { gap: 0.6rem; }
-
-/* CTA */
-.cta-box {
-  max-width: 720px; margin: 0 auto 4rem; padding: 0 2rem;
-}
-.cta-box-inner {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 2rem;
-  text-align: center;
-}
-.cta-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
-.cta-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-.cta-box .btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-  color: #fff; padding: 0.85rem 2rem; border-radius: var(--radius-full);
-  text-decoration: none; font-weight: 600; font-size: 0.9rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
-  transition: all var(--transition);
-}
-.cta-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
-
-/* Footer */
-footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 2rem; }
-footer a { color: var(--text-muted); text-decoration: none; }
-footer a:hover { color: var(--accent); }
-
-@media (max-width: 768px) {
-  nav .nav-links { display: none; }
-  .page-header { padding: 6rem 1.5rem 2rem; }
-  .article-list { padding: 0 1.5rem 3rem; }
-  .cta-box { padding: 0 1.5rem; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles — Alex Bogle</title>
+    <meta name="description" content="Technical articles on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#070A12',
+                        cardBg: '#0F1524',
+                        cyberGreen: '#10B981',
+                        hudGray: '#1F2937',
+                        slateText: '#9CA3AF'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .glow-btn { box-shadow: 0 0 15px rgba(16,185,129,0.15), 0 0 30px rgba(16,185,129,0.05); transition: all 0.3s ease; }
+        .glow-btn:hover { box-shadow: 0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(16,185,129,0.1); }
+        .glow-btn-secondary { transition: all 0.3s ease; }
+        .glow-btn-secondary:hover { box-shadow: 0 0 15px rgba(156,163,175,0.1), 0 0 30px rgba(156,163,175,0.05); }
+        .live-badge { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.55rem; border-radius: 9999px; background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
+        .live-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: #10B981; animation: pulse 2s ease-in-out infinite; display: inline-block; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .section-label-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; }
+        .section { background: rgba(15,21,36,0.5); border: 1px solid rgba(31,41,55,0.4); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; }
+        .hud-card { position: relative; }
+        .hud-card .hud-tl { position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid transparent; border-left: 2px solid transparent; border-radius: 4px 0 0 0; transition: border-color 0.3s ease; }
+        .hud-card .hud-br { position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px; border-bottom: 2px solid transparent; border-right: 2px solid transparent; border-radius: 0 0 4px 0; transition: border-color 0.3s ease; }
+        .hud-card:hover .hud-tl, .hud-card:hover .hud-br { border-color: #10B981; }
+        .nav-link { transition: all 0.2s ease; }
+        .nav-link.active { color: #10B981; font-weight: 700; }
+        .nav-link.active .nav-indicator { background: #10B981; }
+        .code-block { background: rgba(0,0,0,0.4); border: 1px solid rgba(31,41,55,0.5); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 1.7; overflow-x: auto; }
+        .code-block .comment { color: #6B7280; }
+        .code-block .keyword { color: #10B981; }
+        .code-block .string { color: #F59E0B; }
+        .code-block .value { color: #60A5FA; }
+        .node { background: rgba(255,255,255,0.03); border: 1px solid rgba(31,41,55,0.5); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .node:hover { border-color: rgba(16,185,129,0.3); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 15px rgba(16,185,129,0.06); }
+        .node-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+        .node-title { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .node-desc { font-size: 0.68rem; color: #9CA3AF; line-height: 1.5; }
+        .node-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.15rem 0.45rem; border-radius: 9999px; margin-top: 0.4rem; font-weight: 500; }
+        .badge-green { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.15); }
+        .badge-blue { background: rgba(59,130,246,0.1); color: #60A5FA; border: 1px solid rgba(59,130,246,0.15); }
+        .badge-purple { background: rgba(168,85,247,0.1); color: #A855F7; border: 1px solid rgba(168,85,247,0.15); }
+        .badge-cyan { background: rgba(34,211,238,0.1); color: #22D3EE; border: 1px solid rgba(34,211,238,0.15); }
+        .badge-amber { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.15); }
+        .badge-pink { background: rgba(236,72,153,0.1); color: #EC4899; border: 1px solid rgba(236,72,153,0.15); }
+        .stat-box { text-align: center; padding: 1rem 0.65rem; background: rgba(15,21,36,0.7); border: 1px solid rgba(31,41,55,0.6); border-radius: 10px; transition: all 0.3s ease; }
+        .stat-box:hover { border-color: rgba(16,185,129,0.3); box-shadow: 0 0 12px rgba(16,185,129,0.06); }
+        .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
+        .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #9CA3AF; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+        @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } .grid-4 { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+    </style>
 </head>
-<body>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row min-h-screen relative">
 
-<nav>
-  <a href="../index.html" class="logo">alex<span>.</span>bogle</a>
-  <ul class="nav-links">
-    <li><a href="../index.html#systems">Systems</a></li>
-    <li><a href="../index.html#projects">Projects</a></li>
-    <li><a href="../index.html#pricing">Pricing</a></li>
-    <li><a href="../index.html#contact">Contact</a></li>
-  </ul>
-  <a href="../index.html" class="back-link">← Home</a>
-</nav>
+        <!-- ═══ LEFT SIDEBAR ═══ -->
+        <aside class="w-full md:w-60 lg:w-64 md:fixed md:top-0 md:bottom-0 md:left-0 md:h-screen p-6 lg:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-hudGray/50 bg-obsidian z-50">
+            <div class="space-y-10">
+                <div>
+                    <div class="font-mono font-black tracking-tighter text-lg text-white leading-none">SAINTLEX<span class="text-cyberGreen">//</span></div>
+                    <div class="text-[9px] tracking-[0.15em] text-slateText font-bold uppercase mt-1">AGENTIC_CORE</div>
+                </div>
+                <nav class="flex flex-col space-y-3 font-mono text-[11px] uppercase tracking-wider text-slateText">
+                    <a href="../index.html#hero" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.core_hub()</span></a>
+                    <a href="../index.html#systems" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.systems()</span></a>
+                    <a href="../index.html#history" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.infrastructure()</span></a>
+                    <a href="../index.html#memory" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.persistence()</span></a>
+                    <a href="../index.html#pricing" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.pricing()</span></a>
+                    <a href="../index.html#projects" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.projects()</span></a>
+                    <a href="../index.html#proof" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.proof()</span></a>
+                    <a href="../index.html#contact" class="nav-link  flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>.deploy()</span></a>
+                </nav>
+            </div>
+            <div class="pt-6 md:pt-0 font-mono">
+                <a href="mailto:[EMAIL]" class="block w-full text-center px-4 py-2.5 border border-cyberGreen/40 text-cyberGreen bg-cyberGreen/5 rounded-lg text-[10px] font-bold hover:bg-cyberGreen hover:text-black transition-all duration-300 glow-btn tracking-wider uppercase">Initialize Contact</a>
+            </div>
+        </aside>
 
-<div class="page-header">
-  <h1>Articles</h1>
-  <p>Technical deep-dives on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.</p>
-</div>
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <main class="flex-1 md:ml-60 lg:ml-64 p-6 md:p-12 lg:p-16">
+            <!-- ═══ ARTICLES HUB ═══ -->
+            <section class="space-y-8 pt-4">
+                <div class="section-label-mono">// Technical Articles</div>
+                <h1 class="text-3xl lg:text-4xl font-black text-white tracking-tighter leading-tight">Articles</h1>
+                <p class="text-slateText max-w-2xl">Technical deep-dives on AI architecture, agentic systems, and building production AI on zero-cost infrastructure.</p>
+            </section>
 
-<div class="article-list">
-  <a href="5-layer-memory-stack.html" class="article-card">
-    <div class="meta">
-      <span class="tag">Architecture</span>
-      <span class="tag">Agentic AI</span>
-      <span class="tag">Memory</span>
-      <span class="date">June 2026</span>
+            <!-- ═══ ARTICLE LIST ═══ -->
+            <section class="space-y-5 pt-4">
+                <a href="5-layer-memory-stack.html" class="node flex flex-col text-left">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="node-badge badge-green">Architecture</span>
+                        <span class="node-badge badge-purple">Agentic AI</span>
+                        <span class="node-badge badge-cyan">Memory</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white mb-1">Why I Built a 5-Layer AI Memory Stack on an M1 Mac (And Why Stateless Chatbots Are Dead)</h2>
+                    <p class="text-sm text-slateText">Every AI agent forgets. Here's how I built a persistent, multi-layer memory system that survives session restarts — all at $0/month.</p>
+                    <span class="node-badge badge-green mt-3">Read Article →</span>
+                </a>
+
+                <a href="hermes-agent-blueprint.html" class="node flex flex-col text-left">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="node-badge badge-green">Architecture</span>
+                        <span class="node-badge badge-purple">Agentic AI</span>
+                        <span class="node-badge badge-amber">Hermes</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white mb-1">Hermes Agent – Zero-Cost, Multi-Layer AI Operations Blueprint</h2>
+                    <p class="text-sm text-slateText">Production-grade AI agent on a single M1 Mac. 6 agents, 26 cron jobs, 5-layer memory stack, $0 cloud cost.</p>
+                    <span class="node-badge badge-green mt-3">Read Article →</span>
+                </a>
+
+                <a href="linkedin-article.html" class="node flex flex-col text-left">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="node-badge badge-blue">AI</span>
+                        <span class="node-badge badge-amber">Free Models</span>
+                        <span class="node-badge badge-pink">Benchmarks</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white mb-1">What Happens When You Push Free AI Models to Their Limits</h2>
+                    <p class="text-sm text-slateText">22K+ production requests. 1.74B tokens. $0.05 total spend. Real benchmarks from free AI models on consumer hardware.</p>
+                    <span class="node-badge badge-green mt-3">Read Article →</span>
+                </a>
+            </section>
+
+            <!-- ═══ CTA ═══ -->
+            <section class="pt-8">
+                <div class="section text-center">
+                    <h3 class="text-lg font-bold text-white mb-2">Looking for an Agentic AI Engineer?</h3>
+                    <p class="text-sm text-slateText mb-4">I'm currently open to Agentic AI Engineer, AI Solutions Architect, and MLOps roles. Based in Jamaica (EST), available remote.</p>
+                    <a href="../index.html#contact" class="glow-btn bg-cyberGreen text-black font-bold px-6 py-2.5 rounded-md hover:bg-emerald-400 transition-all duration-300 text-sm inline-block">Get in Touch →</a>
+                </div>
+            </section>
+
+            <footer class="pt-8 text-center text-slateText text-xs">
+                © 2026 Alex Bogle · <a href="https://saintlex.sbs" class="text-cyberGreen hover:text-emerald-400">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
+            </footer>
+
+        </main>
     </div>
-    <h2>Why I Built a 5-Layer AI Memory Stack on an M1 Mac (And Why Stateless Chatbots Are Dead)</h2>
-    <p>Every AI agent you've ever talked to has a problem: it forgets. Here's how I built a persistent, multi-layer memory system that survives session restarts, API failures, and model changes — all at $0/month.</p>
-    <span class="read-more">Read Article →</span>
-  </a>
-
-  <a href="hermes-agent-blueprint.html" class="article-card">
-    <div class="meta">
-      <span class="tag">Architecture</span>
-      <span class="tag">Agentic AI</span>
-      <span class="tag">Hermes</span>
-      <span class="date">June 2026</span>
-    </div>
-    <h2>Hermes Agent – Zero-Cost, Multi-Layer AI Operations Blueprint</h2>
-    <p>Technical deep-dive showing how a production-grade AI agent runs on a single M1 Mac with zero cloud cost. 6 agents, 26 cron jobs, 5-layer memory stack.</p>
-    <span class="read-more">Read Article →</span>
-  </a>
-
-  <a href="linkedin-article.html" class="article-card">
-    <div class="meta">
-      <span class="tag">AI</span>
-      <span class="tag">Free Models</span>
-      <span class="tag">Benchmarks</span>
-      <span class="date">June 2026</span>
-    </div>
-    <h2>What Happens When You Push Free AI Models to Their Limits</h2>
-    <p>Exploring the practical boundaries of free, locally-run AI models on a consumer Mac. Benchmarks, pitfalls, and lessons learned from 22K+ production requests.</p>
-    <span class="read-more">Read Article →</span>
-  </a>
-</div>
-
-<div class="cta-box">
-  <div class="cta-box-inner">
-    <h3>Looking for an Agentic AI Engineer?</h3>
-    <p>I'm currently open to Agentic AI Engineer, AI Solutions Architect, and MLOps roles. Based in Jamaica (EST timezone), available remote.</p>
-    <a href="../index.html#contact" class="btn">Get in Touch →</a>
-  </div>
-</div>
-
-<footer>
-  © 2026 Alex Bogle · <a href="https://saintlex.sbs">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
-</footer>
 
 </body>
 </html>
