@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Built an AI Agent to Track My Job Applications — Alex Bogle</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060c; --bg-card: #111118; --border: #1a1a2e;
+  --border-glow: #2a2a4a; --text: #e8e8f0; --text-muted: #7878a0; --text-dim: #4a4a6a;
+  --accent: #3b82f6; --accent-bright: #60a5fa; --accent-dim: #1d4ed8;
+  --accent-glow: rgba(59,130,246,0.18); --accent-soft: rgba(59,130,246,0.06);
+  --green: #22c55e; --purple: #a855f7; --cyan: #22d3ee; --amber: #f59e0b;
+  --font: 'Inter', -apple-system, sans-serif; --mono: 'JetBrains Mono', monospace;
+  --radius: 12px; --radius-lg: 16px; --radius-full: 9999px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.8; -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: var(--noise-url); background-repeat: repeat;
+  background-size: 256px 256px; pointer-events: none; z-index: 9999; opacity: 0.4;
+}
+::selection { background: var(--accent); color: #fff; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; background: rgba(6,6,12,0.8);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+}
+nav .logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+nav .logo span { color: var(--accent); }
+nav .nav-links { display: flex; gap: 0.5rem; list-style: none; background: rgba(17,17,24,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 0.35rem; }
+nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: var(--radius-full); transition: all var(--transition); }
+nav .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+nav .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+
+article {
+  max-width: 720px; margin: 0 auto; padding: 7rem 2rem 4rem;
+}
+article h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem;
+}
+article .meta { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; }
+article .meta .tag {
+  font-family: var(--mono); font-size: 0.65rem; color: var(--accent);
+  background: var(--accent-soft); border: 1px solid var(--border);
+  padding: 0.2rem 0.65rem; border-radius: var(--radius-full);
+}
+article .meta .date { font-size: 0.8rem; color: var(--text-dim); }
+article h2 {
+  font-size: 1.2rem; font-weight: 700; margin: 2.5rem 0 0.75rem;
+  letter-spacing: -0.01em; color: var(--text);
+}
+article p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.8; }
+article strong { color: var(--text); font-weight: 600; }
+article ul { margin: 0.5rem 0 1rem 1.5rem; }
+article li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem; line-height: 1.7; }
+article li strong { color: var(--accent-bright); }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+.cta-box {
+  max-width: 720px; margin: 0 auto 4rem; padding: 0 2rem;
+}
+.cta-box-inner {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2rem;
+  text-align: center;
+}
+.cta-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.cta-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.cta-box .btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  color: #fff; padding: 0.85rem 2rem; border-radius: var(--radius-full);
+  text-decoration: none; font-weight: 600; font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
+  transition: all var(--transition);
+}
+.cta-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
+
+footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 2rem; }
+footer a { color: var(--text-muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+  article { padding: 6rem 1.5rem 3rem; }
+}
+</style>
+<meta name="description" content="I built an AI agent to track my job applications automatically. Here's what broke, how I fixed it, and what it found.">
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="logo">alex<span>.</span>bogle</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#projects">Work</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#articles">Articles</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+  <a href="../index.html" class="back-link">← Home</a>
+</nav>
+
+<article>
+  <div class="meta">
+    <span class="tag">Agentic AI</span>
+    <span class="tag">MLOps</span>
+    <span class="tag">Automation</span>
+    <span class="date">June 8, 2026</span>
+  </div>
+
+  <h1>I Built an AI Agent to Track My Job Applications. Here's What Broke — And How I Fixed It.</h1>
+
+  <p>I track every job application in a Google Sheet. Company, role, date, status, notes. Simple.</p>
+
+  <p>The problem: I was updating it manually. Every few days, I'd remember to check my sent folder, scan for new applications, copy them into the sheet. I'd miss things. Status changes would sit in my inbox for a week before I noticed.</p>
+
+  <p>So I built an AI agent to do it for me.</p>
+
+  <h2>The Setup</h2>
+  <p>The system runs on Hermes Agent on a single M1 Mac. Every 4 hours, a cron job fires and the agent scans Outlook Sent for new applications, scans Inbox, Junk, and Spam for responses — interview invites, rejections, offers. Searches Gmail. Reads the current Google Sheet. Adds new rows, updates status changes, and sends a Telegram summary if anything changed.</p>
+  <p>All of it runs through Zapier MCP. No custom API code. No OAuth tokens to manage. Zapier handles authentication for Outlook, Gmail, Google Sheets, and Telegram.</p>
+
+  <h2>What Broke</h2>
+  <p>The cron job was running. The status said "ok." But the sheet wasn't updating.</p>
+
+  <p><strong>Problem 1: Wrong API path.</strong> The agent was looking for a local OAuth token file (<code style="font-family:var(--mono);font-size:0.85em;color:var(--accent-bright);">~/.hermes/google_token.json</code>) that didn't exist. It was trying to use the Google API directly instead of going through Zapier, which already had Google Sheets connected.</p>
+
+  <p><strong>Problem 2: Unknown action names.</strong> Even when trying Zapier, the agent didn't know the exact action keys. Zapier's actions aren't guessable — <code style="font-family:var(--mono);font-size:0.85em;color:var(--accent-bright);">google_sheets_create_spreadsheet_row</code> isn't something you infer. The agent guessed, failed, and fell back to the non-existent token file.</p>
+
+  <p><strong>Problem 3: Outlook folder IDs.</strong> The agent passed "Sent" as the folder ID. Zapier needs the actual encoded folder ID string. Without it, searches returned nothing.</p>
+
+  <p><strong>Problem 4: Zapier follow-up questions.</strong> Zapier's write actions ask about formatting — bold, italic, colors. In an automated context, nobody answers. The calls timed out.</p>
+
+  <h2>The Fix</h2>
+  <p>Four specific changes to the cron job prompt:</p>
+  <ul>
+    <li><strong>Call <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">list_enabled_zapier_actions</code> first.</strong> Returns exact action keys for every connected app. No guessing.</li>
+    <li><strong>Use <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$A</code>, <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$B</code> for column mapping.</strong> The sheet has no header row — first row is data. Zapier read "Bioprist Group" as the column name. Using <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">COL$A</code> maps directly to spreadsheet columns.</li>
+    <li><strong>Include all formatting params.</strong> Every write call now includes <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">text_format_bold: false</code>, <code style="font-family:var(--mono);font-size:0.9em;color:var(--accent-bright);">background_color: "#FFFFFF"</code>. No stalled follow-ups.</li>
+    <li><strong>Expand email search to all folders.</strong> Inbox, Sent, Junk Email, and Spam. Job responses get filtered into Junk constantly.</li>
+  </ul>
+
+  <h2>The Result</h2>
+  <p>After the fix, one manual run found <strong>7 untracked applications</strong>:</p>
+  <ul>
+    <li><strong>Talentoma</strong> — Remote IT Support Assistant (LinkedIn, June 8)</li>
+    <li><strong>Experfy</strong> — Tech Support Associate Contractor (LinkedIn, June 7)</li>
+    <li><strong>Vintti</strong> — Computer Vision &amp; ML Expert for AI Training (LinkedIn, June 4)</li>
+    <li><strong>Anedot</strong> — Customer Support Specialist (Gusto, June 8) — Rejected</li>
+    <li><strong>Reboot Monkey</strong> — Data Center Technician, Kingston (LinkedIn, June 8)</li>
+    <li><strong>PurpleDot Logistics</strong> — Freelance Pickup Personnel (LinkedIn, June 8)</li>
+    <li><strong>OneVision Resources</strong> — IT Spec (Outlook, June 8) — Rejected after AI role-play interview</li>
+  </ul>
+  <p>Sheet went from 58 to 75 rows. The cron now runs automatically every 4 hours.</p>
+
+  <hr class="divider">
+
+  <h2>Why This Matters</h2>
+  <p>This isn't a demo. This is a production system using free-tier AI models, zero cloud cost, handling real email and real API calls — and recovering from errors I didn't anticipate.</p>
+  <p>Demos work when everything goes right. <strong>Infrastructure works when things break.</strong> And things always break.</p>
+</article>
+
+<div class="cta-box">
+  <div class="cta-box-inner">
+    <h3>Open to Remote Roles</h3>
+    <p>Agentic AI Engineer · MLOps · AI Solutions Architect<br>Based in Jamaica (EST) · Production experience from day one</p>
+    <a href="../index.html#contact" class="btn">Get in Touch →</a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Alex Bogle · <a href="https://saintlex.sbs">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
+</footer>
+</body>
+</html>
