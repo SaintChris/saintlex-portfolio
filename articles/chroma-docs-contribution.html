@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Contributed to Chroma's Open-Source Docs — Here's What I Learned — Alex Bogle</title>
+    <meta name="description" content="I found an open issue on Chroma's GitHub, reviewed two existing PRs, and submitted a comprehensive documentation rewrite. Here's what I changed and what I learned about contributing to major AI infrastructure projects.">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#070A12',
+                        cardBg: '#0F1524',
+                        cyberGreen: '#10B981',
+                        hudGray: '#1F2937',
+                        slateText: '#9CA3AF'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .glow-btn { box-shadow: 0 0 15px rgba(16,185,129,0.15), 0 0 30px rgba(16,185,129,0.05); transition: all 0.3s ease; }
+        .glow-btn:hover { box-shadow: 0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(16,185,129,0.1); }
+        .section-label-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; }
+        .section { background: rgba(15,21,36,0.5); border: 1px solid rgba(31,41,55,0.4); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; }
+        .hud-card { position: relative; }
+        .hud-card .hud-tl { position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid transparent; border-left: 2px solid transparent; border-radius: 4px 0 0 0; transition: border-color 0.3s ease; }
+        .hud-card .hud-br { position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px; border-bottom: 2px solid transparent; border-right: 2px solid transparent; border-radius: 0 0 4px 0; transition: border-color 0.3s ease; }
+        .hud-card:hover .hud-tl, .hud-card:hover .hud-br { border-color: #10B981; }
+        .nav-link { transition: all 0.2s ease; }
+        .nav-link.active { color: #10B981; font-weight: 700; }
+        .nav-link.active .nav-indicator { background: #10B981; }
+        .code-block { background: rgba(0,0,0,0.4); border: 1px solid rgba(31,41,55,0.5); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 1.7; overflow-x: auto; }
+        .code-block .comment { color: #6B7280; }
+        .code-block .keyword { color: #10B981; }
+        .code-block .string { color: #F59E0B; }
+        .code-block .value { color: #60A5FA; }
+        .node { background: rgba(255,255,255,0.03); border: 1px solid rgba(31,41,55,0.5); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .node:hover { border-color: rgba(16,185,129,0.3); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 15px rgba(16,185,129,0.06); }
+        .node-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.15rem 0.45rem; border-radius: 9999px; margin-top: 0.4rem; font-weight: 500; }
+        .badge-green { background: rgba(16,185,129,0.1); color: #10B981; border: 1px solid rgba(16,185,129,0.15); }
+        .badge-purple { background: rgba(168,85,247,0.1); color: #A855F7; border: 1px solid rgba(168,85,247,0.15); }
+        .badge-cyan { background: rgba(34,211,238,0.1); color: #22D3EE; border: 1px solid rgba(34,211,238,0.15); }
+        .badge-amber { background: rgba(245,158,11,0.1); color: #F59E0B; border: 1px solid rgba(245,158,11,0.15); }
+    </style>
+</head>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-cyberGreen selection:text-black">
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row min-h-screen relative">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="w-full md:w-60 lg:w-64 md:fixed md:top-0 md:bottom-0 md:left-0 md:h-screen p-6 lg:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-hudGray/50 bg-obsidian z-50">
+            <div class="space-y-10">
+                <div>
+                    <div class="font-mono font-black tracking-tighter text-lg text-white leading-none">SAINTLEX<span class="text-cyberGreen">//</span></div>
+                    <div class="text-[9px] tracking-[0.15em] text-slateText font-bold uppercase mt-1">AI Engineer</div>
+                </div>
+                <nav class="flex flex-col space-y-3 font-mono text-[11px] uppercase tracking-wider text-slateText">
+                    <a href="../index.html#hero" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Home</span></a>
+                    <a href="../index.html#about" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>About</span></a>
+                    <a href="../index.html#history" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Experience</span></a>
+                    <a href="../index.html#projects" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Projects</span></a>
+                    <a href="../index.html#skills" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Skills</span></a>
+                    <a href="index.html" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Articles</span></a>
+                    <a href="../index.html#contact" class="nav-link flex items-center gap-2.5 group"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Contact</span></a>
+                </nav>
+            </div>
+            <div class="pt-6 md:pt-0 font-mono">
+                <a href="mailto:[EMAIL]" class="block w-full text-center px-4 py-2.5 border border-cyberGreen/40 text-cyberGreen bg-cyberGreen/5 rounded-lg text-[10px] font-bold hover:bg-cyberGreen hover:text-black transition-all duration-300 glow-btn tracking-wider uppercase">Get In Touch</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 md:ml-60 lg:ml-64 p-6 md:p-12 lg:p-16">
+
+            <!-- BREADCRUMB -->
+            <div class="text-xs font-mono text-slateText mb-6">
+                <a href="../index.html" class="hover:text-white">Home</a>
+                <span class="mx-2">/</span>
+                <a href="index.html" class="hover:text-white">Articles</a>
+                <span class="mx-2">/</span>
+                <span class="text-cyberGreen">Chroma Docs Contribution</span>
+            </div>
+
+            <!-- ARTICLE HEADER -->
+            <section class="space-y-6 mb-10">
+                <div class="section-label-mono">// Technical Article</div>
+                <h1 class="text-3xl lg:text-4xl font-black text-white tracking-tighter leading-tight">I Contributed to Chroma's Open-Source Docs. Here's What I Changed — And What I Learned.</h1>
+                <p class="text-slateText max-w-2xl">I found an open documentation issue on Chroma's GitHub, reviewed two existing PRs that didn't fully address it, and submitted a comprehensive rewrite. Here's the full breakdown of what was wrong, what I changed, and what contributing to a major AI infrastructure project actually looks like.</p>
+                <div class="flex items-center gap-3 text-xs">
+                    <span class="node-badge badge-green">Open Source</span>
+                    <span class="node-badge badge-purple">Documentation</span>
+                    <span class="node-badge badge-cyan">AI Infrastructure</span>
+                    <span class="text-slateText">June 2026</span>
+                </div>
+            </section>
+
+            <!-- ARTICLE CONTENT -->
+            <section class="space-y-8">
+
+                <div class="section">
+                    <p class="text-gray-300 leading-relaxed">Chroma is one of the most widely used open-source vector databases in the AI ecosystem. It's the backbone of countless RAG pipelines, semantic search systems, and AI agent memory layers — including projects I've built myself. So when I found <a href="https://github.com/chroma-core/chroma/issues/3111" class="text-cyberGreen hover:text-emerald-400">issue #3111</a> on their GitHub — a request to update their Haystack integration documentation — I decided to take it on.</p>
+                    <p class="text-gray-300 leading-relaxed">The issue was straightforward: the existing docs were outdated, lacked clear installation steps, and had almost no practical examples for <code class="text-cyberGreen">ChromaDocumentStore</code>. But when I looked closer, I found two already-open PRs. That's where it got interesting.</p>
+                </div>
+
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">The Existing PRs</h2>
+                <div class="section">
+                    <p class="text-gray-300 leading-relaxed">Before writing anything, I checked what others had already done. There were two open PRs for this exact issue:</p>
+                    <ul class="text-gray-300 mt-3 space-y-3" style="list-style: disc; padding-left: 1.5rem;">
+                        <li><strong class="text-white">PR #3112:</strong> Deleted the entire documentation file. The contributor decided the best way to "update" the docs was to remove them entirely. This doesn't help users — it just creates a dead link.</li>
+                        <li><strong class="text-white">PR #7229 (manikanta7cheruku):</strong> Fixed a Path bug in the code example and swapped the LLM from HuggingFace (Mixtral) to OpenAI (GPT-3.5-turbo). The Path fix was good. The LLM swap was questionable — it replaced a free, self-hosted model with one that requires a paid API key, which is a worse default for open-source documentation.</li>
+                    </ul>
+                    <p class="text-gray-300 leading-relaxed">Neither PR actually addressed the core request: comprehensive, clear examples for <code class="text-cyberGreen">ChromaDocumentStore</code>. So I wrote my own.</p>
+                </div>
+
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">What I Changed</h2>
+                <div class="section">
+                    <p class="text-gray-300 leading-relaxed">I rewrote <code class="text-cyberGreen">docs/mintlify/integrations/frameworks/haystack.mdx</code> from 80 lines to 187 lines. Here's what was added:</p>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">Clearer Installation</h3>
+                    <p class="text-gray-300 leading-relaxed">The original docs only had <code class="text-cyberGreen">pip install chroma-haystack</code>. I added <code class="text-cyberGreen">haystack-ai</code> as an explicit dependency since the integration package doesn't always pull it in correctly.</p>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">Quick Start Example</h3>
+                    <p class="text-gray-300 leading-relaxed">A minimal 10-line example showing Document creation, writing, and counting — the fastest way to verify your setup works:</p>
+                    <div class="code-block mt-2">
+                        <span class="keyword">from</span> haystack <span class="keyword">import</span> Document<br>
+                        <span class="keyword">from</span> haystack_integrations.document_stores.chroma <span class="keyword">import</span> ChromaDocumentStore<br><br>
+                        document_store = ChromaDocumentStore()<br><br>
+                        docs = [<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Document(<span class="string">"Chroma stores documents as vectors."</span>),<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Document(<span class="string">"Haystack provides the orchestration layer."</span>),<br>
+                        ]<br>
+                        document_store.write_documents(docs)<br>
+                        <span class="keyword">print</span>(document_store.count_documents())&nbsp;&nbsp;<span class="comment"># Output: 2</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">All Three Deployment Modes</h3>
+                    <p class="text-gray-300 leading-relaxed">The original docs only showed in-memory mode. I documented all three: in-memory (development), persistent storage (disk-backed), and remote client-server (production with Docker or <code class="text-cyberGreen">chroma run</code>).</p>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">Fixed the Path Bug</h3>
+                    <p class="text-gray-300 leading-relaxed">The original code had <code class="text-cyberGreen">"data" / Path(name)</code> — a string divided by a Path object, which throws a TypeError. Fixed to <code class="text-cyberGreen">Path("data") / name</code>.</p>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">Retrieval Examples</h3>
+                    <p class="text-gray-300 leading-relaxed">Added three retrieval patterns: text query (auto-embedded by Chroma), embedding query (pre-computed vectors), and metadata filtering using Haystack's filter syntax.</p>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">Full RAG Pipeline</h3>
+                    <p class="text-gray-300 leading-relaxed">A complete end-to-end RAG example connecting ChromaDocumentStore → ChromaQueryRetriever → PromptBuilder → HuggingFaceTGIGenerator. I kept HuggingFace (free, self-hosted) instead of swapping to OpenAI.</p>
+
+                    <h3 class="text-lg font-bold text-white mt-4 mb-2">Troubleshooting Section</h3>
+                    <p class="text-gray-300 leading-relaxed">Common issues: import errors, empty results, remote connection refused, HuggingFace token errors. Each with a one-line fix.</p>
+                </div>
+
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">What I Learned</h2>
+
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">1. Check Existing PRs First</h3>
+                    <p class="text-gray-300 leading-relaxed">Two people had already worked on this issue before me. One deleted the file. One did minimal fixes. If I hadn't checked, I might have duplicated effort or missed context. Always review what's already in flight.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">2. Import Paths Change</h3>
+                    <p class="text-gray-300 leading-relaxed">The old docs used <code class="text-cyberGreen">from chroma_haystack import ChromaDocumentStore</code> — that's the archived package. The current one is <code class="text-cyberGreen">from haystack_integrations.document_stores.chroma import ChromaDocumentStore</code>. Same class, different package. This is exactly the kind of thing that makes docs go stale.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">3. You Can't Push Directly to Upstream</h3>
+                    <p class="text-gray-300 leading-relaxed">I tried <code class="text-cyberGreen">git push origin my-branch</code> and got a 403. You have to fork the repo first, push to your fork, then create the PR with <code class="text-cyberGreen">gh pr create --repo chroma-core/chroma --head SaintChris:my-branch</code>. Simple, but not obvious if you haven't contributed to a large project before.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="text-lg font-bold text-white mb-3">4. Docs Are Code</h3>
+                    <p class="text-gray-300 leading-relaxed">A broken code example in documentation is the same as a broken function — it wastes hours of developer time. The Path bug in the original docs would have caused a TypeError for anyone who copied the example. Fixing that one line probably saves more developer hours than most code contributions.</p>
+                </div>
+
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">The PR</h2>
+                <div class="section">
+                    <p class="text-gray-300 leading-relaxed">PR <a href="https://github.com/chroma-core/chroma/pull/7230" class="text-cyberGreen hover:text-emerald-400">#7230</a> is now open on the chroma-core/chroma repository. It's documentation-only — no code changes. The branch is at <a href="https://github.com/SaintChris/chroma/tree/docs/haystack-chroma-examples" class="text-cyberGreen hover:text-emerald-400">SaintChris/chroma</a>.</p>
+                    <p class="text-gray-300 leading-relaxed">Whether it gets merged or not, the process itself was the value. I now understand how Chroma's deployment modes work at a deeper level, I've read their documentation pipeline, and I have a contribution on one of the most widely-used vector databases in the AI ecosystem.</p>
+                    <p class="text-slateText text-sm font-mono mt-2">Tech: ChromaDB · Haystack · Python · Mintlify · Open Source</p>
+                </div>
+
+                <div class="section">
+                    <h2 class="text-xl font-black text-white uppercase tracking-tight mb-3">Why This Matters</h2>
+                    <p class="text-gray-300 leading-relaxed">Open-source documentation is infrastructure. When it's wrong, every developer who copies that example hits a wall. When it's incomplete, they spend hours reading source code to figure out what the docs should have said.</p>
+                    <p class="text-gray-300 leading-relaxed">Contributing to docs isn't glamorous. But for a project like Chroma — which thousands of developers depend on for RAG pipelines, agent memory, and semantic search — a clear, comprehensive integration guide is worth more than most feature PRs.</p>
+                </div>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="pt-10">
+                <div class="section-label-mono mb-4">// Related Articles</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="job-tracker-automation.html" class="node">
+                        <div class="text-2xl mb-2">🤖</div>
+                        <div class="text-sm font-bold text-white mb-1">Job Tracker Automation</div>
+                        <div class="text-xs text-slateText">AI agent to track job applications</div>
+                    </a>
+                    <a href="5-layer-memory-stack.html" class="node">
+                        <div class="text-2xl mb-2">🧠</div>
+                        <div class="text-sm font-bold text-white mb-1">5-Layer AI Memory Stack</div>
+                        <div class="text-xs text-slateText">Persistent memory on an M1 Mac</div>
+                    </a>
+                    <a href="index.html" class="node">
+                        <div class="text-2xl mb-2">📚</div>
+                        <div class="text-sm font-bold text-white mb-1">All Articles</div>
+                        <div class="text-xs text-slateText">Browse the full archive</div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="pt-8">
+                <div class="section text-center">
+                    <h3 class="text-lg font-bold text-white mb-2">Open to Remote Roles</h3>
+                    <p class="text-sm text-slateText mb-4">Agentic AI Engineer · MLOps · AI Solutions Architect<br>Based in Jamaica (ET) · Production experience from day one</p>
+                    <a href="../index.html#contact" class="glow-btn bg-cyberGreen text-black font-bold px-6 py-2.5 rounded-md hover:bg-emerald-400 transition-all duration-300 text-sm inline-block">Get in Touch →</a>
+                </div>
+            </section>
+
+            <footer class="pt-8 text-center text-slateText text-xs">
+                © 2026 Alex Bogle · <a href="https://saintlex.sbs" class="text-cyberGreen hover:text-emerald-400">saintlex.sbs</a> · Built on an M1 Mac with $0 cloud cost
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
