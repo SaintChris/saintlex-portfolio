@@ -93,9 +93,12 @@ def format_number(n):
 def generate_html(stats, auth_data):
     """Generate the OpenRouter live stats section HTML."""
     key_info = auth_data.get('data', {})
-    key_label = key_info.get('label', 'Management Key')
+    # Check if API is reachable
+    api_online = bool(key_info)
     
-    # Top models by requests
+    status_color = "bg-cyberGreen" if api_online else "bg-red-500"
+    status_text = "LIVE" if api_online else "DOWN"
+    status_text_color = "text-cyberGreen" if api_online else "text-red-500"
     model_reqs = {}
     model_tokens = {}
     # We need raw data for this - use the daily breakdown instead
@@ -119,14 +122,13 @@ def generate_html(stats, auth_data):
                 <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">OpenRouter Dashboard</h2>
                 <p class="text-slateText max-w-2xl leading-relaxed">Live usage data from my OpenRouter management API. This is real-time data from the AI models powering my agentic infrastructure — updated on every page load.</p>
                 
-                <!-- Key Status -->
+                <!-- API Status -->
                 <div class="bg-cardBg border border-hudGray/60 rounded-xl p-4 font-mono text-[11px] flex items-center justify-between max-w-lg">
                     <div class="flex items-center gap-2">
-                        <span class="h-2 w-2 rounded-full bg-cyberGreen animate-pulse"></span>
-                        <span class="text-slateText">API Key:</span>
-                        <span class="text-white font-bold">{key_label}</span>
+                        <span class="h-2 w-2 rounded-full {status_color} animate-pulse"></span>
+                        <span class="text-slateText">OpenRouter API</span>
                     </div>
-                    <span class="text-cyberGreen text-[10px] font-bold">ACTIVE</span>
+                    <span class="{status_text_color} text-[10px] font-bold">{status_text}</span>
                 </div>
 
                 <!-- Main Stats Grid -->
