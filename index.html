@@ -73,6 +73,7 @@
                     <a href="#projects" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Projects</span></a>
                     <a href="#skills" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Skills</span></a>
                     <a href="#articles" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Articles</span></a>
+                    <a href="#openrouter-stats" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Live Stats</span></a>
                     <a href="#contact" class="nav-link flex items-center gap-2.5 group hover:text-white"><span class="nav-indicator h-1 w-1.5 rounded-full bg-transparent transition-all duration-200"></span><span>Contact</span></a>
                 </nav>
             </div>
@@ -403,6 +404,134 @@
                     </a>
                 </div>
             </section>
+
+            <!-- OR-START --><!-- ═══ OPENROUTER LIVE STATS ═══ -->
+            <section id="openrouter-stats" class="space-y-6 scroll-mt-24">
+                <div class="section-label-mono">// Live AI Activity</div>
+                <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">OpenRouter Dashboard</h2>
+                <p class="text-slateText max-w-2xl leading-relaxed">Live usage data from my OpenRouter management API. This is real-time data from the AI models powering my agentic infrastructure — updated on every page load.</p>
+                
+                <!-- Key Status -->
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-4 font-mono text-[11px] flex items-center justify-between max-w-lg">
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-cyberGreen animate-pulse"></span>
+                        <span class="text-slateText">API Key:</span>
+                        <span class="text-white font-bold">sk-or-v1-219...283</span>
+                    </div>
+                    <span class="text-cyberGreen text-[10px] font-bold">ACTIVE</span>
+                </div>
+
+                <!-- Main Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="stat-box">
+                        <div class="stat-num text-cyberGreen">26.6K</div>
+                        <div class="stat-label">Total Requests</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num text-teal-400">2.4B</div>
+                        <div class="stat-label">Tokens Processed</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num text-purple-400">52</div>
+                        <div class="stat-label">Models Used</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num text-amber-400">$0.52</div>
+                        <div class="stat-label">Total Cost</div>
+                    </div>
+                </div>
+
+                <!-- Token Breakdown -->
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
+                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Token Breakdown</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="text-center">
+                            <div class="font-mono text-lg font-bold text-cyberGreen">2.4B</div>
+                            <div class="text-[9px] text-slateText font-mono uppercase">Prompt</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-mono text-lg font-bold text-teal-400">8.4M</div>
+                            <div class="text-[9px] text-slateText font-mono uppercase">Completion</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-mono text-lg font-bold text-purple-400">2.3M</div>
+                            <div class="text-[9px] text-slateText font-mono uppercase">Reasoning</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Activity Table -->
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
+                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Daily Activity (Last 7 Days)</p>
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-hudGray/40">
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal">Date</th>
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Requests</th>
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Tokens</th>
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-10</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.4K</td>
+                                <td class="text-white font-mono text-[10px] text-right">255.2M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0017</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-09</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.5K</td>
+                                <td class="text-white font-mono text-[10px] text-right">272.4M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.4662</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-08</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.4K</td>
+                                <td class="text-white font-mono text-[10px] text-right">128.3M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-07</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.2K</td>
+                                <td class="text-white font-mono text-[10px] text-right">72.9M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-06</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.1K</td>
+                                <td class="text-white font-mono text-[10px] text-right">44.8M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-05</td>
+                                <td class="text-white font-mono text-[10px] text-right">2.1K</td>
+                                <td class="text-white font-mono text-[10px] text-right">135.0M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0222</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slateText font-mono text-[10px]">2026-06-04</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.3K</td>
+                                <td class="text-white font-mono text-[10px] text-right">89.8M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0098</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Models Used -->
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
+                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Models Used (52)</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-pill">anthropic/claude-opus-4</span><span class="tech-pill">anthropic/claude-opus-4.6</span><span class="tech-pill">anthropic/claude-sonnet-4</span><span class="tech-pill">anthropic/claude-sonnet-4.6</span><span class="tech-pill">deepseek/deepseek-chat</span><span class="tech-pill">deepseek/deepseek-r1</span><span class="tech-pill">deepseek/deepseek-v3.2</span><span class="tech-pill">google/gemini-2.5-flash</span><span class="tech-pill">google/gemini-2.5-pro</span><span class="tech-pill">google/gemini-3-flash-preview</span><span class="tech-pill">google/gemini-3.1-pro-preview</span><span class="tech-pill">google/gemini-3.5-flash</span><span class="tech-pill">google/gemma-3-27b-it</span><span class="tech-pill">google/gemma-4-26b-a4b-it</span><span class="tech-pill">google/gemma-4-31b-it</span><span class="tech-pill">meta-llama/llama-3.1-8b-instruct</span><span class="tech-pill">meta-llama/llama-3.3-70b-instruct</span><span class="tech-pill">meta-llama/llama-4-maverick</span><span class="tech-pill">meta-llama/llama-4-scout</span><span class="tech-pill">minimax/minimax-m2.5</span>
+                        <span class="tech-pill">+32 more</span>
+                    </div>
+                </div>
+
+                <!-- Last Updated -->
+                <p class="text-gray-500 font-mono text-[9px] text-right">Last updated: 2026-06-11 02:16 UTC</p>
+            </section><!-- OR-END -->
 
             <!-- ═══ 7. CONTACT ═══ -->
             <section id="contact" class="scroll-mt-24 pb-12">

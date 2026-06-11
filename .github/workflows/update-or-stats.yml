@@ -1,0 +1,69 @@
+name: Update OpenRouter Stats
+
+on:
+  schedule:
+    # Every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch OpenRouter stats
+        env:
+          OPENROUTER_MANAGEMENT_KEY: ${{ secrets.OPENROUTER_MANAGEMENT_KEY }}
+        run: |
+          python3 scripts/fetch_or_stats.py > /tmp/or_stats.html
+          if [ ! -s /tmp/or_stats.html ]; then
+            echo "ERROR: fetch_or_stats.py produced empty output"
+            exit 1
+          fi
+          echo "Stats fetched successfully"
+          wc -c /tmp/or_stats.html
+
+      - name: Inject stats into index.html
+        run: |
+          python3 -c "
+          import re
+          with open('/tmp/or_stats.html', 'r') as f:
+              stats_html = f.read()
+          with open('index.html', 'r') as f:
+              content = f.read()
+          if '<!-- OR-START -->' in content and '<!-- OR-END -->' in content:
+              pattern = r'<!-- OR-START -->.*?<!-- OR-END -->'
+              replacement = '<!-- OR-START -->' + stats_html + '<!-- OR-END -->'
+              content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+              with open('index.html', 'w') as f:
+                  f.write(content)
+              print('Stats injected successfully')
+          else:
+              print('ERROR: OR markers not found')
+              exit(1)
+          "
+
+      - name: Validate HTML
+        run: |
+          npm install -g html-validate
+          html-validate index.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update OpenRouter live stats [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+            git push
+          fi
