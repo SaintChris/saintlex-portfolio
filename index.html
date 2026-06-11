@@ -423,7 +423,7 @@
                 <!-- View Toggle -->
                 <div class="flex items-center gap-2">
                     <span class="text-[9px] text-slateText font-mono uppercase tracking-widest mr-1">View:</span>
-                    <button id="or-view-total" class="or-view-btn px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-cyberGreen text-black Total</button>
+                    <button id="or-view-total" class="or-view-btn px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-cyberGreen text-black" onclick="orSwitchView('total')">Total</button>
                     <button id="or-view-daily" class="or-view-btn px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-hudGray text-slateText hover:text-white" onclick="orSwitchView('daily')">Daily Avg</button>
                 </div>
 
@@ -717,13 +717,33 @@
                     <p id="or-model-count" class="text-[9px] text-slateText font-mono mt-2">52 models</p>
                 </div>
 
-                <!-- Last Updated -->
-                <p class="text-gray-500 font-mono text-[9px] text-right">Last updated: 2026-06-11 02:32 UTC</p>
+                <!-- Footer: refresh info + button -->
+                <div class="flex items-center justify-between">
+                    <p class="text-gray-500 font-mono text-[9px]">Auto-refreshes every 1 hour · Last updated: 2026-06-11 02:54 UTC</p>
+                    <button id="or-refresh-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-hudGray text-slateText hover:text-white hover:bg-hudGray/80 border border-hudGray/50" onclick="orTriggerRefresh(this)">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        Refresh Now
+                    </button>
+                </div>
             </section>
 
             <script>
             (function() {
-                // ── View Toggle ──
+                // -- Trigger GitHub Actions workflow_dispatch --
+                window.orTriggerRefresh = function(btn) {
+                    var originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></svg> Opening...';
+                    btn.disabled = true;
+                    btn.classList.add('opacity-75', 'cursor-not-allowed');
+                    window.open('https://github.com/SaintChris/saintlex-portfolio/actions/workflows/update-or-stats.yml', '_blank');
+                    btn.innerHTML = '<svg class="w-3 h-3 text-cyberGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg> Opened - click Run';
+                    setTimeout(function() {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    }, 4000);
+                };
+                // -- View Toggle --
                 window.orSwitchView = function(view) {
                     var btns = document.querySelectorAll('.or-view-btn');
                     btns.forEach(function(b) {
@@ -733,12 +753,10 @@
                     var activeBtn = document.getElementById('or-view-' + view);
                     activeBtn.classList.remove('bg-hudGray', 'text-slateText');
                     activeBtn.classList.add('bg-cyberGreen', 'text-black');
-
-                    var suffix = view === 'daily' ? '/day' : '';
                     var fields = [
-                        { id: 'or-stat-requests', labelId: 'or-stat-requests-label', label: 'Requests' },
-                        { id: 'or-stat-tokens', labelId: 'or-stat-tokens-label', label: 'Tokens Processed' },
-                        { id: 'or-stat-cost', labelId: 'or-stat-cost-label', label: 'Cost' }
+                        {id: 'or-stat-requests', labelId: 'or-stat-requests-label', label: 'Requests'},
+                        {id: 'or-stat-tokens', labelId: 'or-stat-tokens-label', label: 'Tokens Processed'},
+                        {id: 'or-stat-cost', labelId: 'or-stat-cost-label', label: 'Cost'}
                     ];
                     fields.forEach(function(f) {
                         var el = document.getElementById(f.id);
@@ -748,25 +766,21 @@
                             if (val) el.textContent = val;
                         }
                         if (labelEl) {
-                            labelEl.textContent = (view === 'daily' ? 'Daily Avg ' : 'Total ') + f.label.replace('Total ', '').replace('Processed', 'Proc.');
+                            labelEl.textContent = (view === 'daily' ? 'Daily Avg ' : 'Total ') + f.label;
                         }
                     });
                 };
-
-                // ── Table Sorting ──
+                // -- Table Sorting --
                 document.querySelectorAll('.or-sort-header').forEach(function(th) {
                     th.addEventListener('click', function() {
                         var col = this.getAttribute('data-col');
                         var dir = this.getAttribute('data-dir');
                         var newDir = dir === 'asc' ? 'desc' : 'asc';
                         this.setAttribute('data-dir', newDir);
-
-                        // Update arrow indicators
                         document.querySelectorAll('.or-sort-header').forEach(function(h) {
                             h.textContent = h.textContent.replace(/[↑↓]/g, '↕');
                         });
                         this.textContent = this.textContent.replace('↕', newDir === 'asc' ? '↑' : '↓');
-
                         var tbody = document.getElementById('or-daily-tbody');
                         var rows = Array.from(tbody.querySelectorAll('.or-daily-row'));
                         rows.sort(function(a, b) {
@@ -783,8 +797,7 @@
                         rows.forEach(function(r) { tbody.appendChild(r); });
                     });
                 });
-
-                // ── Model Filter ──
+                // -- Model Filter --
                 window.orFilterModels = function(query) {
                     var q = query.toLowerCase().trim();
                     var pills = document.querySelectorAll('.or-model-pill');
