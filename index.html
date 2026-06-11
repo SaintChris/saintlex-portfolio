@@ -410,7 +410,7 @@
                 <div class="section-label-mono">// Live AI Activity</div>
                 <h2 class="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">OpenRouter Dashboard</h2>
                 <p class="text-slateText max-w-2xl leading-relaxed">Live usage data from my OpenRouter management API. This is real-time data from the AI models powering my agentic infrastructure — updated on every page load.</p>
-                
+
                 <!-- API Status -->
                 <div class="bg-cardBg border border-hudGray/60 rounded-xl p-4 font-mono text-[11px] flex items-center justify-between max-w-lg">
                     <div class="flex items-center gap-2">
@@ -420,23 +420,30 @@
                     <span class="text-cyberGreen text-[10px] font-bold">LIVE</span>
                 </div>
 
+                <!-- View Toggle -->
+                <div class="flex items-center gap-2">
+                    <span class="text-[9px] text-slateText font-mono uppercase tracking-widest mr-1">View:</span>
+                    <button id="or-view-total" class="or-view-btn px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-cyberGreen text-black Total</button>
+                    <button id="or-view-daily" class="or-view-btn px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-hudGray text-slateText hover:text-white" onclick="orSwitchView('daily')">Daily Avg</button>
+                </div>
+
                 <!-- Main Stats Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div id="or-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div class="stat-box">
-                        <div class="stat-num text-cyberGreen">26.6K</div>
-                        <div class="stat-label">Total Requests</div>
+                        <div class="stat-num text-cyberGreen" id="or-stat-requests" data-total="26.6K" data-daily="3.8K">26.6K</div>
+                        <div class="stat-label" id="or-stat-requests-label">Total Requests</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-num text-teal-400">2.4B</div>
-                        <div class="stat-label">Tokens Processed</div>
+                        <div class="stat-num text-teal-400" id="or-stat-tokens" data-total="2.4B" data-daily="349.1M">2.4B</div>
+                        <div class="stat-label" id="or-stat-tokens-label">Tokens Processed</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-num text-purple-400">52</div>
+                        <div class="stat-num text-purple-400" id="or-stat-models">52</div>
                         <div class="stat-label">Models Used</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-num text-amber-400">$0.52</div>
-                        <div class="stat-label">Total Cost</div>
+                        <div class="stat-num text-amber-400" id="or-stat-cost" data-total="$0.52" data-daily="$0.07">$0.52</div>
+                        <div class="stat-label" id="or-stat-cost-label">Total Cost</div>
                     </div>
                 </div>
 
@@ -459,58 +466,107 @@
                     </div>
                 </div>
 
-                <!-- Daily Activity Table -->
+                <!-- Bar Chart -->
                 <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
-                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Daily Activity (Last 7 Days)</p>
-                    <table class="w-full text-left">
+                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Requests Per Day</p>
+                    <div class="flex items-end gap-1.5 h-32 mb-2">
+                        
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 64.4%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    1332 req · 89.8M tok · $0.0098
+                                </div>
+                            </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 100.0%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    2069 req · 135.0M tok · $0.0222
+                                </div>
+                            </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 53.7%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    1112 req · 44.8M tok · $0.0000
+                                </div>
+                            </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 60.4%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    1249 req · 72.9M tok · $0.0000
+                                </div>
+                            </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 69.8%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    1445 req · 128.3M tok · $0.0000
+                                </div>
+                            </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 70.8%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    1464 req · 272.4M tok · $0.4662
+                                </div>
+                            </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 68.3%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    1413 req · 255.2M tok · $0.0017
+                                </div>
+                            </div>
+                    </div>
+                    <div class="flex gap-1.5">
+                        <span class="flex-1 text-slateText text-[8px] font-mono text-center">06-04</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-05</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-06</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-07</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-08</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-09</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-10</span>
+                    </div>
+                </div>
+
+                <!-- Daily Activity Table (Sortable) -->
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold">Daily Activity</p>
+                        <span class="text-[8px] text-slateText font-mono">Click headers to sort</span>
+                    </div>
+                    <table class="w-full text-left" id="or-daily-table">
                         <thead>
                             <tr class="border-b border-hudGray/40">
-                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal">Date</th>
-                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Requests</th>
-                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Tokens</th>
-                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Cost</th>
+                                <th class="or-sort-header text-slateText font-mono text-[10px] pb-2 font-normal cursor-pointer hover:text-white transition-colors" data-col="date" data-dir="desc">Date ↕</th>
+                                <th class="or-sort-header text-slateText font-mono text-[10px] pb-2 font-normal text-right cursor-pointer hover:text-white transition-colors" data-col="requests" data-dir="desc">Requests ↕</th>
+                                <th class="or-sort-header text-slateText font-mono text-[10px] pb-2 font-normal text-right cursor-pointer hover:text-white transition-colors" data-col="tokens" data-dir="desc">Tokens ↕</th>
+                                <th class="or-sort-header text-slateText font-mono text-[10px] pb-2 font-normal text-right cursor-pointer hover:text-white transition-colors" data-col="cost" data-dir="desc">Cost ↕</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="or-daily-tbody">
                             
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-10</td>
+                            <tr class="or-daily-row" data-date="2026-06-10" data-requests="1413" data-tokens="255227810" data-cost="0.001704">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-10</td>
                                 <td class="text-white font-mono text-[10px] text-right">1.4K</td>
                                 <td class="text-white font-mono text-[10px] text-right">255.2M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0017</td>
                             </tr>
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-09</td>
+                            <tr class="or-daily-row" data-date="2026-06-09" data-requests="1464" data-tokens="272449912" data-cost="0.466190">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-09</td>
                                 <td class="text-white font-mono text-[10px] text-right">1.5K</td>
                                 <td class="text-white font-mono text-[10px] text-right">272.4M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.4662</td>
                             </tr>
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-08</td>
+                            <tr class="or-daily-row" data-date="2026-06-08" data-requests="1445" data-tokens="128320960" data-cost="0.000000">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-08</td>
                                 <td class="text-white font-mono text-[10px] text-right">1.4K</td>
                                 <td class="text-white font-mono text-[10px] text-right">128.3M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-07</td>
+                            <tr class="or-daily-row" data-date="2026-06-07" data-requests="1249" data-tokens="72860154" data-cost="0.000000">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-07</td>
                                 <td class="text-white font-mono text-[10px] text-right">1.2K</td>
                                 <td class="text-white font-mono text-[10px] text-right">72.9M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-06</td>
+                            <tr class="or-daily-row" data-date="2026-06-06" data-requests="1112" data-tokens="44791272" data-cost="0.000000">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-06</td>
                                 <td class="text-white font-mono text-[10px] text-right">1.1K</td>
                                 <td class="text-white font-mono text-[10px] text-right">44.8M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-05</td>
+                            <tr class="or-daily-row" data-date="2026-06-05" data-requests="2069" data-tokens="135036191" data-cost="0.022158">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-05</td>
                                 <td class="text-white font-mono text-[10px] text-right">2.1K</td>
                                 <td class="text-white font-mono text-[10px] text-right">135.0M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0222</td>
                             </tr>
-                            <tr>
-                                <td class="text-slateText font-mono text-[10px]">2026-06-04</td>
+                            <tr class="or-daily-row" data-date="2026-06-04" data-requests="1332" data-tokens="89784980" data-cost="0.009812">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-04</td>
                                 <td class="text-white font-mono text-[10px] text-right">1.3K</td>
                                 <td class="text-white font-mono text-[10px] text-right">89.8M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0098</td>
@@ -519,18 +575,231 @@
                     </table>
                 </div>
 
-                <!-- Models Used -->
+                <!-- Top Models Table -->
                 <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
-                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Models Used (52)</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="tech-pill">anthropic/claude-opus-4</span><span class="tech-pill">anthropic/claude-opus-4.6</span><span class="tech-pill">anthropic/claude-sonnet-4</span><span class="tech-pill">anthropic/claude-sonnet-4.6</span><span class="tech-pill">deepseek/deepseek-chat</span><span class="tech-pill">deepseek/deepseek-r1</span><span class="tech-pill">deepseek/deepseek-v3.2</span><span class="tech-pill">google/gemini-2.5-flash</span><span class="tech-pill">google/gemini-2.5-pro</span><span class="tech-pill">google/gemini-3-flash-preview</span><span class="tech-pill">google/gemini-3.1-pro-preview</span><span class="tech-pill">google/gemini-3.5-flash</span><span class="tech-pill">google/gemma-3-27b-it</span><span class="tech-pill">google/gemma-4-26b-a4b-it</span><span class="tech-pill">google/gemma-4-31b-it</span><span class="tech-pill">meta-llama/llama-3.1-8b-instruct</span><span class="tech-pill">meta-llama/llama-3.3-70b-instruct</span><span class="tech-pill">meta-llama/llama-4-maverick</span><span class="tech-pill">meta-llama/llama-4-scout</span><span class="tech-pill">minimax/minimax-m2.5</span>
-                        <span class="tech-pill">+32 more</span>
+                    <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Top Models by Requests</p>
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-hudGray/40">
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal">Model</th>
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Requests</th>
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Tokens</th>
+                                <th class="text-slateText font-mono text-[10px] pb-2 font-normal text-right">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/openrouter/owl-alpha', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="openrouter/owl-alpha">openrouter/owl-alpha</td>
+                                <td class="text-white font-mono text-[10px] text-right">14.9K</td>
+                                <td class="text-white font-mono text-[10px] text-right">2.0B</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/openai/gpt-oss-120b', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="openai/gpt-oss-120b">openai/gpt-oss-120b</td>
+                                <td class="text-white font-mono text-[10px] text-right">8.1K</td>
+                                <td class="text-white font-mono text-[10px] text-right">309.6M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/openai/gpt-oss-20b', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="openai/gpt-oss-20b">openai/gpt-oss-20b</td>
+                                <td class="text-white font-mono text-[10px] text-right">2.1K</td>
+                                <td class="text-white font-mono text-[10px] text-right">68.4M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0001</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="nvidia/nemotron-3-super-120b-a12b">nvidia/nemotron-3-super-120b-a12b</td>
+                                <td class="text-white font-mono text-[10px] text-right">974</td>
+                                <td class="text-white font-mono text-[10px] text-right">75.4M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0019</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/google/gemma-4-31b-it', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="google/gemma-4-31b-it">google/gemma-4-31b-it</td>
+                                <td class="text-white font-mono text-[10px] text-right">350</td>
+                                <td class="text-white font-mono text-[10px] text-right">12.6M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/z-ai/glm-4.5-air', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="z-ai/glm-4.5-air">z-ai/glm-4.5-air</td>
+                                <td class="text-white font-mono text-[10px] text-right">78</td>
+                                <td class="text-white font-mono text-[10px] text-right">3.7M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="nvidia/nemotron-3-nano-30b-a3b">nvidia/nemotron-3-nano-30b-a3b</td>
+                                <td class="text-white font-mono text-[10px] text-right">32</td>
+                                <td class="text-white font-mono text-[10px] text-right">355.7K</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0001</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/meta-llama/llama-4-scout', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="meta-llama/llama-4-scout">meta-llama/llama-4-scout</td>
+                                <td class="text-white font-mono text-[10px] text-right">15</td>
+                                <td class="text-white font-mono text-[10px] text-right">691.0K</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0764</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/google/gemini-2.5-flash', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="google/gemini-2.5-flash">google/gemini-2.5-flash</td>
+                                <td class="text-white font-mono text-[10px] text-right">14</td>
+                                <td class="text-white font-mono text-[10px] text-right">325.7K</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0632</td>
+                            </tr>
+                            <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning', '_blank')">
+                                <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning">nvidia/nemotron-3-nano-omni-30b-a3b-reasoning</td>
+                                <td class="text-white font-mono text-[10px] text-right">5</td>
+                                <td class="text-white font-mono text-[10px] text-right">95</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- All Models (Searchable) -->
+                <div class="bg-cardBg border border-hudGray/60 rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold">All Models (52)</p>
+                        <input id="or-model-search" type="text" placeholder="Filter models..." class="bg-black/30 border border-hudGray/40 rounded px-2 py-1 text-[10px] text-white font-mono placeholder-gray-600 focus:outline-none focus:border-cyberGreen/40 w-44 transition-colors" oninput="orFilterModels(this.value)" />
                     </div>
+                    <div id="or-model-list" class="flex flex-wrap gap-2">
+                        
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="anthropic/claude-opus-4" data-requests="1" onclick="window.open('https://openrouter.ai/anthropic/claude-opus-4', '_blank')">anthropic/claude-opus-4</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="anthropic/claude-opus-4.6" data-requests="1" onclick="window.open('https://openrouter.ai/anthropic/claude-opus-4.6', '_blank')">anthropic/claude-opus-4.6</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="anthropic/claude-sonnet-4" data-requests="1" onclick="window.open('https://openrouter.ai/anthropic/claude-sonnet-4', '_blank')">anthropic/claude-sonnet-4</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="anthropic/claude-sonnet-4.6" data-requests="1" onclick="window.open('https://openrouter.ai/anthropic/claude-sonnet-4.6', '_blank')">anthropic/claude-sonnet-4.6</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="deepseek/deepseek-chat" data-requests="2" onclick="window.open('https://openrouter.ai/deepseek/deepseek-chat', '_blank')">deepseek/deepseek-chat</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="deepseek/deepseek-r1" data-requests="1" onclick="window.open('https://openrouter.ai/deepseek/deepseek-r1', '_blank')">deepseek/deepseek-r1</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="deepseek/deepseek-v3.2" data-requests="1" onclick="window.open('https://openrouter.ai/deepseek/deepseek-v3.2', '_blank')">deepseek/deepseek-v3.2</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-2.5-flash" data-requests="14" onclick="window.open('https://openrouter.ai/google/gemini-2.5-flash', '_blank')">google/gemini-2.5-flash</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-2.5-pro" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemini-2.5-pro', '_blank')">google/gemini-2.5-pro</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-3-flash-preview" data-requests="2" onclick="window.open('https://openrouter.ai/google/gemini-3-flash-preview', '_blank')">google/gemini-3-flash-preview</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-3.1-pro-preview" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemini-3.1-pro-preview', '_blank')">google/gemini-3.1-pro-preview</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-3.5-flash" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemini-3.5-flash', '_blank')">google/gemini-3.5-flash</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-3-27b-it" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemma-3-27b-it', '_blank')">google/gemma-3-27b-it</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-4-26b-a4b-it" data-requests="3" onclick="window.open('https://openrouter.ai/google/gemma-4-26b-a4b-it', '_blank')">google/gemma-4-26b-a4b-it</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-4-31b-it" data-requests="350" onclick="window.open('https://openrouter.ai/google/gemma-4-31b-it', '_blank')">google/gemma-4-31b-it</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="meta-llama/llama-3.1-8b-instruct" data-requests="2" onclick="window.open('https://openrouter.ai/meta-llama/llama-3.1-8b-instruct', '_blank')">meta-llama/llama-3.1-8b-instruct</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="meta-llama/llama-3.3-70b-instruct" data-requests="1" onclick="window.open('https://openrouter.ai/meta-llama/llama-3.3-70b-instruct', '_blank')">meta-llama/llama-3.3-70b-instruct</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="meta-llama/llama-4-maverick" data-requests="1" onclick="window.open('https://openrouter.ai/meta-llama/llama-4-maverick', '_blank')">meta-llama/llama-4-maverick</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="meta-llama/llama-4-scout" data-requests="15" onclick="window.open('https://openrouter.ai/meta-llama/llama-4-scout', '_blank')">meta-llama/llama-4-scout</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="minimax/minimax-m2.5" data-requests="2" onclick="window.open('https://openrouter.ai/minimax/minimax-m2.5', '_blank')">minimax/minimax-m2.5</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="mistralai/codestral-2508" data-requests="1" onclick="window.open('https://openrouter.ai/mistralai/codestral-2508', '_blank')">mistralai/codestral-2508</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="mistralai/mistral-large-2512" data-requests="1" onclick="window.open('https://openrouter.ai/mistralai/mistral-large-2512', '_blank')">mistralai/mistral-large-2512</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="mistralai/mistral-medium-3.1" data-requests="1" onclick="window.open('https://openrouter.ai/mistralai/mistral-medium-3.1', '_blank')">mistralai/mistral-medium-3.1</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="mistralai/mixtral-8x22b-instruct" data-requests="1" onclick="window.open('https://openrouter.ai/mistralai/mixtral-8x22b-instruct', '_blank')">mistralai/mixtral-8x22b-instruct</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="moonshotai/kimi-k2" data-requests="1" onclick="window.open('https://openrouter.ai/moonshotai/kimi-k2', '_blank')">moonshotai/kimi-k2</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="moonshotai/kimi-k2.5" data-requests="2" onclick="window.open('https://openrouter.ai/moonshotai/kimi-k2.5', '_blank')">moonshotai/kimi-k2.5</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nousresearch/hermes-3-llama-3.1-405b" data-requests="1" onclick="window.open('https://openrouter.ai/nousresearch/hermes-3-llama-3.1-405b', '_blank')">nousresearch/hermes-3-llama-3.1-405b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nousresearch/hermes-3-llama-3.1-70b" data-requests="1" onclick="window.open('https://openrouter.ai/nousresearch/hermes-3-llama-3.1-70b', '_blank')">nousresearch/hermes-3-llama-3.1-70b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nousresearch/hermes-4-405b" data-requests="1" onclick="window.open('https://openrouter.ai/nousresearch/hermes-4-405b', '_blank')">nousresearch/hermes-4-405b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nousresearch/hermes-4-70b" data-requests="1" onclick="window.open('https://openrouter.ai/nousresearch/hermes-4-70b', '_blank')">nousresearch/hermes-4-70b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nvidia/nemotron-3-nano-30b-a3b" data-requests="32" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b', '_blank')">nvidia/nemotron-3-nano-30b-a3b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning" data-requests="5" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning', '_blank')">nvidia/nemotron-3-nano-omni-30b-a3b-reasoning</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nvidia/nemotron-3-super-120b-a12b" data-requests="974" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b', '_blank')">nvidia/nemotron-3-super-120b-a12b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nvidia/nemotron-nano-12b-v2-vl" data-requests="2" onclick="window.open('https://openrouter.ai/nvidia/nemotron-nano-12b-v2-vl', '_blank')">nvidia/nemotron-nano-12b-v2-vl</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="nvidia/nemotron-nano-9b-v2" data-requests="2" onclick="window.open('https://openrouter.ai/nvidia/nemotron-nano-9b-v2', '_blank')">nvidia/nemotron-nano-9b-v2</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-4o" data-requests="1" onclick="window.open('https://openrouter.ai/openai/gpt-4o', '_blank')">openai/gpt-4o</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-5" data-requests="1" onclick="window.open('https://openrouter.ai/openai/gpt-5', '_blank')">openai/gpt-5</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-5.2" data-requests="1" onclick="window.open('https://openrouter.ai/openai/gpt-5.2', '_blank')">openai/gpt-5.2</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-oss-120b" data-requests="8122" onclick="window.open('https://openrouter.ai/openai/gpt-oss-120b', '_blank')">openai/gpt-oss-120b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-oss-20b" data-requests="2136" onclick="window.open('https://openrouter.ai/openai/gpt-oss-20b', '_blank')">openai/gpt-oss-20b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openrouter/owl-alpha" data-requests="14853" onclick="window.open('https://openrouter.ai/openrouter/owl-alpha', '_blank')">openrouter/owl-alpha</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="perplexity/sonar" data-requests="2" onclick="window.open('https://openrouter.ai/perplexity/sonar', '_blank')">perplexity/sonar</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="qwen/qwen-2.5-72b-instruct" data-requests="1" onclick="window.open('https://openrouter.ai/qwen/qwen-2.5-72b-instruct', '_blank')">qwen/qwen-2.5-72b-instruct</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="qwen/qwen3-235b-a22b" data-requests="1" onclick="window.open('https://openrouter.ai/qwen/qwen3-235b-a22b', '_blank')">qwen/qwen3-235b-a22b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="qwen/qwen3-coder" data-requests="1" onclick="window.open('https://openrouter.ai/qwen/qwen3-coder', '_blank')">qwen/qwen3-coder</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="qwen/qwen3.5-plus-02-15" data-requests="1" onclick="window.open('https://openrouter.ai/qwen/qwen3.5-plus-02-15', '_blank')">qwen/qwen3.5-plus-02-15</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="stepfun/step-3.5-flash" data-requests="2" onclick="window.open('https://openrouter.ai/stepfun/step-3.5-flash', '_blank')">stepfun/step-3.5-flash</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="xiaomi/mimo-v2-flash" data-requests="2" onclick="window.open('https://openrouter.ai/xiaomi/mimo-v2-flash', '_blank')">xiaomi/mimo-v2-flash</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="z-ai/glm-4.5-air" data-requests="78" onclick="window.open('https://openrouter.ai/z-ai/glm-4.5-air', '_blank')">z-ai/glm-4.5-air</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="z-ai/glm-4.7" data-requests="1" onclick="window.open('https://openrouter.ai/z-ai/glm-4.7', '_blank')">z-ai/glm-4.7</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="z-ai/glm-5" data-requests="1" onclick="window.open('https://openrouter.ai/z-ai/glm-5', '_blank')">z-ai/glm-5</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="z-ai/glm-5-turbo" data-requests="1" onclick="window.open('https://openrouter.ai/z-ai/glm-5-turbo', '_blank')">z-ai/glm-5-turbo</span>
+                    </div>
+                    <p id="or-model-count" class="text-[9px] text-slateText font-mono mt-2">52 models</p>
                 </div>
 
                 <!-- Last Updated -->
-                <p class="text-gray-500 font-mono text-[9px] text-right">Last updated: 2026-06-11 02:23 UTC</p>
-            </section><!-- OR-END -->
+                <p class="text-gray-500 font-mono text-[9px] text-right">Last updated: 2026-06-11 02:32 UTC</p>
+            </section>
+
+            <script>
+            (function() {
+                // ── View Toggle ──
+                window.orSwitchView = function(view) {
+                    var btns = document.querySelectorAll('.or-view-btn');
+                    btns.forEach(function(b) {
+                        b.classList.remove('bg-cyberGreen', 'text-black');
+                        b.classList.add('bg-hudGray', 'text-slateText');
+                    });
+                    var activeBtn = document.getElementById('or-view-' + view);
+                    activeBtn.classList.remove('bg-hudGray', 'text-slateText');
+                    activeBtn.classList.add('bg-cyberGreen', 'text-black');
+
+                    var suffix = view === 'daily' ? '/day' : '';
+                    var fields = [
+                        { id: 'or-stat-requests', labelId: 'or-stat-requests-label', label: 'Requests' },
+                        { id: 'or-stat-tokens', labelId: 'or-stat-tokens-label', label: 'Tokens Processed' },
+                        { id: 'or-stat-cost', labelId: 'or-stat-cost-label', label: 'Cost' }
+                    ];
+                    fields.forEach(function(f) {
+                        var el = document.getElementById(f.id);
+                        var labelEl = document.getElementById(f.labelId);
+                        if (el) {
+                            var val = el.getAttribute('data-' + view);
+                            if (val) el.textContent = val;
+                        }
+                        if (labelEl) {
+                            labelEl.textContent = (view === 'daily' ? 'Daily Avg ' : 'Total ') + f.label.replace('Total ', '').replace('Processed', 'Proc.');
+                        }
+                    });
+                };
+
+                // ── Table Sorting ──
+                document.querySelectorAll('.or-sort-header').forEach(function(th) {
+                    th.addEventListener('click', function() {
+                        var col = this.getAttribute('data-col');
+                        var dir = this.getAttribute('data-dir');
+                        var newDir = dir === 'asc' ? 'desc' : 'asc';
+                        this.setAttribute('data-dir', newDir);
+
+                        // Update arrow indicators
+                        document.querySelectorAll('.or-sort-header').forEach(function(h) {
+                            h.textContent = h.textContent.replace(/[↑↓]/g, '↕');
+                        });
+                        this.textContent = this.textContent.replace('↕', newDir === 'asc' ? '↑' : '↓');
+
+                        var tbody = document.getElementById('or-daily-tbody');
+                        var rows = Array.from(tbody.querySelectorAll('.or-daily-row'));
+                        rows.sort(function(a, b) {
+                            var va, vb;
+                            if (col === 'date') {
+                                va = a.getAttribute('data-date');
+                                vb = b.getAttribute('data-date');
+                                return newDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+                            }
+                            va = parseFloat(a.getAttribute('data-' + col));
+                            vb = parseFloat(b.getAttribute('data-' + col));
+                            return newDir === 'asc' ? va - vb : vb - va;
+                        });
+                        rows.forEach(function(r) { tbody.appendChild(r); });
+                    });
+                });
+
+                // ── Model Filter ──
+                window.orFilterModels = function(query) {
+                    var q = query.toLowerCase().trim();
+                    var pills = document.querySelectorAll('.or-model-pill');
+                    var visible = 0;
+                    pills.forEach(function(p) {
+                        var model = p.getAttribute('data-model').toLowerCase();
+                        var match = !q || model.includes(q);
+                        p.style.display = match ? 'inline-block' : 'none';
+                        if (match) visible++;
+                    });
+                    var countEl = document.getElementById('or-model-count');
+                    if (countEl) countEl.textContent = visible + ' of ' + pills.length + ' models';
+                };
+            })();
+            </script><!-- OR-END -->
 
             <!-- ═══ 7. CONTACT ═══ -->
             <section id="contact" class="scroll-mt-24 pb-12">
