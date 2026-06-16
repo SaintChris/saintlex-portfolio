@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Contributed to the Awesome AI Second Brain Repo — Alex Bogle</title>
-    <meta name="description" content="How I contributed a solution profile, setup guide, example workflow, and comparison page to the awesome-second-brain open-source repo.">
+    <title>How I Contributed to Awesome Second Brain — And What I Learned From Getting Rejected</title>
+    <meta name="description" content="A detailed account of contributing an assembled-stack solution to an open-source comparison repo, the mistakes I made, the feedback I got, and the lessons that stuck.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -30,6 +30,7 @@
         body { font-family: 'Inter', sans-serif; background: #070A12; color: #e5e7eb; }
         .prose { max-width: 65ch; margin: 0 auto; }
         .prose h2 { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; margin-top: 2.5rem; margin-bottom: 1rem; }
+        .prose h3 { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #34d399; margin-top: 1.5rem; margin-bottom: 0.75rem; }
         .prose p { color: #9CA3AF; line-height: 1.7; margin-bottom: 1rem; font-size: 0.95rem; }
         .prose strong { color: #e5e7eb; }
         .prose ul { color: #9CA3AF; margin-bottom: 1rem; padding-left: 1.5rem; }
@@ -37,7 +38,10 @@
         .prose code { font-family: 'JetBrains Mono', monospace; background: rgba(15,21,36,0.7); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85rem; color: #10B981; }
         .prose a { color: #10B981; text-decoration: underline; text-underline-offset: 2px; }
         .prose a:hover { color: #34d399; }
+        .prose blockquote { border-left: 3px solid #10B981; padding-left: 1rem; margin: 1.5rem 0; color: #9CA3AF; font-style: italic; }
         .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #10B981; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.15); padding: 0.15rem 0.45rem; border-radius: 9999px; }
+        .diff-add { background: rgba(16,185,129,0.15); color: #34d399; padding: 0.1rem 0.3rem; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+        .diff-rem { background: rgba(239,68,68,0.15); color: #f87171; padding: 0.1rem 0.3rem; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-decoration: line-through; }
     </style>
 </head>
 <body class="antialiased selection:bg-cyberGreen selection:text-black">
@@ -50,65 +54,180 @@
         <header class="mb-10">
             <div class="flex gap-2 mb-4">
                 <span class="tag">Open Source</span>
-                <span class="tag">Research</span>
-                <span class="tag">Writing</span>
+                <span class="tag">AI</span>
+                <span class="tag">Second Brain</span>
+                <span class="tag">Lessons Learned</span>
             </div>
-            <h1 class="text-3xl font-black text-white tracking-tight leading-tight mb-3">I Contributed to the Awesome AI Second Brain Repo</h1>
-            <p class="text-slateText text-sm">June 10, 2026 · 8 min read</p>
+            <h1 class="text-3xl font-black text-white tracking-tight leading-tight mb-3">How I Contributed to Awesome Second Brain — And What I Learned From Getting Rejected</h1>
+            <p class="text-slateText text-sm">June 16, 2026 · 12 min read</p>
         </header>
 
-        <h2>The Repo</h2>
-        <p><a href="https://github.com/aristoapp/awesome-second-brain" target="_blank">awesome-second-brain</a> is a curated comparison of AI second brain, memory, and knowledge systems. It maps ~20 tools across a 5-stage lifecycle: Collect, Organize, Evolve, Use, and Govern. Products are grouped by layer — end-to-end apps, local workspaces, agent memory layers, memory substrates, and platform baselines.</p>
-        <p>It's the kind of resource I wish existed when I was building my own stack. So when I found it, I didn't just read it — I contributed.</p>
+        <h2>What is Awesome Second Brain?</h2>
+        <p><a href="https://github.com/aristoapp/awesome-second-brain" target="_blank">awesome-second-brain</a> is an open-source curated comparison of AI second brain, memory, and knowledge systems. It's not a product — it's a decision-making resource.</p>
+        <p>The repo maps the full second-brain lifecycle — <strong>Collect, Organize, Evolve, Use, Govern</strong> — and compares tools across those stages. It covers everything from end-to-end apps like Membase and Khoj, to local workspaces like GBrain and Obsidian, to agent memory layers like Honcho and Supermemory.</p>
+        <p>The goal: help people answer "what should I use?" and "what tradeoffs am I signing up for?"</p>
+        <p>It has 200+ stars, active maintainers, and a strict contribution bar. Claims must be sourced. Metadata must be accurate. Broad claims must be narrowed to evidence.</p>
+        <p>I contributed a solution profile, setup guide, example workflow, and comparison page for an assembled stack: <strong>Hermes Agent + Obsidian + Honcho</strong>.</p>
+        <p>This is the full story of that contribution — including the parts where I got it wrong.</p>
 
-        <h2>What I Added</h2>
-        <p>Two PRs, 15+ files, covering:</p>
+        <h2>What I Contributed</h2>
+
+        <h3>1. Solution Profile</h3>
+        <p>A full core profile covering deployment model, lifecycle coverage across all 5 stages, a 10-area capabilities matrix, strengths, limitations, best-fit/non-fit users, tradeoffs, and official links.</p>
+
+        <h3>2. Setup Guide</h3>
+        <p>A step-by-step guide covering architecture (local vs hosted), prerequisites, Honcho SDK installation, Hermes integration, AgentMail SDK configuration, full-stack verification, known failure modes, and a ~60 minute time estimate.</p>
+
+        <h3>3. Example Workflow</h3>
+        <p>A practical scenario: daily email triage. Agent checks AgentMail inbox via SDK, categorizes by priority, logs to Obsidian daily journal, updates Honcho with contact conclusions, replies via AgentMail SDK.</p>
+
+        <h3>4. Comparison Page</h3>
+        <p>Assembled stack vs end-to-end app, compared across 8 dimensions: setup time, operations, inspectability, portability, customization, cost, failure modes, and best-fit users.</p>
+
+        <h2>The PR Timeline</h2>
         <ul>
-            <li><strong>Solution profile</strong> — Hermes Agent + Obsidian + Honcho as a fully local second brain stack</li>
-            <li><strong>Setup guide</strong> — verified step-by-step instructions (~60 min), tested against my live deployment</li>
-            <li><strong>Example workflow</strong> — daily email triage → Obsidian log → Honcho peer update</li>
-            <li><strong>Comparison page</strong> — assembled local stack vs end-to-end app, compared across 9 dimensions</li>
-            <li><strong>Updated existing pages</strong> — Hermes+LLM Wiki and Honcho profiles with current evidence</li>
-            <li><strong>Cross-references</strong> — 6 comparison/index pages updated</li>
+            <li><strong>June 10</strong> — Opened PR #19 with initial submission</li>
+            <li><strong>June 10</strong> — Maintainer (@rokpiy) reviewed — <strong>rejected with detailed feedback</strong></li>
+            <li><strong>June 10</strong> — Revised and resubmitted</li>
+            <li><strong>June 10</strong> — Second review — <strong>rejected again with new issues</strong></li>
+            <li><strong>June 16</strong> — Final fixes pushed</li>
+            <li><strong>June 16</strong> — <strong>PR #19 merged</strong></li>
+        </ul>
+        <p>Two rejections. Three rounds of fixes. One merged PR.</p>
+
+        <h2>Round 1: The First Rejection</h2>
+
+        <h3>Mistake 1 — Unverified Implementation Details</h3>
+        <p>The setup guide included commands I had not verified against official documentation. The most egregious example: a Python snippet that read <code>~/.hermes/config.yaml</code> directly and a script called <code>~/.hermes/scripts/agentmail_cli.py</code> — a file that does not exist anywhere in the Hermes Agent repository or documentation.</p>
+        <p>I wrote these from memory and assumption. I assumed the config lived in <code>config.yaml</code> because many tools use that pattern. I assumed there was a CLI script because I had seen similar patterns in other projects. I was wrong on both counts.</p>
+
+        <h3>Mistake 2 — Metadata Inaccuracies</h3>
+        <p>The snapshot table had factual errors:</p>
+        <ul>
+            <li>I listed <strong>Plastic Labs</strong> as the maintainer of <strong>Obsidian MD</strong>. Plastic Labs builds Honcho. Obsidian is made by Obsidian MD. I mixed them up.</li>
+            <li>I claimed the stack had <strong>"active public repos"</strong> across the board. Obsidian is proprietary. AgentMail is a proprietary hosted service. Only Hermes Agent and Honcho have public repos.</li>
+            <li>I listed Hermes Agent's license as <strong>Apache 2.0</strong>. It is <strong>MIT</strong>.</li>
         </ul>
 
-        <h2>Why This Stack</h2>
-        <p>My setup is deliberately multi-layered:</p>
+        <h3>Mistake 3 — Overbroad Claims</h3>
+        <p>The comparison page made sweeping claims that were not true for every component:</p>
         <ul>
-            <li><strong>Obsidian</strong> — human-owned knowledge vault, all local Markdown</li>
-            <li><strong>Honcho</strong> — agent memory layer with peer cards, conclusions, semantic search</li>
-            <li><strong>Hermes Agent</strong> — the runtime that connects everything</li>
-            <li><strong>AgentMail</strong> — email as a first-class context source</li>
-        </ul>
-        <p>It covers all 5 lifecycle stages. The tradeoff: higher setup burden (~$60 min) and operational responsibility. The payoff: full local ownership, inspectable files, zero cloud dependency.</p>
-
-        <h2>The Contribution Process</h2>
-        <p>What I learned contributing to someone else's repo:</p>
-        <ul>
-            <li><strong>Read CONTRIBUTING.md first</strong> — every repo has one. Follow it exactly.</li>
-            <li><strong>Study existing pages</strong> — match the writing style, tone, and format.</li>
-            <li><strong>Use their templates</strong> — don't invent your own structure.</li>
-            <li><strong>Verify everything</strong> — test all commands against a live deployment before writing setup guides.</li>
-            <li><strong>No sensitive data</strong> — never include API keys, credentials, or personal identifiers in public PRs.</li>
+            <li>"High inspectability — all data is local files and queryable databases" — but AgentMail is hosted</li>
+            <li>"Free/OSS software for core components" — but AgentMail is proprietary with pricing</li>
+            <li>"You run servers (PostgreSQL, Redis)" — only true for self-hosted Honcho, not the managed service</li>
+            <li>"Work offline or air-gapped" — AgentMail requires internet</li>
         </ul>
 
-        <h2>What's Next</h2>
-        <p>The PRs are open. If they merge, the repo will have the first fully documented local-first second brain stack with a verified setup guide. If not, the fork is public and the documentation stands on its own.</p>
-        <p>Either way, the process of contributing — reading a repo deeply, understanding its framework, and adding something genuinely useful — was worth it.</p>
+        <h3>What I Fixed</h3>
+        <ul>
+            <li><strong>Removed all unverified scripts and commands</strong> — replaced <code>agentmail_cli.py</code> with official AgentMail SDK calls (<code>client.inboxes.create()</code>, <code>client.inboxes.messages.send()</code>, <code>client.inboxes.messages.list()</code>). Replaced the <code>config.yaml</code> Python snippet with proper SDK verification. Replaced <code>pip install hermes-agent</code> with the official <code>curl</code> installer.</li>
+            <li><strong>Corrected all metadata</strong> — fixed maintainer names, repo status, and license. Every claim now matched the official source.</li>
+            <li><strong>Narrowed all broad claims</strong> — every "all local" or "free" claim was qualified with "varies by component" and specific caveats for hosted services.</li>
+        </ul>
+
+        <h2>Round 2: The Second Rejection</h2>
+        <p>Even after the first round of fixes, the maintainer found remaining issues. The same categories — unverified details, metadata, and broad claims — but more subtle this time.</p>
+        <p>The key lesson: <strong>fixing the obvious mistakes is not enough. You need to re-verify everything, including the things you think you already fixed.</strong></p>
+        <p>I had corrected the big errors but left smaller ones. A phrase like "commands verified against official documentation" survived the first round because I was focused on the broken scripts. But that phrase was itself an unverified claim — I had not actually verified every command against the official docs at that point.</p>
+
+        <h3>What I Fixed</h3>
+        <ul>
+            <li><strong>Removed the phrase "commands verified against official documentation"</strong> entirely. If I cannot point to the exact doc page for every command, I cannot say it is verified.</li>
+            <li><strong>Did a full verification pass</strong> — read every official doc page, checked every command, confirmed every URL, verified every maintainer name and license.</li>
+            <li><strong>Narrowed the remaining broad claims</strong> in the comparison page — inspectability, portability, cost, operations, and offline capability all got component-specific qualifications.</li>
+        </ul>
+
+        <h2>The Final Fix: What Actually Got Merged</h2>
+        <p>The merged PR (commit <code>b4df09c</code>) contained 105 insertions and 65 deletions across 4 files:</p>
+
+        <h3>solutions/hermes-obsidian-honcho.md — 3 line fixes</h3>
+        <p><span class="diff-rem">- Company / maintainer: Nous Research (Hermes Agent), Plastic Labs (Obsidian MD), Obsidian MD (Obsidian)</span></p>
+        <p><span class="diff-add">+ Company / maintainer: Nous Research (Hermes Agent), Plastic Labs (Honcho), Obsidian MD (Obsidian)</span></p>
+        <p><span class="diff-rem">- Status: Active public repos</span></p>
+        <p><span class="diff-add">+ Status: Mixed — Hermes Agent and Honcho have public repos; Obsidian is proprietary</span></p>
+        <p><span class="diff-rem">- Open source: Hermes Agent is open source (Apache 2.0)</span></p>
+        <p><span class="diff-add">+ Open source: Hermes Agent is open source (MIT)</span></p>
+
+        <h3>setup-guides/hermes-obsidian-honcho.md — major rewrite</h3>
+        <ul>
+            <li>Prerequisites table: removed unverified version numbers, fixed Hermes install from <code>pip</code> to <code>curl</code></li>
+            <li>Honcho config: removed wrong <code>config.yaml</code> approach, replaced with <code>hermes memory setup</code> and <code>~/.hermes/honcho.json</code></li>
+            <li>AgentMail verification: removed <code>config.yaml</code> reading and <code>agentmail_cli.py</code>, replaced with official SDK calls</li>
+            <li>Known failure modes: fixed config path references</li>
+            <li>Added 4 new official source links</li>
+        </ul>
+
+        <h3>examples/daily-email-triage.md — SDK replacement</h3>
+        <ul>
+            <li>Replaced <code>python3 ~/.hermes/scripts/agentmail_cli.py triage</code> with <code>client.inboxes.messages.list()</code></li>
+            <li>Replaced <code>python3 ~/.hermes/scripts/agentmail_cli.py reply</code> with <code>client.inboxes.messages.send()</code></li>
+        </ul>
+
+        <h3>comparisons/assembled-stack-vs-app.md — claim narrowing</h3>
+        <ul>
+            <li>5 broad claims narrowed to component-specific language</li>
+            <li>Offline claim qualified with "hosted services like AgentMail still require internet"</li>
+            <li>Cost claim qualified with "hosted services have separate pricing"</li>
+        </ul>
+
+        <h2>What I Learned</h2>
+
+        <h3>1. Verify Before You Write, Not After</h3>
+        <p>The biggest mistake. I wrote the setup guide from memory and assumption. I assumed <code>config.yaml</code> because many tools use that pattern. I assumed a CLI script existed because I had seen similar patterns. Neither was true.</p>
+        <p><strong>The fix:</strong> Before writing any command or claim, open the official docs. Find the exact page. Copy the exact command. Link to the page. If you cannot find it, mark it as <code>Unknown</code>.</p>
+
+        <h3>2. "Verified" Is a Claim That Itself Needs Verification</h3>
+        <p>I wrote "commands verified against official documentation" in the original setup guide. The maintainer caught it. That phrase is a claim — and it was not true. I had not verified every command.</p>
+        <p><strong>The fix:</strong> Either verify every single command against the official docs and link to each one, or do not use the word "verified." There is no middle ground.</p>
+
+        <h3>3. Metadata Accuracy Is Not Optional</h3>
+        <p>Mixing up which company makes which product (Plastic Labs = Obsidian?) is the kind of error that destroys credibility. It takes 30 seconds to check. I skipped it and it cost me a review cycle.</p>
+        <p><strong>The fix:</strong> For every component, open the official website or GitHub repo. Confirm the maintainer name, license, and repo status. Write it down. Do not rely on memory.</p>
+
+        <h3>4. Scope Your Claims to Your Evidence</h3>
+        <p>The original comparison said "High inspectability — all data is local files." But AgentMail is hosted. The claim was too broad. The fix: "Varies by component — locally-run components are inspectable; hosted-service components depend on that service's audit surfaces."</p>
+        <p><strong>The fix:</strong> When making a claim about a multi-component stack, ask "is this true for every component?" If not, qualify it. "Varies by component" is honest and accurate. "All data is local" is neither.</p>
+
+        <h3>5. Read the CONTRIBUTING.md Before You Start</h3>
+        <p>The repo has explicit contribution guidelines. Claims must be sourced. Metadata must be accurate. Broad claims must be narrowed. I read them after the first rejection. I should have read them before the first submission.</p>
+        <p><strong>The fix:</strong> Before contributing to any open-source project, read the contribution guidelines. Twice. They exist for a reason.</p>
+
+        <h3>6. Small, Accurate Contributions Beat Large, Sloppy Ones</h3>
+        <p>The first version tried to do too much — setup guide, example, 7 comparison pages, capabilities. More surface area meant more places to be wrong. The final merged version is tighter and more accurate because it was smaller and more focused.</p>
+        <p><strong>The fix:</strong> Start with the smallest contribution that delivers value. Get it right. Then expand.</p>
+
+        <h3>7. Maintainer Feedback Is a Gift</h3>
+        <p>Two rejections stung. But the maintainer was specific, fair, and actionable. Every piece of feedback pointed to exactly what was wrong and what needed to change. Without that feedback, the merged PR would have been lower quality.</p>
+        <p><strong>The fix:</strong> When you get critical feedback, do not defend. Read it carefully. Fix what is wrong. Verify the fix. Resubmit.</p>
+
+        <h2>The Stack Itself</h2>
+        <p>For readers who want to understand what the contribution is actually about:</p>
+        <ul>
+            <li><strong>Hermes Agent</strong> (<a href="https://github.com/NousResearch/hermes-agent" target="_blank">GitHub</a>, MIT) — open-source personal AI agent runtime. Connects to model providers, runs skills, integrates with memory and knowledge systems.</li>
+            <li><strong>Obsidian</strong> (<a href="https://obsidian.md/" target="_blank">obsidian.md</a>, proprietary) — local-first knowledge vault. Notes are Markdown files on your filesystem. No lock-in.</li>
+            <li><strong>Honcho</strong> (<a href="https://github.com/plastic-labs/honcho" target="_blank">GitHub</a>, AGPL-3.0) — agent memory layer. Peer cards, conclusions, session context. Self-hosted (FastAPI + PostgreSQL + Redis) or managed service.</li>
+            <li><strong>AgentMail</strong> (<a href="https://agentmail.to/" target="_blank">agentmail.to</a>, proprietary) — hosted email API. Gives agents an inbox for receiving and sending email.</li>
+        </ul>
+        <p>Together, they form a local-first second brain: Obsidian owns the knowledge, Honcho owns the memory, Hermes connects everything, and AgentMail brings email into the loop.</p>
 
         <h2>Links</h2>
         <ul>
+            <li><a href="https://github.com/aristoapp/awesome-second-brain/pull/19" target="_blank">PR #19 — the merged pull request</a></li>
             <li><a href="https://github.com/aristoapp/awesome-second-brain" target="_blank">awesome-second-brain repo</a></li>
             <li><a href="https://github.com/SaintChris/awesome-second-brain" target="_blank">My fork</a></li>
-            <li><a href="https://github.com/aristoapp/awesome-second-brain/pull/18" target="_blank">PR #18 — Solution profile</a></li>
-            <li><a href="https://github.com/aristoapp/awesome-second-brain/pull/19" target="_blank">PR #19 — Setup guide + examples</a></li>
+            <li><a href="https://hermes-agent.nousresearch.com/" target="_blank">Hermes Agent</a></li>
+            <li><a href="https://honcho.dev/" target="_blank">Honcho</a></li>
+            <li><a href="https://obsidian.md/" target="_blank">Obsidian</a></li>
+            <li><a href="https://agentmail.to/" target="_blank">AgentMail</a></li>
         </ul>
+
+        <p class="text-sm text-slateText mt-8 italic">Written by Alex (SaintChris). Open-source contributor, AI second-brain explorer, and someone who learned more from getting rejected twice than from getting accepted on the first try.</p>
     </article>
 
     <footer class="max-w-3xl mx-auto px-6 py-12 border-t border-hudGray/50">
         <div class="flex justify-between items-center">
             <a href="../index.html" class="font-mono text-xs text-slateText hover:text-cyberGreen transition-colors">← saintlex.sbs</a>
-            <span class="font-mono text-[10px] text-slateText">Alex Bogle · Jamaica · 2026</span>
+            <span class="font-mono text-[10px] text-slateText">© 2026 Alex Bogle · saintlex.sbs</span>
         </div>
     </footer>
 
