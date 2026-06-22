@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IREE Solar — Full Implementation Proposal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.7; }
+  .header { background: linear-gradient(135deg, #1a5276, #2ecc71); padding: 50px 20px; text-align: center; }
+  .header h1 { font-size: 2.4em; color: #fff; margin-bottom: 8px; }
+  .header p { color: #d5f5e3; font-size: 1.1em; max-width: 700px; margin: 0 auto; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 4px 16px; font-size: 0.85em; margin-top: 12px; color: #fff; }
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+  .section { margin-bottom: 40px; }
+  .section h2 { color: #2ecc71; font-size: 1.6em; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #1e8449; }
+  .section h3 { color: #3498db; font-size: 1.2em; margin: 24px 0 12px; }
+  .section h4 { color: #e67e22; font-size: 1.05em; margin: 16px 0 8px; }
+  .card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .card.highlight { border-color: #2ecc71; background: #0a1a0a; }
+  .card.warning { border-color: #e67e22; background: #1a120a; }
+  .phase { border-left: 4px solid #2ecc71; padding: 20px 24px; margin-bottom: 24px; background: #111; border-radius: 0 12px 12px 0; }
+  .phase.p2 { border-left-color: #3498db; }
+  .phase.p3 { border-left-color: #e67e22; }
+  .phase.p4 { border-left-color: #9b59b6; }
+  .phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .phase-title { font-size: 1.2em; font-weight: 700; }
+  .phase-tag { padding: 3px 12px; border-radius: 12px; font-size: 0.8em; font-weight: 600; }
+  .tag-p1 { background: #1e8449; color: #abebc6; }
+  .tag-p2 { background: #1a5276; color: #85c1e9; }
+  .tag-p3 { background: #9a7d0a; color: #f9e79f; }
+  .tag-p4 { background: #6c3483; color: #d7bde2; }
+  .timeline { color: #888; font-size: 0.9em; }
+  ul { margin: 8px 0 8px 20px; color: #aaa; }
+  li { margin-bottom: 6px; }
+  .checklist { list-style: none; margin: 8px 0; padding: 0; }
+  .checklist li { padding: 6px 0 6px 28px; position: relative; color: #aaa; }
+  .checklist li::before { content: "☐"; position: absolute; left: 0; color: #2ecc71; font-size: 1.1em; }
+  .checklist li.done::before { content: "☑"; }
+  .checklist li.done { color: #2ecc71; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media(max-width:768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+  .kpi { background: #0a0a0a; border: 1px solid #222; border-radius: 8px; padding: 16px; text-align: center; }
+  .kpi .value { font-size: 1.8em; font-weight: 700; color: #2ecc71; }
+  .kpi .label { color: #888; font-size: 0.85em; margin-top: 4px; }
+  .cost-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .cost-table th { background: #1a1a1a; color: #2ecc71; padding: 10px 14px; text-align: left; font-size: 0.85em; text-transform: uppercase; }
+  .cost-table td { padding: 10px 14px; border-bottom: 1px solid #1a1a1a; color: #aaa; }
+  .cost-table tr:last-child td { border-bottom: none; }
+  .cost-table .price { color: #2ecc71; font-weight: 600; text-align: right; }
+  .cost-table .total td { border-top: 2px solid #2ecc71; color: #2ecc71; font-weight: 700; font-size: 1.1em; }
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  .flow-step { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 8px 14px; font-size: 0.9em; color: #aaa; }
+  .flow-arrow { color: #2ecc71; font-size: 1.2em; }
+  .tech-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 600; margin: 2px; }
+  .tag-green { background: #1e8449; color: #abebc6; }
+  .tag-blue { background: #1a5276; color: #85c1e9; }
+  .tag-orange { background: #9a7d0a; color: #f9e79f; }
+  .tag-purple { background: #6c3483; color: #d7bde2; }
+  .footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; border-top: 1px solid #222; margin-top: 40px; }
+  .btn { display: inline-block; padding: 12px 28px; border-radius: 8px; border: none; font-size: 1em; font-weight: 600; cursor: pointer; text-decoration: none; }
+  .btn-primary { background: #2ecc71; color: #000; }
+  .btn-secondary { background: #3498db; color: #fff; }
+  .center { text-align: center; }
+  .mt-16 { margin-top: 16px; }
+  .mb-8 { margin-bottom: 8px; }
+  .note { background: #1a1a1a; border-left: 3px solid #3498db; padding: 12px 16px; margin: 12px 0; color: #888; font-size: 0.9em; }
+  .warning-box { background: #1a120a; border-left: 3px solid #e67e22; padding: 12px 16px; margin: 12px 0; color: #d4a574; font-size: 0.9em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>☀️ IREE Solar — AI Growth Engine</h1>
+  <p>Full Implementation Proposal: From Start to Completion</p>
+  <p style="margin-top:8px;font-size:0.95em;">Prepared by Alex Bogle — Solar Technician & AI Automation Specialist</p>
+  <span class="badge">June 2026</span>
+</div>
+
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section">
+    <h2>📋 Executive Summary</h2>
+    <div class="card highlight">
+      <p style="color:#ccc;font-size:1.05em;">This proposal outlines a phased plan to build and deploy AI-powered automation tools for IREE Solar that will <strong style="color:#2ecc71;">increase lead capture by 40%+, reduce quote turnaround by 60%+, and create new recurring revenue streams</strong> — all built with open-source tools at near-zero ongoing cost.</p>
+      <div class="grid-3" style="margin-top:16px;">
+        <div class="kpi"><div class="value">40%+</div><div class="label">More Leads Captured</div></div>
+        <div class="kpi"><div class="value">60%+</div><div class="label">Faster Quotes</div></div>
+        <div class="kpi"><div class="value">$0</div><div class="label">Software Licenses</div></div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Note:</strong> A working interactive demo of all systems is available at <a href="https://saintchris.github.io/iree-solar-demo/" style="color:#3498db;">saintchris.github.io/iree-solar-demo/</a> — this is not a slide deck, it's a functional prototype.
+    </div>
+  </div>
+
+  <!-- UNDERSTANDING THE BUSINESS -->
+  <div class="section">
+    <h2>🏢 Understanding IREE Solar</h2>
+    <div class="card">
+      <h3>Current Business</h3>
+      <ul>
+        <li>Solar power system installation (residential & commercial)</li>
+        <li>Solar water heating systems</li>
+        <li>Solar water pumping solutions</li>
+        <li>Financing options for customers</li>
+        <li>Based in Kingston, Jamaica — serving the entire island</li>
+      </ul>
+      <h3>Current Challenges (Observed)</h3>
+      <ul>
+        <li><strong>Leads come through multiple channels</strong> — Facebook DMs, Instagram, WhatsApp, phone calls, walk-ins — no central system to track them</li>
+        <li><strong>Quoting is manual</strong> — takes time to calculate system size, pricing, financing — leads go cold while waiting</li>
+        <li><strong>Social media is inconsistent</strong> — competitors who post more frequently capture more attention and leads</li>
+        <li><strong>Post-install maintenance is reactive</strong> — customers only call when something's broken, missed recurring revenue</li>
+        <li><strong>Inventory tracking is manual</strong> — risk of stock-outs or overstock on panels, batteries, inverters</li>
+        <li><strong>No referral system</strong> — happy customers aren't systematically asked to refer others</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="section">
+    <h2>🚀 Implementation Phases</h2>
+
+    <div class="phase p1">
+      <div class="phase-header">
+        <span class="phase-title">Phase 1: Lead CRM & Auto-Quoter</span>
+        <span class="phase-tag tag-p1">Weeks 1-3</span>
+      </div>
+      <p class="timeline">⏱ Timeline: 2-3 weeks | 💰 Cost: $0 (open-source tools)</p>
+
+      <h3>What Gets Built</h3>
+      <ul>
+        <li><strong>Lead Capture System</strong> — Web form + WhatsApp bot that captures leads from all channels into one dashboard</li>
+        <li><strong>Auto-Qualification</strong> — AI scores leads (Hot/Warm/Cool) based on JPS bill, location, interest</li>
+        <li><strong>Instant Quote Generator</strong> — Input monthly bill + roof size → instant professional PDF quote with financing options</li>
+        <li><strong>WhatsApp Auto-Reply</strong> — When someone messages IREE Solar, they instantly get a response with info + booking link</li>
+        <li><strong>Lead Pipeline Dashboard</strong> — See all leads, their status (New → Contacted → Qualified → Installed), and next actions</li>
+      </ul>
+
+      <h3>How It Works</h3>
+      <div class="flow">
+        <span class="flow-step">📱 Lead messages on WhatsApp/FB/IG</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🤖 AI captures & qualifies</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">📄 Auto-generates quote</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">📤 Sends to customer + logs to CRM</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🔔 Notifies sales team</span>
+      </div>
+
+      <h3>Tech Stack</h3>
+      <p>
+        <span class="tech-tag tag-green">Python</span>
+        <span class="tech-tag tag-blue">WhatsApp Business API</span>
+        <span class="tech-tag tag-orange">SQLite / PostgreSQL</span>
+        <span class="tech-tag tag-purple">FPDF (quote generation)</span>
+        <span class="tech-tag tag-green">Flask (web dashboard)</span>
+      </p>
+
+      <h3>Deliverables Checklist</h3>
+      <ul class="checklist">
+        <li>Lead capture web form (mobile-friendly)</li>
+        <li>WhatsApp auto-reply bot</li>
+        <li>Lead scoring algorithm</li>
+        <li>Quote generator (PDF output)</li>
+        <li>Lead pipeline dashboard</li>
+        <li>Daily lead summary report (email/WhatsApp)</li>
+        <li>User guide for IREE Solar team</li>
+      </ul>
+
+      <h3>Success Metrics</h3>
+      <ul>
+        <li>100% of leads captured (no more lost DMs)</li>
+        <li>Quote generated in under 5 minutes (vs. hours/days manually)</li>
+        <li>Lead response time under 15 minutes (auto-reply)</li>
+      </ul>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase p2">
+      <div class="phase-header">
+        <span class="phase-title">Phase 2: Content Engine & Social Automation</span>
+        <span class="phase-tag tag-p2">Weeks 4-6</span>
+      </div>
+      <p class="timeline">⏱ Timeline: 2-3 weeks | 💰 Cost: $0 (open-source tools)</p>
+
+      <h3>What Gets Built</h3>
+      <ul>
+        <li><strong>AI Content Generator</strong> — Creates daily social media posts for Facebook, Instagram, WhatsApp</li>
+        <li><strong>Content Calendar</strong> — Pre-scheduled posts for the month (testimonials, tips, promos, education)</li>
+        <li><strong>Auto-Posting</strong> — Posts go live automatically at optimal times</li>
+        <li><strong>Customer Testimonial Pipeline</strong> — After installation, auto-asks for testimonial/review</li>
+        <li><strong>Engagement Tracker</strong> — Monitor which posts get most engagement</li>
+      </ul>
+
+      <h3>Content Types Generated</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>📘 Facebook</h4>
+          <ul>
+            <li>Customer testimonials with photos</li>
+            <li>Before/after installation posts</li>
+            <li>Educational solar facts for Jamaica</li>
+            <li>Seasonal promotions</li>
+            <li>Referral program announcements</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📸 Instagram</h4>
+          <ul>
+            <li>Installation photo carousels</li>
+            <li>Reels scripts for installations</li>
+            <li>Customer spotlight stories</li>
+            <li>Quick solar tips</li>
+            <li>Team/work culture posts</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Tech Stack</h3>
+      <p>
+        <span class="tech-tag tag-green">Python</span>
+        <span class="tech-tag tag-blue">Ollama (local AI)</span>
+        <span class="tech-tag tag-orange">Facebook Graph API</span>
+        <span class="tech-tag tag-purple">Instagram Basic Display API</span>
+        <span class="tech-tag tag-green">Schedule/cron</span>
+      </p>
+
+      <h3>Deliverables Checklist</h3>
+      <ul class="checklist">
+        <li>AI content generator (6 content types)</li>
+        <li>30-day content calendar template</li>
+        <li>Auto-posting scheduler</li>
+        <li>Testimonial request automation</li>
+        <li>Engagement tracking dashboard</li>
+        <li>Content templates library (50+ templates)</li>
+      </ul>
+
+      <h3>Success Metrics</h3>
+      <ul>
+        <li>Daily posting consistency (no gaps)</li>
+        <li>30%+ increase in social media engagement</li>
+        <li>5+ testimonials collected per month</li>
+      </ul>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase p3">
+      <div class="phase-header">
+        <span class="phase-title">Phase 3: Maintenance Alerts & Referral System</span>
+        <span class="phase-tag tag-p3">Weeks 7-9</span>
+      </div>
+      <p class="timeline">⏱ Timeline: 2-3 weeks | 💰 Cost: $0 (open-source tools)</p>
+
+      <h3>What Gets Built</h3>
+      <ul>
+        <li><strong>Maintenance Scheduler</strong> — Auto-schedules panel cleaning, system checks based on install date</li>
+        <li><strong>Performance Monitoring</strong> — If inverter has API, monitor output and alert when performance drops</li>
+        <li><strong>Customer Reminders</strong> — WhatsApp reminders before scheduled maintenance</li>
+        <li><strong>Referral Program</strong> — Auto-sends referral ask after installation with trackable links</li>
+        <li><strong>Referral Tracking</strong> — Track which customers referred whom, process rewards</li>
+      </ul>
+
+      <h3>Maintenance Revenue Model</h3>
+      <div class="card">
+        <table class="cost-table">
+          <tr><th>Service</th><th>Frequency</th><th>Price (JMD)</th></tr>
+          <tr><td>Panel cleaning</td><td>Every 6 months</td><td>$8,000 - $15,000</td></tr>
+          <tr><td>System health check</td><td>Annually</td><td>$5,000 - $10,000</td></tr>
+          <tr><td>Inverter inspection</td><td>Annually</td><td>$7,000 - $12,000</td></tr>
+          <tr><td>Battery check</td><td>Every 6 months</td><td>$5,000 - $8,000</td></tr>
+        </table>
+        <p style="color:#888;font-size:0.9em;">With 100 installed systems, even 50% uptake = <strong style="color:#2ecc71;">$350,000 - $500,000/year</strong> in recurring maintenance revenue.</p>
+      </div>
+
+      <h3>Referral Program Structure</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🎁 Referrer Gets</h4>
+          <ul>
+            <li>$10,000 JMD service credit per referral</li>
+            <li>Priority scheduling for maintenance</li>
+            <li>Entry into quarterly prize draw</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🎁 New Customer Gets</h4>
+          <ul>
+            <li>Free maintenance check (worth $5,000-$10,000)</li>
+            <li>Priority installation scheduling</li>
+            <li>Referral discount on accessories</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Deliverables Checklist</h3>
+      <ul class="checklist">
+        <li>Maintenance scheduling system</li>
+        <li>Automated customer reminders (WhatsApp)</li>
+        <li>Performance monitoring dashboard (if inverter API available)</li>
+        <li>Referral tracking system</li>
+        <li>Referral reward processing</li>
+        <li>Monthly maintenance revenue report</li>
+      </ul>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase p4">
+      <div class="phase-header">
+        <span class="phase-title">Phase 4: Inventory & Advanced Analytics</span>
+        <span class="phase-tag tag-p4">Weeks 10-12</span>
+      </div>
+      <p class="timeline">⏱ Timeline: 2-3 weeks | 💰 Cost: $0 (open-source tools)</p>
+
+      <h3>What Gets Built</h3>
+      <ul>
+        <li><strong>Inventory Tracker</strong> — Real-time stock levels for panels, batteries, inverters, water heaters</li>
+        <li><strong>Reorder Alerts</strong> — Auto-alert when stock drops below threshold</li>
+        <li><strong>Procurement Predictor</strong> — Based on lead pipeline, predict what inventory will be needed</li>
+        <li><strong>Sales Analytics Dashboard</strong> — Revenue, conversion rates, top parishes, best-performing channels</li>
+        <li><strong>Customer Database</strong> — Full customer history, install details, maintenance records</li>
+      </ul>
+
+      <h3>Analytics Dashboard Views</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>📊 Sales Metrics</h4>
+          <ul>
+            <li>Leads by source (FB, IG, WhatsApp, Referral)</li>
+            <li>Conversion rate by stage</li>
+            <li>Revenue by parish</li>
+            <li>Average deal size</li>
+            <li>Sales cycle length</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📦 Inventory Metrics</h4>
+          <ul>
+            <li>Current stock levels</li>
+            <li>Stock value (JMD)</li>
+            <li>Days of inventory remaining</li>
+            <li>Reorder recommendations</li>
+            <li>Supplier lead times</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Deliverables Checklist</h3>
+      <ul class="checklist">
+        <li>Inventory tracking system</li>
+        <li>Reorder alert system</li>
+        <li>Procurement prediction model</li>
+        <li>Sales analytics dashboard</li>
+        <li>Customer database</li>
+        <li>Monthly business report (auto-generated)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- COST BREAKDOWN -->
+  <div class="section">
+    <h2>💰 Cost Breakdown</h2>
+    <div class="card">
+      <h3>Software Costs: $0</h3>
+      <p style="color:#888;margin-bottom:16px;">All tools are open-source. No monthly software licenses.</p>
+      <table class="cost-table">
+        <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
+        <tr><td>Backend</td><td>Python + Flask</td><td>Free</td></tr>
+        <tr><td>Database</td><td>SQLite / PostgreSQL</td><td>Free</td></tr>
+        <tr><td>AI/LLM</td><td>Ollama (local)</td><td>Free</td></tr>
+        <tr><td>Quote PDFs</td><td>FPDF</td><td>Free</td></tr>
+        <tr><td>Hosting</td><td>Existing IREE Solar server or Raspberry Pi</td><td>Free</td></tr>
+        <tr><td>WhatsApp</td><td>WhatsApp Business API</td><td>Free (existing)</td></tr>
+        <tr><td>Social Media</td><td>Facebook/Instagram APIs</td><td>Free</td></tr>
+        <tr class="total"><td colspan="2">Total Software Cost</td><td class="price">$0</td></tr>
+      </table>
+
+      <h3 style="margin-top:24px;">Hardware (If Needed)</h3>
+      <table class="cost-table">
+        <tr><th>Item</th><th>Purpose</th><th>Cost (USD)</th></tr>
+        <tr><td>Raspberry Pi 5 (8GB)</td><td>Run all automation 24/7</td><td>$80</td></tr>
+        <tr><td>External SSD (500GB)</td><td>Data storage</td><td>$40</td></tr>
+        <tr><td>UPS Battery Backup</td><td>Keep system running during outages</td><td>$60</td></tr>
+        <tr class="total"><td colspan="2">Total Hardware (one-time)</td><td class="price">$180</td></tr>
+      </table>
+
+      <h3 style="margin-top:24px;">My Labor</h3>
+      <div class="card highlight">
+        <p style="color:#ccc;">I will build and deploy all 4 phases as part of my role at IREE Solar. This is not a separate consulting project — it's what I bring to the table as a technician who also builds AI systems. The automation work happens alongside my technical duties.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI PROJECTION -->
+  <div class="section">
+    <h2>📈 ROI Projection</h2>
+    <div class="card">
+      <div class="grid-3">
+        <div class="kpi"><div class="value">40%+</div><div class="label">More leads captured (no lost DMs)</div></div>
+        <div class="kpi"><div class="value">60%+</div><div class="label">Faster quote turnaround</div></div>
+        <div class="kpi"><div class="value">25%+</div><div class="label">Higher close rate (faster follow-up)</div></div>
+        <div class="kpi"><div class="value">$350K+</div><div class="label">Annual maintenance revenue (100 systems)</div></div>
+        <div class="kpi"><div class="value">15%+</div><div class="label">New customers from referrals</div></div>
+        <div class="kpi"><div class="value">$0</div><div class="label">Software licensing costs</div></div>
+      </div>
+      <div class="note" style="margin-top:16px;">
+        <strong>Conservative estimate:</strong> If IREE Solar currently installs 10 systems/month at ~$500,000 JMD average, a 25% increase in close rate = <strong style="color:#2ecc71;">2-3 extra installations/month = $12-18M JMD additional annual revenue</strong> — from automation alone.
+      </div>
+    </div>
+  </div>
+
+  <!-- MY QUALIFICATIONS -->
+  <div class="section">
+    <h2>👤 Why I'm the Right Person</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>🔧 Technical Skills</h3>
+        <ul>
+          <li>4+ years IT infrastructure & support</li>
+          <li>Built & run a production multi-agent AI system (6 agents, 24/7)</li>
+          <li>Python, Docker, Linux, networking, databases</li>
+          <li>HVAC technician experience (electrical, troubleshooting, hands-on)</li>
+          <li>Solar procurement & deployment at Island Networks Jamaica</li>
+          <li>WiFi module configuration & SOP creation for field teams</li>
+          <li>Residential solar maintenance experience (own home)</li>
+          <li>Familiar with OpenSolar & HelioScope</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🌞 Solar Knowledge</h3>
+        <ul>
+          <li>Solar power & solar water heating systems at my residence</li>
+          <li>Panel maintenance experience (roof work, cleaning, inspection)</li>
+          <li>Handled procurement of solar systems, batteries, inverters at Island Networks</li>
+          <li>Understand Jamaica's climate impact on solar performance</li>
+          <li>Knowledge of Chromagen, flat plate, and other common Jamaican installations</li>
+          <li>Safety & compliance awareness from IT and infrastructure work</li>
+          <li>Quick learner — committed to getting certified on the job</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card highlight" style="margin-top:16px;">
+      <h3>💡 The Bottom Line</h3>
+      <p style="color:#ccc;">I'm not just a technician who can install panels. I'm a technician who can install panels <strong>AND</strong> build the AI systems that get more customers, close deals faster, and create recurring revenue. You get two employees in one salary.</p>
+    </div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section">
+    <h2>✅ Next Steps</h2>
+    <div class="card">
+      <h3>If You're Interested</h3>
+      <ul class="checklist">
+        <li>I start as Solar Technician — learning IREE Solar's specific processes and team</li>
+        <li>Week 1: Set up Phase 1 infrastructure alongside daily work</li>
+        <li>Week 2-3: Deploy Lead CRM + Auto-Qualifier + Quote Generator</li>
+        <li>Week 4+: Begin Phase 2 (Content Engine) while Phase 1 runs in production</li>
+        <li>Monthly: Review metrics, optimize, plan next phase</li>
+      </ul>
+      <div class="warning-box">
+        <strong>No risk:</strong> Everything is built with free, open-source tools. If it doesn't work, IREE Solar has lost nothing but my time (which I'm already giving as an employee). If it works, the ROI is massive.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section center">
+    <div class="card highlight">
+      <h2 style="border:none;">Let's Build the Future of Solar in Jamaica</h2>
+      <p style="color:#ccc;margin:12px 0 24px;">Working demo: <a href="https://saintchris.github.io/iree-solar-demo/" style="color:#3498db;">saintchris.github.io/iree-solar-demo/</a></p>
+      <p style="font-size:1.2em;color:#2ecc71;font-weight:600;">Alex Bogle</p>
+      <p style="color:#888;margin-top:8px;">+1 (876) 382-0444 | bogle.alex@hotmail.com</p>
+      <p style="color:#888;">github.com/SaintChris | saintlex.sbs</p>
+      <div class="mt-16">
+        <a href="https://saintchris.github.io/iree-solar-demo/" class="btn btn-primary">View Live Demo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  IREE Solar AI Growth Engine — Full Implementation Proposal | Alex Bogle | June 2026
+</div>
+
+</body>
+</html>
