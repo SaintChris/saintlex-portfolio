@@ -451,11 +451,11 @@
                 <!-- Main Stats Grid -->
                 <div id="or-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div class="stat-box">
-                        <div class="stat-num text-cyberGreen" id="or-stat-requests" data-total="41.3K" data-daily="5.9K">41.3K</div>
+                        <div class="stat-num text-cyberGreen" id="or-stat-requests" data-total="38.6K" data-daily="5.5K">38.6K</div>
                         <div class="stat-label" id="or-stat-requests-label">Total Requests</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-num text-teal-400" id="or-stat-tokens" data-total="4.3B" data-daily="619.4M">4.3B</div>
+                        <div class="stat-num text-teal-400" id="or-stat-tokens" data-total="4.2B" data-daily="594.0M">4.2B</div>
                         <div class="stat-label" id="or-stat-tokens-label">Tokens Processed</div>
                     </div>
                     <div class="stat-box">
@@ -473,15 +473,15 @@
                     <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Token Breakdown</p>
                     <div class="grid grid-cols-3 gap-3">
                         <div class="text-center">
-                            <div class="font-mono text-lg font-bold text-cyberGreen">4.3B</div>
+                            <div class="font-mono text-lg font-bold text-cyberGreen">4.1B</div>
                             <div class="text-[9px] text-slateText font-mono uppercase">Prompt</div>
                         </div>
                         <div class="text-center">
-                            <div class="font-mono text-lg font-bold text-teal-400">12.5M</div>
+                            <div class="font-mono text-lg font-bold text-teal-400">11.8M</div>
                             <div class="text-[9px] text-slateText font-mono uppercase">Completion</div>
                         </div>
                         <div class="text-center">
-                            <div class="font-mono text-lg font-bold text-purple-400">2.8M</div>
+                            <div class="font-mono text-lg font-bold text-purple-400">2.6M</div>
                             <div class="text-[9px] text-slateText font-mono uppercase">Reasoning</div>
                         </div>
                     </div>
@@ -492,11 +492,6 @@
                     <p class="text-[10px] uppercase tracking-widest text-slateText font-mono font-bold mb-3">Requests Per Day</p>
                     <div class="flex items-end gap-1.5 h-32 mb-2">
                         
-                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 59.3%">
-                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                                    1459 req · 289.8M tok · $0.0000
-                                </div>
-                            </div>
                             <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 62.5%">
                                 <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
                                     1538 req · 319.2M tok · $0.0000
@@ -527,9 +522,14 @@
                                     782 req · 83.7M tok · $0.0000
                                 </div>
                             </div>
+                            <div class="or-bar flex-1 bg-cyberGreen/80 hover:bg-cyberGreen rounded-t transition-all duration-200 relative group cursor-pointer" style="height: 29.3%">
+                                <div class="or-bar-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-hudGray/60 rounded text-[9px] text-white font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                    721 req · 74.4M tok · $0.0000
+                                </div>
+                            </div>
                     </div>
                     <div class="flex gap-1.5">
-                        <span class="flex-1 text-slateText text-[8px] font-mono text-center">06-22</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-23</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-24</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-25</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-26</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-27</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-28</span>
+                        <span class="flex-1 text-slateText text-[8px] font-mono text-center">06-23</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-24</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-25</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-26</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-27</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-28</span><span class="flex-1 text-slateText text-[8px] font-mono text-center">06-29</span>
                     </div>
                 </div>
 
@@ -550,6 +550,12 @@
                         </thead>
                         <tbody id="or-daily-tbody">
                             
+                            <tr class="or-daily-row" data-date="2026-06-29" data-requests="721" data-tokens="74416738" data-cost="0.000000">
+                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-29</td>
+                                <td class="text-white font-mono text-[10px] text-right">721</td>
+                                <td class="text-white font-mono text-[10px] text-right">74.4M</td>
+                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
+                            </tr>
                             <tr class="or-daily-row" data-date="2026-06-28" data-requests="782" data-tokens="83657008" data-cost="0.000000">
                                 <td class="text-slateText font-mono text-[10px] py-1">2026-06-28</td>
                                 <td class="text-white font-mono text-[10px] text-right">782</td>
@@ -586,12 +592,6 @@
                                 <td class="text-white font-mono text-[10px] text-right">319.2M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
-                            <tr class="or-daily-row" data-date="2026-06-22" data-requests="1459" data-tokens="289780226" data-cost="0.000000">
-                                <td class="text-slateText font-mono text-[10px] py-1">2026-06-22</td>
-                                <td class="text-white font-mono text-[10px] text-right">1.5K</td>
-                                <td class="text-white font-mono text-[10px] text-right">289.8M</td>
-                                <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -612,20 +612,20 @@
                             
                             <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/openrouter/owl-alpha', '_blank')">
                                 <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="openrouter/owl-alpha">openrouter/owl-alpha</td>
-                                <td class="text-white font-mono text-[10px] text-right">26.7K</td>
-                                <td class="text-white font-mono text-[10px] text-right">3.7B</td>
+                                <td class="text-white font-mono text-[10px] text-right">26.2K</td>
+                                <td class="text-white font-mono text-[10px] text-right">3.6B</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
                             <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/openai/gpt-oss-120b', '_blank')">
                                 <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="openai/gpt-oss-120b">openai/gpt-oss-120b</td>
-                                <td class="text-white font-mono text-[10px] text-right">9.5K</td>
-                                <td class="text-white font-mono text-[10px] text-right">364.6M</td>
+                                <td class="text-white font-mono text-[10px] text-right">7.8K</td>
+                                <td class="text-white font-mono text-[10px] text-right">294.7M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
                             <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/openai/gpt-oss-20b', '_blank')">
                                 <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="openai/gpt-oss-20b">openai/gpt-oss-20b</td>
-                                <td class="text-white font-mono text-[10px] text-right">2.1K</td>
-                                <td class="text-white font-mono text-[10px] text-right">68.4M</td>
+                                <td class="text-white font-mono text-[10px] text-right">1.7K</td>
+                                <td class="text-white font-mono text-[10px] text-right">54.5M</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0001</td>
                             </tr>
                             <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/google/gemma-4-31b-it', '_blank')">
@@ -648,8 +648,8 @@
                             </tr>
                             <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/google/gemma-4-26b-a4b-it', '_blank')">
                                 <td class="text-slateText font-mono text-[10px] py-1.5 max-w-[180px] truncate" title="google/gemma-4-26b-a4b-it">google/gemma-4-26b-a4b-it</td>
-                                <td class="text-white font-mono text-[10px] text-right">59</td>
-                                <td class="text-white font-mono text-[10px] text-right">32.1K</td>
+                                <td class="text-white font-mono text-[10px] text-right">63</td>
+                                <td class="text-white font-mono text-[10px] text-right">36.3K</td>
                                 <td class="text-cyberGreen font-mono text-[10px] text-right">$0.0000</td>
                             </tr>
                             <tr class="border-b border-hudGray/20 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.open('https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b', '_blank')">
@@ -696,7 +696,7 @@
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-3.1-pro-preview" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemini-3.1-pro-preview', '_blank')">google/gemini-3.1-pro-preview</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemini-3.5-flash" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemini-3.5-flash', '_blank')">google/gemini-3.5-flash</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-3-27b-it" data-requests="1" onclick="window.open('https://openrouter.ai/google/gemma-3-27b-it', '_blank')">google/gemma-3-27b-it</span>
-                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-4-26b-a4b-it" data-requests="59" onclick="window.open('https://openrouter.ai/google/gemma-4-26b-a4b-it', '_blank')">google/gemma-4-26b-a4b-it</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-4-26b-a4b-it" data-requests="63" onclick="window.open('https://openrouter.ai/google/gemma-4-26b-a4b-it', '_blank')">google/gemma-4-26b-a4b-it</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="google/gemma-4-31b-it" data-requests="1389" onclick="window.open('https://openrouter.ai/google/gemma-4-31b-it', '_blank')">google/gemma-4-31b-it</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="meta-llama/llama-3.1-8b-instruct" data-requests="2" onclick="window.open('https://openrouter.ai/meta-llama/llama-3.1-8b-instruct', '_blank')">meta-llama/llama-3.1-8b-instruct</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="meta-llama/llama-3.3-70b-instruct" data-requests="1" onclick="window.open('https://openrouter.ai/meta-llama/llama-3.3-70b-instruct', '_blank')">meta-llama/llama-3.3-70b-instruct</span>
@@ -723,9 +723,9 @@
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-5" data-requests="1" onclick="window.open('https://openrouter.ai/openai/gpt-5', '_blank')">openai/gpt-5</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-5.2" data-requests="1" onclick="window.open('https://openrouter.ai/openai/gpt-5.2', '_blank')">openai/gpt-5.2</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-5.4-pro" data-requests="1" onclick="window.open('https://openrouter.ai/openai/gpt-5.4-pro', '_blank')">openai/gpt-5.4-pro</span>
-                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-oss-120b" data-requests="9498" onclick="window.open('https://openrouter.ai/openai/gpt-oss-120b', '_blank')">openai/gpt-oss-120b</span>
-                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-oss-20b" data-requests="2136" onclick="window.open('https://openrouter.ai/openai/gpt-oss-20b', '_blank')">openai/gpt-oss-20b</span>
-                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openrouter/owl-alpha" data-requests="26713" onclick="window.open('https://openrouter.ai/openrouter/owl-alpha', '_blank')">openrouter/owl-alpha</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-oss-120b" data-requests="7776" onclick="window.open('https://openrouter.ai/openai/gpt-oss-120b', '_blank')">openai/gpt-oss-120b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openai/gpt-oss-20b" data-requests="1681" onclick="window.open('https://openrouter.ai/openai/gpt-oss-20b', '_blank')">openai/gpt-oss-20b</span>
+                        <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="openrouter/owl-alpha" data-requests="26219" onclick="window.open('https://openrouter.ai/openrouter/owl-alpha', '_blank')">openrouter/owl-alpha</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="perplexity/sonar" data-requests="2" onclick="window.open('https://openrouter.ai/perplexity/sonar', '_blank')">perplexity/sonar</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="qwen/qwen-2.5-72b-instruct" data-requests="1" onclick="window.open('https://openrouter.ai/qwen/qwen-2.5-72b-instruct', '_blank')">qwen/qwen-2.5-72b-instruct</span>
                         <span class="or-model-pill tech-pill cursor-pointer hover:border-cyberGreen/50 transition-all" data-model="qwen/qwen3-235b-a22b" data-requests="1" onclick="window.open('https://openrouter.ai/qwen/qwen3-235b-a22b', '_blank')">qwen/qwen3-235b-a22b</span>
@@ -743,7 +743,7 @@
 
                 <!-- Footer: refresh info + button -->
                 <div class="flex items-center justify-between">
-                    <p class="text-gray-500 font-mono text-[9px]">Auto-refreshes every 1 hour · Last updated: 2026-06-29 23:52 UTC</p>
+                    <p class="text-gray-500 font-mono text-[9px]">Auto-refreshes every 1 hour · Last updated: 2026-06-30 02:12 UTC</p>
                     <button id="or-refresh-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-mono font-bold transition-all bg-hudGray text-slateText hover:text-white hover:bg-hudGray/80 border border-hudGray/50" onclick="orTriggerRefresh(this)">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                         Refresh Now
