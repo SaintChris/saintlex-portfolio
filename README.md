@@ -1,50 +1,49 @@
-# 🌐 Alex Bogle — Portfolio Site
+# Alex Bogle Portfolio
 
-## Table of Contents
-- [Live Site](#live-site)
-- [About](#about)
-- [Tech](#tech)
-- [Author](#author)
+[![Live site](https://img.shields.io/badge/live-saintlex.sbs-0f62fe)](https://saintlex.sbs/)
+[![CI](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-saintlex.sbs-blue)](https://saintlex.sbs/)
-[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-orange)](https://saintchris.github.io/saintlex-portfolio)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE) [![CI](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/SaintChris/saintlex-portfolio/actions) [![Readers](https://img.shields.io/badge/Readers-0-blue)](https://github.com/SaintChris/saintlex-portfolio)
+Recruiter-first portfolio for Alex Bogle, an IT support and technical operations candidate based in Jamaica.
 
-> Personal portfolio site for Alex Bogle. The site is being repositioned toward IT support, technical support, and cloud-support trainee roles.
+## Positioning
 
----
+The site targets:
 
-## Live Site
+- IT Help Desk
+- Technical Support
+- Application Support
+- IT Operations Support
+- Cloud Support Trainee
+- Implementation Support
 
-**[saintlex.sbs](https://saintlex.sbs/)** (custom domain)
-**[saintchris.github.io/saintlex-portfolio](https://saintchris.github.io/saintlex-portfolio)** (GitHub Pages)
+The site uses only already-confirmed facts. Employment history and the downloadable résumé are intentionally withheld until they have been reconciled with source records.
 
----
+## Evidence policy
 
-## About
+- Labs are labeled as labs.
+- Work in progress is labeled clearly.
+- Each project states what it proves and what it does not prove.
+- No passing-test, uptime, cost, employment, or deployment claim is published without current evidence.
+- Stale operational telemetry is not displayed publicly.
 
-Built to document selected technical labs, prototypes, and learning projects. Project labels should be read literally: a lab or prototype is not production employment experience.
+## Technology
 
----
+- Semantic HTML
+- Handwritten responsive CSS
+- No client-side framework
+- No public API keys or telemetry
+- GitHub Pages with a custom domain
+- Python content tests and `html-validate` in CI
 
-## Tech
+## Local verification
 
-- **Pure HTML/CSS** — no frameworks, no dependencies
-- **Responsive design** — works on all devices
-- **Dark theme** with blue accent
-- **Hosted on GitHub Pages** with custom domain
+```bash
+python3 -m unittest tests/test_portfolio.py -v
+npx html-validate index.html
+```
 
----
+## Public links
 
-## Author
-
-**Alex Bogle** — IT support and technical operations candidate based in Jamaica. Open to remote opportunities.
-
-- 🌐 [saintlex.sbs](https://saintlex.sbs/)
-- 💼 [linkedin.com/in/alex-bogle](https://linkedin.com/in/alex-bogle)
-- 🐙 [github.com/SaintChris](https://github.com/SaintChris)
-- 📧 [bogle.alex@hotmail.com](mailto:bogle.alex@hotmail.com)
-
----
-
-> ⭐ If you find this portfolio interesting, starring the repo helps others discover it.
+- Site: https://saintlex.sbs/
+- GitHub: https://github.com/SaintChris
+- LinkedIn: https://www.linkedin.com/in/alex-bogle/

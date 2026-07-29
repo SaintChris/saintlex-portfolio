@@ -1,9 +1,9 @@
 {
-  "name": "Alex Bogle — Data & AI Engineer",
+  "name": "Alex Bogle | IT Support & Technical Operations",
   "short_name": "Alex Bogle",
-  "description": "Portfolio site for Alex Bogle — Data & AI Engineer specializing in multi-agent systems",
+  "description": "Evidence-first portfolio for IT support and technical operations roles.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#3b82f6"
+  "background_color": "#0b0f14",
+  "theme_color": "#0f62fe"
 }

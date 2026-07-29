@@ -6,18 +6,17 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate HTML
-        run: |
-          npm install -g html-validate
-          html-validate *.html articles/*.html
+      - name: Run portfolio content tests
+        run: python3 -m unittest tests/test_portfolio.py -v
 
-      - name: Check for broken links
-        run: |
-          npm install -g broken-link-checker
-          echo "Skipping live link check in CI (static site)"
+      - name: Validate active HTML
+        run: npx --yes html-validate index.html
