@@ -10,7 +10,7 @@
 [![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-orange)](https://saintchris.github.io/saintlex-portfolio)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE) [![CI](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/SaintChris/saintlex-portfolio/actions) [![Readers](https://img.shields.io/badge/Readers-0-blue)](https://github.com/SaintChris/saintlex-portfolio)
 
-> Portfolio site for Alex Bogle — AI Engineer.
+> Personal portfolio site for Alex Bogle. The site is being repositioned toward IT support, technical support, and cloud-support trainee roles.
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## About
 
-Built to showcase production-grade AI agent systems and data engineering projects. Designed with a dark theme inspired by modern AI tooling interfaces.
+Built to document selected technical labs, prototypes, and learning projects. Project labels should be read literally: a lab or prototype is not production employment experience.
 
 ---
 
@@ -38,12 +38,12 @@ Built to showcase production-grade AI agent systems and data engineering project
 
 ## Author
 
-**Alex Bogle** — AI Engineer based in Jamaica. 🔭 Open to Work.
+**Alex Bogle** — IT support and technical operations candidate based in Jamaica. Open to remote opportunities.
 
 - 🌐 [saintlex.sbs](https://saintlex.sbs/)
 - 💼 [linkedin.com/in/alex-bogle](https://linkedin.com/in/alex-bogle)
 - 🐙 [github.com/SaintChris](https://github.com/SaintChris)
-- 📧 [bogle.alex@hotmail.com
+- 📧 [bogle.alex@hotmail.com](mailto:bogle.alex@hotmail.com)
 
 ---
 
