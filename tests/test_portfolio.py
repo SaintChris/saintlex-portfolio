@@ -98,6 +98,10 @@ class PortfolioContentTests(unittest.TestCase):
         ):
             self.assertNotIn(phrase.lower(), self.lower)
 
+    def test_compromised_repository_is_not_promoted(self):
+        self.assertNotIn('href="https://github.com/SaintChris/rag-eval-system"', self.html)
+        self.assertIn("Repository link withheld pending credential rotation", self.html)
+
     def test_stale_resume_and_commercial_pages_are_removed(self):
         self.assertNotIn("Alex_Bogle_Resume_2026.pdf", self.html)
         self.assertFalse((ROOT / "Alex_Bogle_Resume_2026.pdf").exists())
