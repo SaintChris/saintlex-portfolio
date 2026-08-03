@@ -28,3 +28,4 @@ node_modules/
 *.tar.gz
 *.mp4
 *.pdf
+!Alex_Bogle_IT_Support_Resume.pdf

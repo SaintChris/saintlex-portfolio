@@ -6,6 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 CSS = ROOT / "styles.css"
+RESUME_FILENAME = "Alex_Bogle_IT_Support_Resume.pdf"
+RESUME = ROOT / RESUME_FILENAME
 
 
 class PortfolioParser(HTMLParser):
@@ -52,13 +54,61 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_target_roles_are_explicit(self):
         for role in (
+            "IT Support",
             "IT Help Desk",
             "Technical Support",
             "Application Support",
             "IT Operations Support",
             "Cloud Support Trainee",
+            "Implementation Support",
         ):
             self.assertIn(role, self.html)
+
+    def test_verified_resume_file_is_published(self):
+        self.assertTrue(RESUME.is_file())
+        self.assertTrue(RESUME.read_bytes().startswith(b"%PDF-"))
+
+    def test_hero_and_contact_link_to_verified_resume(self):
+        resume_link = f'href="{RESUME_FILENAME}"'
+        hero = re.search(
+            r'<section class="hero".*?</section>', self.html, re.DOTALL
+        )
+        contact = re.search(
+            r'<section class="contact".*?</section>', self.html, re.DOTALL
+        )
+        self.assertIsNotNone(hero)
+        self.assertIsNotNone(contact)
+        hero_html = hero.group(0) if hero else ""
+        contact_html = contact.group(0) if contact else ""
+        self.assertIn(resume_link, hero_html)
+        self.assertIn(resume_link, contact_html)
+        self.assertEqual(self.html.count(resume_link), 2)
+        safe_resume_link = (
+            f'href="{RESUME_FILENAME}" target="_blank" '
+            'rel="noopener noreferrer"'
+        )
+        self.assertEqual(self.html.count(safe_resume_link), 2)
+        self.assertEqual(self.html.count("Download Resume"), 2)
+
+    def test_outdated_resume_notices_are_absent(self):
+        source_suffixes = {".css", ".html", ".json", ".md", ".yaml", ".yml"}
+        source_text = "\n".join(
+            path.read_text(encoding="utf-8").lower()
+            for path in ROOT.rglob("*")
+            if path.is_file()
+            and ".git" not in path.parts
+            and path.suffix in source_suffixes
+        )
+        outdated = (
+            "employment history and role-specific " + "résumé are being reconciled",
+            "employment history and role specific " + "resume are still being reconciled",
+            "resume download will return after the verified it support version is complete",
+            "résumé download will return after the verified it-support version is complete",
+            "employment history is intentionally " + "withheld",
+            "downloadable résumé are intentionally " + "withheld",
+        )
+        for phrase in outdated:
+            self.assertNotIn(phrase, source_text)
 
     def test_honest_scope_and_evidence_labels(self):
         self.assertIn("Evidence first", self.html)

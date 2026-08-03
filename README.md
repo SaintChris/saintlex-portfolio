@@ -16,7 +16,7 @@ The site targets:
 - Cloud Support Trainee
 - Implementation Support
 
-The site uses only already-confirmed facts. Employment history and the downloadable résumé are intentionally withheld until they have been reconciled with source records.
+The site uses only already-confirmed facts. Download the verified IT Support resume for details about employment history, technical support experience, and operational background.
 
 ## Evidence policy
 
@@ -45,5 +45,6 @@ npx html-validate index.html
 ## Public links
 
 - Site: https://saintlex.sbs/
+- Resume: https://saintlex.sbs/Alex_Bogle_IT_Support_Resume.pdf
 - GitHub: https://github.com/SaintChris
 - LinkedIn: https://www.linkedin.com/in/alex-bogle/
