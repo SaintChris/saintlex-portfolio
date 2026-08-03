@@ -1,3 +1,4 @@
+import hashlib
 import re
 import unittest
 from html.parser import HTMLParser
@@ -8,6 +9,8 @@ INDEX = ROOT / "index.html"
 CSS = ROOT / "styles.css"
 RESUME_FILENAME = "Alex_Bogle_IT_Support_Resume.pdf"
 RESUME = ROOT / RESUME_FILENAME
+RESUME_SHA256 = "103b8630fcc500142bbb1586d0acfad86a512907f085cb3194859427219e2b34"
+RECRUITER_EMAIL = "bogle.alex@hotmail.com"
 
 
 class PortfolioParser(HTMLParser):
@@ -66,7 +69,18 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_verified_resume_file_is_published(self):
         self.assertTrue(RESUME.is_file())
-        self.assertTrue(RESUME.read_bytes().startswith(b"%PDF-"))
+        resume_bytes = RESUME.read_bytes()
+        self.assertTrue(resume_bytes.startswith(b"%PDF-"))
+        self.assertEqual(hashlib.sha256(resume_bytes).hexdigest(), RESUME_SHA256)
+
+    def test_recruiter_email_is_public_in_contact_section(self):
+        contact = re.search(
+            r'<section class="contact".*?</section>', self.html, re.DOTALL
+        )
+        self.assertIsNotNone(contact)
+        contact_html = contact.group(0) if contact else ""
+        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', contact_html)
+        self.assertIn(f">{RECRUITER_EMAIL}<", contact_html)
 
     def test_hero_and_contact_link_to_verified_resume(self):
         resume_link = f'href="{RESUME_FILENAME}"'

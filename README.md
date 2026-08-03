@@ -46,5 +46,6 @@ npx html-validate index.html
 
 - Site: https://saintlex.sbs/
 - Resume: https://saintlex.sbs/Alex_Bogle_IT_Support_Resume.pdf
+- Recruiter email: bogle.alex@hotmail.com
 - GitHub: https://github.com/SaintChris
 - LinkedIn: https://www.linkedin.com/in/alex-bogle/
