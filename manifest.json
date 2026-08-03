@@ -1,9 +1,17 @@
 {
   "name": "Alex Bogle | IT Support & Technical Operations",
   "short_name": "Alex Bogle",
-  "description": "Evidence-first portfolio for IT support and technical operations roles.",
+  "description": "Professional portfolio for IT support and technical operations roles.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b0f14",
-  "theme_color": "#0f62fe"
+  "theme_color": "#0f62fe",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }

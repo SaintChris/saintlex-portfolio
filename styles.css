@@ -427,10 +427,13 @@ h1 span {
 }
 
 .steps {
+  margin: 0;
+  padding: 0;
   border-top: 1px solid var(--border);
+  list-style: none;
 }
 
-.steps article {
+.steps li {
   display: grid;
   grid-template-columns: 56px 1fr;
   gap: 24px;
@@ -438,10 +441,62 @@ h1 span {
   border-bottom: 1px solid var(--border);
 }
 
-.steps article > span {
+.steps li > span {
   color: var(--blue);
   font-family: var(--font-mono);
   font-size: 14px;
+}
+
+.experience-list {
+  border-top: 1px solid var(--border);
+}
+
+.experience-entry {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+  gap: 64px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.experience-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.experience-heading h3 {
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+
+.experience-heading p,
+.experience-entry > p {
+  margin-bottom: 0;
+  color: var(--text-secondary);
+}
+
+.experience-heading p {
+  font-size: 14px;
+}
+
+.experience-heading span {
+  flex: 0 0 auto;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.experience-entry > p {
+  max-width: 720px;
+  line-height: 1.65;
+}
+
+.experience-resume {
+  width: fit-content;
+  margin-top: 32px;
 }
 
 .evidence-grid {
@@ -524,23 +579,17 @@ h1 span {
   line-height: 1.65;
 }
 
-.proof-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  margin-top: auto;
-  margin-bottom: 24px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-
-.proof-grid div {
+.planned-evidence {
+  margin: 0 0 24px;
   padding: 20px;
+  border: 1px solid var(--border);
   background: var(--bg);
 }
 
-.proof-grid h4 {
-  margin: 0 0 8px;
+.planned-evidence h4,
+.project-detail h4,
+.project-facts dt {
+  margin: 0 0 10px;
   color: var(--blue);
   font-family: var(--font-mono);
   font-size: 11px;
@@ -549,12 +598,49 @@ h1 span {
   text-transform: uppercase;
 }
 
-.proof-grid p,
+.planned-evidence ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.project-facts {
+  display: grid;
+  gap: 20px;
+  margin: auto 0 0;
+}
+
+.project-facts div,
+.project-detail {
+  padding: 20px;
+  border-left: 2px solid var(--blue);
+  background: var(--bg);
+}
+
+.project-facts dd,
+.project-detail p,
 .availability {
-  margin-bottom: 0;
+  margin: 0;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.55;
+}
+
+.project-detail {
+  margin: auto 0 24px;
+}
+
+.notes-card .availability {
+  margin-bottom: 24px;
+}
+
+.availability strong {
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .card-link {
@@ -615,12 +701,14 @@ h1 span {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1px;
-  margin-bottom: 48px;
+  margin: 0 0 48px;
+  padding: 0;
   background: var(--border);
   border: 1px solid var(--border);
+  list-style: none;
 }
 
-.role-list span {
+.role-list li {
   flex: 1 1 30%;
   min-height: 72px;
   display: inline-flex;
@@ -667,8 +755,7 @@ h1 span {
 }
 
 .contact .kicker,
-.contact-copy > p:first-child,
-.resume-note {
+.contact-copy > p:first-child {
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -688,11 +775,6 @@ h1 span {
   border-color: rgba(255, 255, 255, 0.65);
 }
 
-.resume-note {
-  margin: 20px 0 0;
-  font-family: var(--font-mono);
-  font-size: 11px;
-}
 
 footer {
   padding: 32px 0;
@@ -712,6 +794,7 @@ footer {
 @media (max-width: 960px) {
   .hero-grid,
   .split,
+  .experience-entry,
   .toolkit-grid,
   .contact-grid {
     grid-template-columns: 1fr;
@@ -720,6 +803,10 @@ footer {
 
   .sticky-heading {
     position: static;
+  }
+
+  .experience-entry {
+    gap: 20px;
   }
 
   .card-grid.four {
@@ -789,8 +876,7 @@ footer {
 
   .card-grid.four,
   .trust-strip,
-  .evidence-grid,
-  .proof-grid {
+  .evidence-grid {
     grid-template-columns: 1fr;
   }
 
@@ -813,12 +899,13 @@ footer {
     padding: 24px;
   }
 
-  .card-topline {
+  .card-topline,
+  .experience-heading {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .role-list span {
+  .role-list li {
     flex-basis: 100%;
   }
 

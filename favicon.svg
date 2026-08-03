@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Alex Bogle portfolio</title>
+  <rect width="64" height="64" rx="8" fill="#0b0f14"/>
+  <path d="M15 47 27 17h7l12 30h-8l-2.3-6.5H24.8L22.5 47H15Zm12.2-13h6.1l-3-9-3.1 9Z" fill="#f4f4f4"/>
+  <path d="m43 18 3 2-10 26-3-2 10-26Zm8 0 3 2-10 26-3-2 10-26Z" fill="#42be65"/>
+</svg>

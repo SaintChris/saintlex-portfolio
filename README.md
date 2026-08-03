@@ -3,7 +3,7 @@
 [![Live site](https://img.shields.io/badge/live-saintlex.sbs-0f62fe)](https://saintlex.sbs/)
 [![CI](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml)
 
-Recruiter-first portfolio for Alex Bogle, an IT support and technical operations candidate based in Jamaica.
+Recruiter-focused portfolio for Alex Bogle, an IT support and technical operations professional based in Jamaica. The homepage presents verified customer support, device troubleshooting, hardware setup, asset management, documentation, and operational experience alongside clearly labeled technical projects.
 
 ## Positioning
 
@@ -18,12 +18,13 @@ The site targets:
 
 The site uses only already-confirmed facts. Download the verified IT Support resume for details about employment history, technical support experience, and operational background.
 
-## Evidence policy
+## Content policy
 
 - Labs are labeled as labs.
 - Work in progress is labeled clearly.
-- Each project states what it proves and what it does not prove.
-- No passing-test, uptime, cost, employment, or deployment claim is published without current evidence.
+- Professional experience comes from the verified resume.
+- Project status and current limitations are stated where relevant.
+- No performance, uptime, customer-result, or deployment claim is published without current evidence.
 - Stale operational telemetry is not displayed publicly.
 
 ## Technology
@@ -34,6 +35,7 @@ The site uses only already-confirmed facts. Download the verified IT Support res
 - No public API keys or telemetry
 - GitHub Pages with a custom domain
 - Python content tests and `html-validate` in CI
+- Canonical, Open Graph, Twitter card, JSON-LD, sitemap, and robots metadata
 
 ## Local verification
 
