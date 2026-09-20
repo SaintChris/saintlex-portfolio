@@ -197,7 +197,7 @@ class PortfolioContentTests(unittest.TestCase):
             self.assertNotIn(phrase, source_text)
 
     def test_honest_scope_and_evidence_labels(self):
-        self.assertIn("Work in progress", self.html)
+        self.assertIn("Sanitized case study", self.html)
         self.assertIn("Local experiment", self.html)
         self.assertIn("Current limitation", self.html)
         self.assertNotIn("What this proves", self.html)
