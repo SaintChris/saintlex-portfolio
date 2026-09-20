@@ -58,19 +58,18 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_recruiter_facing_title_and_headline(self):
         title = "".join(self.parser.title_parts).strip()
-        self.assertEqual(title, "Alex Bogle | IT Support & Technical Operations")
-        self.assertIn("IT Support &amp; Technical Operations", self.html)
+        self.assertEqual(title, "Alex Bogle | IoT & AI Technician")
+        self.assertIn("IoT &amp; AI", self.html)
         self.assertIn("Based in Jamaica", self.html)
 
     def test_target_roles_are_explicit(self):
         for role in (
-            "IT Support",
-            "IT Help Desk",
-            "Technical Support",
-            "Application Support",
-            "IT Operations Support",
-            "Cloud Support Trainee",
-            "Implementation Support",
+            "IoT Systems",
+            "AI &amp; Automation",
+            "Systems Integration",
+            "Technical Operations",
+            "Cloud &amp; Infrastructure",
+            "Energy Technology",
         ):
             self.assertIn(role, self.html)
 
@@ -152,7 +151,7 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertEqual(struct.unpack(">II", header[16:24]), (1200, 630))
 
     def test_footer_date_is_current(self):
-        self.assertIn("Updated August 2026", self.html)
+        self.assertIn("Updated September 2026", self.html)
         self.assertNotIn("Updated July 2026", self.html)
 
     def test_hero_and_contact_link_to_verified_resume(self):
@@ -206,9 +205,9 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_direct_recruiter_copy_and_verified_toolkit(self):
         direct_headings = (
-            "Support Skills",
-            "Troubleshooting Process",
-            "Professional Support Experience",
+            "Technical Focus",
+            "Engineering Method",
+            "Professional Experience",
             "Technical Projects",
             "Tools and Platforms",
             "Target Roles",
@@ -273,6 +272,10 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_verified_professional_experience_is_published(self):
         verified_experience = {
+            "IREE Solar": (
+                "IoT &amp; AI Technician",
+                "AI-assisted automation",
+            ),
             "Sterling Carter Technology Distributors": (
                 "IT Procurement Administrator",
                 "Configured and upgraded desktop computers",
