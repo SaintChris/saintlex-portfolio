@@ -301,8 +301,8 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertLess(self.html.index('id="experience"'), self.html.index('id="evidence"'))
 
     def test_compromised_repository_is_not_promoted(self):
-        self.assertNotIn('href="https://github.com/SaintChris/rag-eval-system"', self.html)
-        self.assertIn("repository link remains withheld while credential rotation", self.lower)
+        self.assertNotIn('href="https://github.com/SaintChris/rag-evaluation-lab"', self.html)
+        self.assertIn("repository link remains withheld while its publication security gate", self.lower)
 
     def test_stale_resume_and_commercial_pages_are_removed(self):
         self.assertNotIn("Alex_Bogle_Resume_2026.pdf", self.html)
