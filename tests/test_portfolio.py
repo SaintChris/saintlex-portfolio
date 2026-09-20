@@ -210,7 +210,7 @@ class PortfolioContentTests(unittest.TestCase):
             "Professional Experience",
             "Technical Projects",
             "Tools and Platforms",
-            "Target Roles",
+            "Professional Direction",
             "Contact",
         )
         for heading in direct_headings:
