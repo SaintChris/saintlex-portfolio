@@ -3,20 +3,20 @@
 [![Live site](https://img.shields.io/badge/live-saintlex.sbs-0f62fe)](https://saintlex.sbs/)
 [![CI](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/SaintChris/saintlex-portfolio/actions/workflows/ci.yml)
 
-Recruiter-focused portfolio for Alex Bogle, an IT support and technical operations professional based in Jamaica. The homepage presents verified customer support, device troubleshooting, hardware setup, asset management, documentation, and operational experience alongside clearly labeled technical projects.
+Professional portfolio for Alex Bogle, an IoT & AI Technician based in Jamaica. The site presents current work across connected systems, AI-assisted automation, systems integration, networking, technical operations, and energy technology while preserving earlier verified support and operations experience as career foundation.
 
 ## Positioning
 
-The site targets:
+The site is positioned around:
 
-- IT Help Desk
-- Technical Support
-- Application Support
-- IT Operations Support
-- Cloud Support Trainee
-- Implementation Support
+- IoT systems
+- AI and automation
+- Systems integration
+- Technical operations
+- Cloud and infrastructure
+- Energy technology
 
-The site uses only already-confirmed facts. Download the verified IT Support resume for details about employment history, technical support experience, and operational background.
+The site distinguishes current professional positioning from historical evidence. The downloadable IT Support resume remains available as a verified record of earlier support and operations experience.
 
 ## Content policy
 
