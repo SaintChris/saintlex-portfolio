@@ -144,8 +144,7 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIn("Updated September 2026", self.html)
         self.assertNotIn("Updated July 2026", self.html)
 
-    def test_hero_and_contact_link_to_verified_resume(self):
-        resume_link = f'href="{RESUME_FILENAME}"'
+    def test_hero_and_contact_use_public_contact_channels(self):
         hero = re.search(
             r'<section class="hero".*?</section>', self.html, re.DOTALL
         )
@@ -156,15 +155,12 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIsNotNone(contact)
         hero_html = hero.group(0) if hero else ""
         contact_html = contact.group(0) if contact else ""
-        self.assertIn(resume_link, hero_html)
-        self.assertIn(resume_link, contact_html)
-        self.assertEqual(self.html.count(resume_link), 3)
-        safe_resume_link = (
-            f'href="{RESUME_FILENAME}" target="_blank" '
-            'rel="noopener noreferrer"'
-        )
-        self.assertEqual(self.html.count(safe_resume_link), 3)
-        self.assertEqual(self.html.count(">Download Resume <"), 2)
+        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', hero_html)
+        self.assertIn('href="https://www.linkedin.com/in/alex-bogle/"', hero_html)
+        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', contact_html)
+        self.assertIn('href="https://www.linkedin.com/in/alex-bogle/"', contact_html)
+        self.assertNotIn(".pdf", hero_html.lower())
+        self.assertNotIn(".pdf", contact_html.lower())
 
     def test_outdated_resume_notices_are_absent(self):
         source_suffixes = {".css", ".html", ".json", ".md", ".yaml", ".yml"}
