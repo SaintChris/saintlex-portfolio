@@ -1,4 +1,3 @@
-import hashlib
 import json
 import re
 import struct
@@ -10,13 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 CSS = ROOT / "styles.css"
-RESUME_FILENAME = "Alex_Bogle_IT_Support_Resume.pdf"
-RESUME = ROOT / RESUME_FILENAME
 ROBOTS = ROOT / "robots.txt"
 SITEMAP = ROOT / "sitemap.xml"
 MANIFEST = ROOT / "manifest.json"
 SOCIAL_PREVIEW = ROOT / "social-preview.png"
-RESUME_SHA256 = "103b8630fcc500142bbb1586d0acfad86a512907f085cb3194859427219e2b34"
 RECRUITER_EMAIL = "bogle.alex@hotmail.com"
 
 
@@ -73,11 +69,11 @@ class PortfolioContentTests(unittest.TestCase):
         ):
             self.assertIn(role, self.html)
 
-    def test_verified_resume_file_is_published(self):
-        self.assertTrue(RESUME.is_file())
-        resume_bytes = RESUME.read_bytes()
-        self.assertTrue(resume_bytes.startswith(b"%PDF-"))
-        self.assertEqual(hashlib.sha256(resume_bytes).hexdigest(), RESUME_SHA256)
+    def test_resume_file_is_not_published(self):
+        self.assertFalse((ROOT / "Alex_Bogle_IT_Support_Resume.pdf").exists())
+        self.assertNotIn("Alex_Bogle_IT_Support_Resume.pdf", self.html)
+        self.assertNotIn("Download Resume", self.html)
+
 
     def test_recruiter_email_is_public_in_contact_section(self):
         contact = re.search(
@@ -131,13 +127,7 @@ class PortfolioContentTests(unittest.TestCase):
         sitemap_root = ET.parse(SITEMAP).getroot()
         namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         locations = {node.text for node in sitemap_root.findall("sm:url/sm:loc", namespace)}
-        self.assertEqual(
-            locations,
-            {
-                "https://saintlex.sbs/",
-                f"https://saintlex.sbs/{RESUME_FILENAME}",
-            },
-        )
+        self.assertEqual(locations, {"https://saintlex.sbs/"})
 
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         self.assertIn("professional", manifest["description"].lower())
@@ -200,6 +190,8 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIn("Sanitized case study", self.html)
         self.assertIn("Local experiment", self.html)
         self.assertIn("Current limitation", self.html)
+        self.assertIn("IoT Energy Telemetry Lab", self.html)
+        self.assertNotIn("Hermes Workflow Notes", self.html)
         self.assertNotIn("What this proves", self.html)
         self.assertNotIn("What this does not prove", self.html)
 
@@ -307,6 +299,7 @@ class PortfolioContentTests(unittest.TestCase):
     def test_stale_resume_and_commercial_pages_are_removed(self):
         self.assertNotIn("Alex_Bogle_Resume_2026.pdf", self.html)
         self.assertFalse((ROOT / "Alex_Bogle_Resume_2026.pdf").exists())
+        self.assertFalse((ROOT / "Alex_Bogle_IT_Support_Resume.pdf").exists())
         self.assertFalse((ROOT / "proposal.html").exists())
         self.assertFalse((ROOT / "pricing.html").exists())
         self.assertFalse((ROOT / ".github/workflows/update-or-stats.yml").exists())
