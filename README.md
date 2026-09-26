@@ -16,13 +16,13 @@ The site is positioned around:
 - Cloud and infrastructure
 - Energy technology
 
-The site distinguishes current professional positioning from historical evidence. The downloadable IT Support resume remains available as a verified record of earlier support and operations experience.
+The site distinguishes current professional positioning from historical evidence while keeping personal contact information intentionally limited to public professional channels.
 
 ## Content policy
 
 - Labs are labeled as labs.
 - Work in progress is labeled clearly.
-- Professional experience comes from the verified resume.
+- Professional experience is published only when it is supported by verified records.
 - Project status and current limitations are stated where relevant.
 - No performance, uptime, customer-result, or deployment claim is published without current evidence.
 - Stale operational telemetry is not displayed publicly.
@@ -47,7 +47,6 @@ npx html-validate index.html
 ## Public links
 
 - Site: https://saintlex.sbs/
-- Resume: https://saintlex.sbs/Alex_Bogle_IT_Support_Resume.pdf
 - Recruiter email: bogle.alex@hotmail.com
 - GitHub: https://github.com/SaintChris
 - LinkedIn: https://www.linkedin.com/in/alex-bogle/
