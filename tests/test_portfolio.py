@@ -82,7 +82,7 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIsNotNone(contact)
         contact_html = contact.group(0) if contact else ""
         self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', contact_html)
-        self.assertIn(f">{RECRUITER_EMAIL}<", contact_html)
+        self.assertRegex(contact_html, rf">{re.escape(RECRUITER_EMAIL)}\s*(?:<|$)")
 
     def test_public_profile_links_remain_available(self):
         self.assertIn('href="https://www.linkedin.com/in/alex-bogle/"', self.html)
