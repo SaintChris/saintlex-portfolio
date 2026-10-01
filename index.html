@@ -60,9 +60,8 @@
       </a>
       <nav aria-label="Primary navigation">
         <a href="#experience">Experience</a>
+        <a href="#evidence">Selected Work</a>
         <a href="#support">Skills</a>
-        <a href="#method">Method</a>
-        <a href="#evidence">Projects</a>
         <a href="#toolkit">Toolkit</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -75,7 +74,7 @@
         <div class="hero-copy">
           <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Based in Jamaica · Open to eligible remote opportunities</p>
           <h1>IoT <span>&amp;</span> AI<br>Technician</h1>
-          <p class="hero-intro">I work across connected systems, AI-assisted automation, networking, systems integration, technical operations, and energy technology, with an emphasis on secure, testable, documented implementation.</p>
+          <p class="hero-intro">I connect solar and battery equipment, field operations, and AI-assisted automation, then build the tooling that keeps them observable: telemetry labs, monitoring prototypes, service-report workflows, and local AI systems with privacy controls and automated tests.</p>
           <div class="actions">
             <a class="button primary" href="mailto:bogle.alex@hotmail.com">Email me <span aria-hidden="true">↗</span></a>
             <a class="button secondary" href="https://www.linkedin.com/in/alex-bogle/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn <span aria-hidden="true">↗</span></a>
@@ -86,7 +85,7 @@
         <aside class="method-card" aria-labelledby="workflow-title">
           <div class="terminal-bar">
             <span id="workflow-title">engineering_workflow.md</span>
-            <span class="verified-label">ENGINEERING PROCESS</span>
+            <span class="verified-label">ENGINEERING METHOD</span>
           </div>
           <ol class="workflow-list">
             <li><span>01</span><div><strong>Define</strong><p>Confirm the objective, system boundary, constraints, data sources, and expected behavior.</p></div></li>
@@ -139,28 +138,11 @@
       </div>
     </section>
 
-    <section class="section alt" id="method">
-      <div class="shell split">
-        <div class="section-heading sticky-heading">
-          <p class="kicker">02 / ENGINEERING METHOD</p>
-          <h2>Engineering Method</h2>
-          <p>I define the system boundary, collect evidence, test safely, implement controlled changes, verify results, and document what happened.</p>
-        </div>
-
-        <ol class="steps">
-          <li><span>1</span><div><h3>Define the problem</h3><p>What changed? Who is affected? What still works? What is the business or user impact?</p></div></li>
-          <li><span>2</span><div><h3>Collect evidence</h3><p>Reproduce the issue where safe, inspect logs and status, and capture exact errors without exposing personal data.</p></div></li>
-          <li><span>3</span><div><h3>Test the simplest cause</h3><p>Check one layer at a time and compare expected versus actual results.</p></div></li>
-          <li><span>4</span><div><h3>Fix and verify</h3><p>Apply a reversible change where possible, confirm the outcome, and check for side effects.</p></div></li>
-          <li><span>5</span><div><h3>Close the loop</h3><p>Explain the result clearly, document the resolution, and schedule follow-up when needed.</p></div></li>
-        </ol>
-      </div>
-    </section>
 
     <section class="section experience" id="experience">
       <div class="shell">
         <div class="section-heading">
-          <p class="kicker">03 / PROFESSIONAL EXPERIENCE</p>
+          <p class="kicker">02 / PROFESSIONAL EXPERIENCE</p>
           <h2>Professional Experience</h2>
           <p>My current work is in IoT and AI, supported by earlier experience in technical support, hardware, asset management, customer operations, and documentation.</p>
         </div>
@@ -174,7 +156,15 @@
               </div>
               <span>Current role</span>
             </div>
-            <p>Works across IoT, AI-assisted automation, systems integration, networking, technical documentation, and energy-technology operations in a solar-industry environment.</p>
+            <div class="experience-body">
+              <p>Works across IoT, AI-assisted automation, systems integration, networking, technical documentation, and energy-technology operations in a solar-industry environment.</p>
+              <ul class="experience-outcomes">
+                <li>Produced an MPPT field report from inverter event logs during an equipment incident, preserving the original logs as evidence.</li>
+                <li>Designed a field-job photo tagging convention and an AI-assisted service-report kit so before/after evidence and findings are captured consistently.</li>
+                <li>Built a read-only operations-monitoring prototype on synthetic data with role-based access, CSRF protection, an audit log, and more than 200 automated tests.</li>
+                <li>Wrote a least-privilege access plan for the monitoring, field-service, and design platforms the operations tooling depends on.</li>
+              </ul>
+            </div>
           </article>
           <article class="experience-entry">
             <div class="experience-heading">
@@ -227,49 +217,61 @@
     <section class="section" id="evidence">
       <div class="shell">
         <div class="section-heading">
-          <p class="kicker">04 / ENGINEERING PROJECTS</p>
-          <h2>Technical Projects</h2>
-          <p>Projects are labeled by status, and professional work, labs, prototypes, and reference material are kept distinct.</p>
+          <p class="kicker">03 / SELECTED WORK</p>
+          <h2>Selected Work</h2>
+          <p>Each entry states what I built and what it is: open-source contribution, learning lab, or personal system. Synthetic data is labeled as synthetic.</p>
         </div>
 
         <div class="evidence-grid">
           <article class="evidence-card featured">
-            <div class="card-topline"><span class="tag lab">Sanitized case study</span><span>Linux / homelab</span></div>
-            <h3>Android Linux Homelab</h3>
-            <p class="card-summary">Repurposed a Samsung Galaxy S7 as a constrained server lab using Android, Termux, Nginx, PHP-FPM, MariaDB, Cloudflare Tunnel, monitoring, scripting, and backup/recovery experiments.</p>
-            <div class="planned-evidence">
-              <h4>Engineering focus</h4>
-              <ul>
-                <li>Resource-constrained system administration</li>
-                <li>Web-service deployment and diagnostics</li>
-                <li>Tunnel-based remote publishing</li>
-                <li>Monitoring and automation</li>
-                <li>Safe publication boundaries</li>
-              </ul>
-            </div>
-            <p class="availability"><strong>Publication boundary:</strong> The historical source repository remains private because it contains operational artifacts. This portfolio exposes only a sanitized case study.</p>
-          </article>
-
-          <article class="evidence-card">
-            <div class="card-topline"><span class="tag lab">Local experiment</span><span>Document retrieval</span></div>
-            <h3>RAG Evaluation Lab</h3>
-            <p class="card-summary">A local experiment with document retrieval, FastAPI, ChromaDB, MLflow, mocked tests, and technical setup documentation.</p>
+            <div class="card-topline"><span class="tag lab">Open-source contribution</span><span>TypeScript / Electron</span></div>
+            <h3>Super Productivity: Local REST API and MCP Adapter</h3>
+            <p class="card-summary">Extended a large open-source task manager so AI agents can work with tasks safely: a time-logging endpoint on its local REST API and a narrow MCP adapter that searches for duplicates before creating a task and reads every change back to verify it.</p>
             <dl class="project-facts">
-              <div><dt>Tools used</dt><dd>FastAPI, ChromaDB, MLflow, Python, and local services</dd></div>
-              <div><dt>Current limitation</dt><dd>The repository link remains withheld while its publication security gate and history cleanup are incomplete.</dd></div>
+              <div><dt>What I built</dt><dd><code>POST /tasks/:id/time</code>, controlled create/update/complete tools, token-file authentication, and unit tests for the new handlers</dd></div>
+              <div><dt>Why it matters</dt><dd>Agents can update a real task system without silent duplicates or unverified writes</dd></div>
             </dl>
+            <a class="card-link" href="https://github.com/SaintChris/super-productivity" target="_blank" rel="noopener noreferrer" aria-label="View Super Productivity fork (opens in a new tab)">View fork <span aria-hidden="true">↗</span></a>
           </article>
 
           <article class="evidence-card">
             <div class="card-topline"><span class="tag lab">Learning lab</span><span>IoT / energy telemetry</span></div>
             <h3>IoT Energy Telemetry Lab</h3>
-            <p class="card-summary">A reproducible lab for synthetic solar and battery telemetry over MQTT, designed to practice device identity, topic design, validation, and offline-safe testing without production data.</p>
-            <div class="project-detail">
-              <h4>Engineering focus</h4>
-              <p>MQTT publish/subscribe behavior, JSON telemetry validation, device identity, sequence handling, and clear separation between simulated and production environments.</p>
-            </div>
+            <p class="card-summary">A reproducible lab for synthetic solar and battery telemetry over MQTT: device identity, topic design, sequence handling, and JSON validation, with CI.</p>
             <p class="availability">All readings are synthetic; no employer, customer, site, credential, inverter endpoint, or production telemetry is used.</p>
             <a class="card-link" href="https://github.com/SaintChris/iot-energy-telemetry-lab" target="_blank" rel="noopener noreferrer" aria-label="View IoT Energy Telemetry Lab repository (opens in a new tab)">View repository <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="evidence-card">
+            <div class="card-topline"><span class="tag lab">Personal system</span><span>AI / privacy</span></div>
+            <h3>Local AI Memory Service</h3>
+            <p class="card-summary">A localhost service that gives several AI assistants one shared, searchable memory built from my notes, with folder-level privacy that keeps personal records out of the index even when their metadata is wrong.</p>
+            <dl class="project-facts">
+              <div><dt>Built with</dt><dd>Python, FastAPI, SQLite FTS5, local embeddings, MCP</dd></div>
+              <div><dt>Current limitation</dt><dd>Source stays private until a history review is complete; the case study describes the design.</dd></div>
+            </dl>
+            <a class="card-link" href="https://github.com/SaintChris/saintlex-portfolio/blob/main/case-studies/local-ai-memory-service.md" target="_blank" rel="noopener noreferrer" aria-label="Read the Local AI Memory Service case study (opens in a new tab)">Read case study <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="evidence-card">
+            <div class="card-topline"><span class="tag lab">Personal project</span><span>macOS / Wine</span></div>
+            <h3>Windows-Only Game on Apple Silicon</h3>
+            <p class="card-summary">Got a Windows-only Epic Games title and its DLC running on an M1 Mac by diagnosing graphics, video, licensing, and first-run failures one layer at a time, then packaged the fix as a re-runnable restore script.</p>
+            <a class="card-link" href="https://github.com/SaintChris/saintlex-portfolio/blob/main/case-studies/windows-game-on-apple-silicon.md" target="_blank" rel="noopener noreferrer" aria-label="Read the Windows game on Apple Silicon case study (opens in a new tab)">Read case study <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="evidence-card">
+            <div class="card-topline"><span class="tag lab">Learning lab</span><span>AI / multi-agent</span></div>
+            <h3>Agentic Systems Lab</h3>
+            <p class="card-summary">Six agent roles coordinating through a shared task queue, with a lightweight monitoring dashboard that runs on mock data out of the box.</p>
+            <a class="card-link" href="https://github.com/SaintChris/agentic-systems-lab" target="_blank" rel="noopener noreferrer" aria-label="View Agentic Systems Lab repository (opens in a new tab)">View repository <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="evidence-card">
+            <div class="card-topline"><span class="tag lab">Sanitized case study</span><span>Linux / homelab</span></div>
+            <h3>Android Linux Homelab</h3>
+            <p class="card-summary">Turned a Samsung Galaxy S7 into a constrained web server with Termux, Nginx, PHP-FPM, MariaDB, and Cloudflare Tunnel, including monitoring and backup/recovery experiments.</p>
+            <a class="card-link" href="https://github.com/SaintChris/saintlex-portfolio/blob/main/case-studies/android-linux-homelab.md" target="_blank" rel="noopener noreferrer" aria-label="Read the Android Linux Homelab case study (opens in a new tab)">Read case study <span aria-hidden="true">↗</span></a>
           </article>
         </div>
       </div>
@@ -278,7 +280,7 @@
     <section class="section alt" id="toolkit">
       <div class="shell toolkit-grid">
         <div class="section-heading">
-          <p class="kicker">05 / TOOLS AND PLATFORMS</p>
+          <p class="kicker">04 / TOOLS AND PLATFORMS</p>
           <h2>Tools and Platforms</h2>
           <p>Professional-use tools are separated from the technologies I am currently studying.</p>
         </div>
@@ -319,7 +321,7 @@
     <section class="section roles" id="roles">
       <div class="shell">
         <div class="section-heading centered">
-          <p class="kicker">06 / PROFESSIONAL DIRECTION</p>
+          <p class="kicker">05 / PROFESSIONAL DIRECTION</p>
           <h2>Professional Direction</h2>
         </div>
         <ul class="role-list">
@@ -340,7 +342,7 @@
     <section class="contact" id="contact">
       <div class="shell contact-grid">
         <div>
-          <p class="kicker">07 / CONTACT</p>
+          <p class="kicker">06 / CONTACT</p>
           <h2>Contact</h2>
         </div>
         <div class="contact-copy">
@@ -358,7 +360,7 @@
   <footer>
     <div class="shell footer-grid">
       <span>Alex Bogle · Jamaica</span>
-      <span>IoT &amp; AI Technician · Updated September 2026</span>
+      <span>IoT &amp; AI Technician · Updated October 2026</span>
     </div>
   </footer>
 </body>

@@ -920,3 +920,28 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+.experience-body p {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.experience-outcomes {
+  max-width: 720px;
+  margin: 16px 0 0;
+  padding-left: 18px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.experience-outcomes li + li {
+  margin-top: 6px;
+}
+
+.project-facts code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}

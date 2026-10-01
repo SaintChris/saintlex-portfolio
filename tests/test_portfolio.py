@@ -141,7 +141,7 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertEqual(struct.unpack(">II", header[16:24]), (1200, 630))
 
     def test_footer_date_is_current(self):
-        self.assertIn("Updated September 2026", self.html)
+        self.assertIn("Updated October 2026", self.html)
         self.assertNotIn("Updated July 2026", self.html)
 
     def test_hero_and_contact_use_public_contact_channels(self):
@@ -184,7 +184,8 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_honest_scope_and_evidence_labels(self):
         self.assertIn("Sanitized case study", self.html)
-        self.assertIn("Local experiment", self.html)
+        self.assertIn("Learning lab", self.html)
+        self.assertIn("Open-source contribution", self.html)
         self.assertIn("Current limitation", self.html)
         self.assertIn("IoT Energy Telemetry Lab", self.html)
         self.assertNotIn("Hermes Workflow Notes", self.html)
@@ -194,9 +195,8 @@ class PortfolioContentTests(unittest.TestCase):
     def test_direct_recruiter_copy_and_verified_toolkit(self):
         direct_headings = (
             "Technical Focus",
-            "Engineering Method",
             "Professional Experience",
-            "Technical Projects",
+            "Selected Work",
             "Tools and Platforms",
             "Professional Direction",
             "Contact",
@@ -290,7 +290,15 @@ class PortfolioContentTests(unittest.TestCase):
 
     def test_compromised_repository_is_not_promoted(self):
         self.assertNotIn('href="https://github.com/SaintChris/rag-evaluation-lab"', self.html)
-        self.assertIn("repository link remains withheld while its publication security gate", self.lower)
+        self.assertNotIn("RAG Evaluation Lab", self.html)
+
+    def test_method_appears_once_and_case_studies_exist(self):
+        self.assertNotIn('id="method"', self.html)
+        self.assertNotIn('href="#method"', self.html)
+        links = re.findall(r'href="https://github.com/SaintChris/saintlex-portfolio/blob/main/(case-studies/[^"]+)"', self.html)
+        self.assertGreaterEqual(len(links), 3)
+        for link in links:
+            self.assertTrue((ROOT / link).exists(), link)
 
     def test_stale_resume_and_commercial_pages_are_removed(self):
         self.assertNotIn("Alex_Bogle_Resume_2026.pdf", self.html)
@@ -326,7 +334,7 @@ class PortfolioContentTests(unittest.TestCase):
             )
         )
         self.assertTrue(
-            any(tag == "ol" and attrs.get("class") == "steps" for tag, attrs in self.parser.tags)
+            any(tag == "ol" and attrs.get("class") == "workflow-list" for tag, attrs in self.parser.tags)
         )
         self.assertTrue(
             any(tag == "ul" and attrs.get("class") == "role-list" for tag, attrs in self.parser.tags)
