@@ -1,4 +1,4 @@
-# A Local, Privacy-First Memory Service for AI Assistants
+# A local, privacy-first memory service for AI assistants
 
 ## Status
 
@@ -23,18 +23,19 @@ memoryd  (localhost-only FastAPI + SQLite)
 Read-only MCP server → AI assistants
 ```
 
-- **Notes stay canonical.** The database is derived and can be rebuilt from the vault at any time.
-- **Loopback only.** The server refuses to bind anywhere except `127.0.0.1`, `localhost` or `::1`, and every API route requires a bearer token compared in constant time.
-- **Read-only by default.** The MCP tools assistants see can search and read. Write tools exist only when explicitly enabled, and only for models whose tool use has been verified for that exact version.
-- **Retrieved text is data, not instructions.** The MCP server tells clients that memory evidence never grants authority.
+The notes stay the source of truth. The database is derived from them, so I can delete it and rebuild it from the vault whenever I want.
+
+The server only listens on the loopback address; it refuses to start on anything else. Every API call needs a bearer token, compared in constant time.
+
+Assistants get read-only tools by default. Write tools have to be switched on, and even then only for a model version whose tool use I've actually tested. Anything the memory returns is treated as data. It never counts as an instruction.
 
 ## Privacy controls
 
 Privacy fails closed at three levels:
 
-1. **Folder.** `Private/`, `Archive/` and `Journal/` are never indexed, whatever a note's metadata says. A forgotten tag cannot leak a note.
-2. **Metadata.** Inside indexed folders, a note is excluded if its frontmatter marks it private or restricted, or if that frontmatter is malformed, duplicated or ambiguous. Unknown values are treated as restricted, never guessed.
-3. **Content.** Notes whose names or text look like credentials (private keys, cloud access keys, token assignments) are skipped.
+1. By folder. `Private/`, `Archive/` and `Journal/` are never indexed, whatever a note's metadata says. Forget a tag and nothing leaks.
+2. By metadata. Inside the indexed folders, a note is dropped if its frontmatter says private or restricted. It's also dropped if the frontmatter is broken or contradicts itself. Unknown values count as restricted.
+3. By content. Anything whose name or text looks like a credential (private keys, cloud access keys, tokens) is skipped.
 
 When a note becomes restricted later, every earlier indexed version and its embeddings are purged too, so history queries cannot recover it. Symlinked folders are not followed out of the vault.
 
@@ -46,9 +47,11 @@ When a note becomes restricted later, every earlier indexed version and its embe
 
 ## What went wrong, and what changed
 
-- **The index went stale for 25 days** because nothing scheduled a refresh. Assistants were answering from three-week-old notes. Fix: the nightly job, plus an index-age check in the health report.
-- **Folder moves exposed a gap in tag-based privacy.** During a vault reorganisation I found that two sensitive records had been searchable while they sat in a project folder. Fix: privacy by folder first, metadata second.
-- **Over-broad "historical" rules.** A blanket rule marks two whole knowledge folders as historical, which hides useful notes from default searches. Next step: replace the folder rule with per-note status.
+The index went stale for 25 days and I didn't notice. Nothing scheduled a refresh, so the assistants were quietly answering from three-week-old notes. Now a nightly job reindexes, and the health report shouts when the index gets old.
+
+Tags alone weren't enough. While reorganising the vault I found two sensitive records that had been searchable the whole time, just because they lived in a project folder with the wrong metadata. That's why folder rules now come first and tags second.
+
+One rule is still too blunt. It marks two entire knowledge folders as "historical", which hides useful notes from normal searches. I want to replace it with a status on each note.
 
 ## Stack
 

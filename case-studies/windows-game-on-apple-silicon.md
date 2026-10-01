@@ -1,4 +1,4 @@
-# Running a Windows-Only Game on Apple Silicon
+# Running a Windows-only game on Apple Silicon
 
 ## Status
 
@@ -60,4 +60,4 @@ Intro videos and cutscenes still do not display, because the Metal translation l
 
 ## What I would do differently
 
-Write the requirements list first. Most of the time went into fixing one failure, relaunching, and meeting the next one. Listing every dependency up front (CPU translation, graphics, video codecs, licensing, first-run state) and satisfying them in one pass would have been faster.
+Write the requirements list first. I lost most of the time to a loop: fix one failure, relaunch, hit the next one. The dependencies were knowable up front. CPU translation, graphics, video codecs, licensing, first-run state. Listing them on day one would have saved hours.
