@@ -24,6 +24,7 @@ class PortfolioParser(HTMLParser):
         self.tags = []
         self.title_parts = []
         self._in_title = False
+        self._svg_depth = 0
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -32,12 +33,17 @@ class PortfolioParser(HTMLParser):
             self.ids.append(attrs["id"])
         if tag == "a" and "href" in attrs:
             self.hrefs.append(attrs["href"])
-        if tag == "title":
+        if tag == "svg":
+            self._svg_depth += 1
+        # Only the document <title> counts; SVG <title> elements are labels.
+        if tag == "title" and self._svg_depth == 0:
             self._in_title = True
 
     def handle_endtag(self, tag):
         if tag == "title":
             self._in_title = False
+        if tag == "svg" and self._svg_depth:
+            self._svg_depth -= 1
 
     def handle_data(self, data):
         if self._in_title:
@@ -58,16 +64,31 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIn("IoT &amp; AI", self.html)
         self.assertIn("Based in Jamaica", self.html)
 
-    def test_target_roles_are_explicit(self):
-        for role in (
-            "IoT Systems",
-            "AI &amp; Automation",
-            "Systems Integration",
-            "Technical Operations",
-            "Cloud &amp; Infrastructure",
-            "Energy Technology",
+    def test_sections_are_present_and_linked_from_navigation(self):
+        for section_id in ("work", "experience", "stack", "method", "contact"):
+            self.assertIn(section_id, self.parser.ids)
+            self.assertIn(f"#{section_id}", self.parser.hrefs)
+        self.assertLess(self.html.index('id="work"'), self.html.index('id="experience"'))
+        self.assertLess(self.html.index('id="experience"'), self.html.index('id="stack"'))
+        self.assertLess(self.html.index('id="stack"'), self.html.index('id="method"'))
+        self.assertLess(self.html.index('id="method"'), self.html.index('id="contact"'))
+
+    def test_project_status_labels_are_exact(self):
+        for label in (
+            "Production pilot",
+            "Professional work — launch pending",
+            "Professional work",
+            "Personal tooling",
         ):
-            self.assertIn(role, self.html)
+            self.assertIn(f'<p class="chip">{label}</p>', self.html)
+
+    def test_architecture_diagram_is_accessible(self):
+        svgs = re.findall(r"<svg\b[^>]*>.*?</svg>", self.html, re.DOTALL)
+        self.assertGreaterEqual(len(svgs), 1)
+        for svg in svgs:
+            self.assertIn('role="img"', svg)
+            self.assertRegex(svg, r"<svg\b[^>]*>\s*<title id=\"[^\"]+\">[^<]+</title>")
+            self.assertRegex(svg, r"<desc id=\"[^\"]+\">[^<]+</desc>")
 
     def test_resume_file_is_not_published(self):
         self.assertFalse((ROOT / "Alex_Bogle_IT_Support_Resume.pdf").exists())
@@ -141,7 +162,8 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertEqual(struct.unpack(">II", header[16:24]), (1200, 630))
 
     def test_footer_date_is_current(self):
-        self.assertIn("Updated September 2026", self.html)
+        self.assertIn("Updated October 2026", self.html)
+        self.assertNotIn("Updated September 2026", self.html)
         self.assertNotIn("Updated July 2026", self.html)
 
     def test_hero_and_contact_use_public_contact_channels(self):
@@ -187,22 +209,35 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIn("Local experiment", self.html)
         self.assertIn("Current limitation", self.html)
         self.assertIn("IoT Energy Telemetry Lab", self.html)
+        self.assertIn('href="https://github.com/SaintChris/iot-energy-telemetry-lab"', self.html)
+        self.assertIn('href="https://github.com/SaintChris/agentic-systems-lab"', self.html)
+        self.assertIn("Labs are labelled as labs.", self.html)
         self.assertNotIn("Hermes Workflow Notes", self.html)
         self.assertNotIn("What this proves", self.html)
         self.assertNotIn("What this does not prove", self.html)
 
     def test_direct_recruiter_copy_and_verified_toolkit(self):
         direct_headings = (
-            "Technical Focus",
-            "Engineering Method",
-            "Professional Experience",
-            "Technical Projects",
-            "Tools and Platforms",
-            "Professional Direction",
+            "Selected work",
+            "Labs",
+            "Experience",
+            "Stack",
+            "How I work",
             "Contact",
         )
         for heading in direct_headings:
-            self.assertIn(heading, self.html)
+            self.assertRegex(self.html, rf"<h[23][^>]*>{re.escape(heading)}</h[23]>")
+
+        removed_sections = (
+            "engineering_workflow.md",
+            "Technical Focus",
+            "Engineering Method",
+            "Professional Direction",
+            "Tools and Platforms",
+            "Open to eligible remote opportunities",
+        )
+        for phrase in removed_sections:
+            self.assertNotIn(phrase, self.html)
 
         formulaic_copy = (
             "Practical support, not a keyword wall.",
@@ -286,7 +321,7 @@ class PortfolioContentTests(unittest.TestCase):
             for text in expected_text:
                 self.assertIn(text, self.html)
         self.assertIn("temporary contract", self.lower)
-        self.assertLess(self.html.index('id="experience"'), self.html.index('id="evidence"'))
+        self.assertIn("Since August 2026".lower(), self.lower)
 
     def test_compromised_repository_is_not_promoted(self):
         self.assertNotIn('href="https://github.com/SaintChris/rag-evaluation-lab"', self.html)
@@ -329,8 +364,10 @@ class PortfolioContentTests(unittest.TestCase):
             any(tag == "ol" and attrs.get("class") == "steps" for tag, attrs in self.parser.tags)
         )
         self.assertTrue(
-            any(tag == "ul" and attrs.get("class") == "role-list" for tag, attrs in self.parser.tags)
+            any(tag == "ul" and attrs.get("class") == "lab-list" for tag, attrs in self.parser.tags)
         )
+        self.assertEqual(sum(1 for tag, _ in self.parser.tags if tag == "h1"), 1)
+        self.assertGreaterEqual(sum(1 for tag, _ in self.parser.tags if tag == "details"), 4)
         self.assertEqual(len(self.parser.ids), len(set(self.parser.ids)))
         internal_targets = {value for value in self.parser.ids}
         for href in self.parser.hrefs:
