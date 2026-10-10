@@ -489,6 +489,17 @@ h1 span {
   text-transform: uppercase;
 }
 
+.experience-body p,
+.experience-body ul {
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.experience-body ul {
+  padding-left: 20px;
+}
+
 .experience-entry > p {
   max-width: 720px;
   line-height: 1.65;

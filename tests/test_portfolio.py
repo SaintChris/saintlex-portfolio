@@ -141,7 +141,7 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertEqual(struct.unpack(">II", header[16:24]), (1200, 630))
 
     def test_footer_date_is_current(self):
-        self.assertIn("Updated September 2026", self.html)
+        self.assertIn("Updated October 2026", self.html)
         self.assertNotIn("Updated July 2026", self.html)
 
     def test_hero_and_contact_use_public_contact_channels(self):
