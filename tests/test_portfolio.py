@@ -58,17 +58,6 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertIn("IoT &amp; AI", self.html)
         self.assertIn("Based in Jamaica", self.html)
 
-    def test_target_roles_are_explicit(self):
-        for role in (
-            "IoT Systems",
-            "AI &amp; Automation",
-            "Systems Integration",
-            "Technical Operations",
-            "Cloud &amp; Infrastructure",
-            "Energy Technology",
-        ):
-            self.assertIn(role, self.html)
-
     def test_resume_file_is_not_published(self):
         self.assertFalse((ROOT / "Alex_Bogle_IT_Support_Resume.pdf").exists())
         self.assertNotIn("Alex_Bogle_IT_Support_Resume.pdf", self.html)
@@ -194,11 +183,9 @@ class PortfolioContentTests(unittest.TestCase):
     def test_direct_recruiter_copy_and_verified_toolkit(self):
         direct_headings = (
             "Technical Focus",
-            "Engineering Method",
             "Professional Experience",
             "Technical Projects",
             "Tools and Platforms",
-            "Professional Direction",
             "Contact",
         )
         for heading in direct_headings:
@@ -325,12 +312,8 @@ class PortfolioContentTests(unittest.TestCase):
                 for tag, attrs in self.parser.tags
             )
         )
-        self.assertTrue(
-            any(tag == "ol" and attrs.get("class") == "steps" for tag, attrs in self.parser.tags)
-        )
-        self.assertTrue(
-            any(tag == "ul" and attrs.get("class") == "role-list" for tag, attrs in self.parser.tags)
-        )
+        for removed in ('id="method"', 'id="roles"', "Professional Direction", "02 / ENGINEERING METHOD"):
+            self.assertNotIn(removed, self.html)
         self.assertEqual(len(self.parser.ids), len(set(self.parser.ids)))
         internal_targets = {value for value in self.parser.ids}
         for href in self.parser.hrefs:
