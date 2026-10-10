@@ -62,48 +62,13 @@ class PortfolioContentTests(unittest.TestCase):
         title = "".join(self.parser.title_parts).strip()
         self.assertEqual(title, "Alex Bogle | IoT & AI Technician")
         self.assertIn("IoT &amp; AI", self.html)
-        self.assertIn("Based in Jamaica", self.html)
-
-    def test_sections_are_present_and_linked_from_navigation(self):
-        for section_id in ("work", "experience", "stack", "method", "contact"):
-            self.assertIn(section_id, self.parser.ids)
-            self.assertIn(f"#{section_id}", self.parser.hrefs)
-        self.assertLess(self.html.index('id="work"'), self.html.index('id="experience"'))
-        self.assertLess(self.html.index('id="experience"'), self.html.index('id="stack"'))
-        self.assertLess(self.html.index('id="stack"'), self.html.index('id="method"'))
-        self.assertLess(self.html.index('id="method"'), self.html.index('id="contact"'))
-
-    def test_project_status_labels_are_exact(self):
-        for label in (
-            "Production pilot",
-            "Professional work — launch pending",
-            "Professional work",
-            "Personal tooling",
-        ):
-            self.assertIn(f'<p class="chip">{label}</p>', self.html)
-
-    def test_architecture_diagram_is_accessible(self):
-        svgs = re.findall(r"<svg\b[^>]*>.*?</svg>", self.html, re.DOTALL)
-        self.assertGreaterEqual(len(svgs), 1)
-        for svg in svgs:
-            self.assertIn('role="img"', svg)
-            self.assertRegex(svg, r"<svg\b[^>]*>\s*<title id=\"[^\"]+\">[^<]+</title>")
-            self.assertRegex(svg, r"<desc id=\"[^\"]+\">[^<]+</desc>")
+        self.assertIn("IREE Solar in Jamaica", self.html)
 
     def test_resume_file_is_not_published(self):
         self.assertFalse((ROOT / "Alex_Bogle_IT_Support_Resume.pdf").exists())
         self.assertNotIn("Alex_Bogle_IT_Support_Resume.pdf", self.html)
         self.assertNotIn("Download Resume", self.html)
 
-
-    def test_recruiter_email_is_public_in_contact_section(self):
-        contact = re.search(
-            r'<section class="contact".*?</section>', self.html, re.DOTALL
-        )
-        self.assertIsNotNone(contact)
-        contact_html = contact.group(0) if contact else ""
-        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', contact_html)
-        self.assertRegex(contact_html, rf">{re.escape(RECRUITER_EMAIL)}\s*(?:<|$)")
 
     def test_public_profile_links_remain_available(self):
         self.assertIn('href="https://www.linkedin.com/in/alex-bogle/"', self.html)
@@ -166,24 +131,6 @@ class PortfolioContentTests(unittest.TestCase):
         self.assertNotIn("Updated September 2026", self.html)
         self.assertNotIn("Updated July 2026", self.html)
 
-    def test_hero_and_contact_use_public_contact_channels(self):
-        hero = re.search(
-            r'<section class="hero".*?</section>', self.html, re.DOTALL
-        )
-        contact = re.search(
-            r'<section class="contact".*?</section>', self.html, re.DOTALL
-        )
-        self.assertIsNotNone(hero)
-        self.assertIsNotNone(contact)
-        hero_html = hero.group(0) if hero else ""
-        contact_html = contact.group(0) if contact else ""
-        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', hero_html)
-        self.assertIn('href="https://www.linkedin.com/in/alex-bogle/"', hero_html)
-        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', contact_html)
-        self.assertIn('href="https://www.linkedin.com/in/alex-bogle/"', contact_html)
-        self.assertNotIn(".pdf", hero_html.lower())
-        self.assertNotIn(".pdf", contact_html.lower())
-
     def test_outdated_resume_notices_are_absent(self):
         source_suffixes = {".css", ".html", ".json", ".md", ".yaml", ".yml"}
         source_text = "\n".join(
@@ -203,71 +150,6 @@ class PortfolioContentTests(unittest.TestCase):
         )
         for phrase in outdated:
             self.assertNotIn(phrase, source_text)
-
-    def test_honest_scope_and_evidence_labels(self):
-        self.assertIn("Sanitized case study", self.html)
-        self.assertIn("Local experiment", self.html)
-        self.assertIn("Current limitation", self.html)
-        self.assertIn("IoT Energy Telemetry Lab", self.html)
-        self.assertIn('href="https://github.com/SaintChris/iot-energy-telemetry-lab"', self.html)
-        self.assertIn('href="https://github.com/SaintChris/agentic-systems-lab"', self.html)
-        self.assertIn("Labs are labelled as labs.", self.html)
-        self.assertNotIn("Hermes Workflow Notes", self.html)
-        self.assertNotIn("What this proves", self.html)
-        self.assertNotIn("What this does not prove", self.html)
-
-    def test_direct_recruiter_copy_and_verified_toolkit(self):
-        direct_headings = (
-            "Selected work",
-            "Labs",
-            "Experience",
-            "Stack",
-            "How I work",
-            "Contact",
-        )
-        for heading in direct_headings:
-            self.assertRegex(self.html, rf"<h[23][^>]*>{re.escape(heading)}</h[23]>")
-
-        removed_sections = (
-            "engineering_workflow.md",
-            "Technical Focus",
-            "Engineering Method",
-            "Professional Direction",
-            "Tools and Platforms",
-            "Open to eligible remote opportunities",
-        )
-        for phrase in removed_sections:
-            self.assertNotIn(phrase, self.html)
-
-        formulaic_copy = (
-            "Practical support, not a keyword wall.",
-            "A repeatable path from symptom to resolution.",
-            "Labs and documentation with honest boundaries.",
-            "Depth matters more than a long list.",
-            "Where I can contribute and keep growing.",
-            "Evidence first",
-            "Claims linked to work",
-        )
-        for phrase in formulaic_copy:
-            self.assertNotIn(phrase, self.html)
-
-        for tool in (
-            "Salesforce",
-            "Autotask",
-            "AssetTiger",
-            "Google Workspace",
-            "Slack",
-            "PuTTY",
-            "QuickBooks Enterprise",
-            "River Cities",
-            "ASYCUDA World",
-            "Linux",
-            "Networking diagnostics",
-            "Bash",
-            "AWS fundamentals",
-        ):
-            self.assertIn(tool, self.html)
-        self.assertNotIn("Local AI tools", self.html)
 
     def test_high_risk_claims_are_absent(self):
         forbidden = (
@@ -293,40 +175,6 @@ class PortfolioContentTests(unittest.TestCase):
         for phrase in forbidden:
             self.assertNotIn(phrase, self.lower)
 
-    def test_verified_professional_experience_is_published(self):
-        verified_experience = {
-            "IREE Solar": (
-                "IoT &amp; AI Technician",
-                "AI-assisted automation",
-            ),
-            "Sterling Carter Technology Distributors": (
-                "IT Procurement Administrator",
-                "Configured and upgraded desktop computers",
-            ),
-            "Island Networks Jamaica": (
-                "Asset and Inventory Management Officer",
-                "Administered technical asset records",
-            ),
-            "IBEX, Fitbit Account": (
-                "Technical Support Specialist",
-                "Troubleshot device setup",
-            ),
-            "Reliable Courier Jamaica": (
-                "Customer Service Representative",
-                "Set up laptops, printers, phones, software, and user accounts",
-            ),
-        }
-        for employer, expected_text in verified_experience.items():
-            self.assertIn(employer, self.html)
-            for text in expected_text:
-                self.assertIn(text, self.html)
-        self.assertIn("temporary contract", self.lower)
-        self.assertIn("Since August 2026".lower(), self.lower)
-
-    def test_compromised_repository_is_not_promoted(self):
-        self.assertNotIn('href="https://github.com/SaintChris/rag-evaluation-lab"', self.html)
-        self.assertIn("repository link remains withheld while its publication security gate", self.lower)
-
     def test_stale_resume_and_commercial_pages_are_removed(self):
         self.assertNotIn("Alex_Bogle_Resume_2026.pdf", self.html)
         self.assertFalse((ROOT / "Alex_Bogle_Resume_2026.pdf").exists())
@@ -345,35 +193,6 @@ class PortfolioContentTests(unittest.TestCase):
             self.assertNotIn(framework, self.lower)
         self.assertLess(INDEX.stat().st_size, 40_000)
 
-    def test_accessible_structure(self):
-        tags = [tag for tag, _ in self.parser.tags]
-        self.assertIn("header", tags)
-        self.assertIn("nav", tags)
-        self.assertIn("main", tags)
-        self.assertIn("footer", tags)
-        self.assertIn("h1", tags)
-        self.assertTrue(
-            any(
-                tag == "main"
-                and attrs.get("id") == "main-content"
-                and attrs.get("tabindex") == "-1"
-                for tag, attrs in self.parser.tags
-            )
-        )
-        self.assertTrue(
-            any(tag == "ol" and attrs.get("class") == "steps" for tag, attrs in self.parser.tags)
-        )
-        self.assertTrue(
-            any(tag == "ul" and attrs.get("class") == "lab-list" for tag, attrs in self.parser.tags)
-        )
-        self.assertEqual(sum(1 for tag, _ in self.parser.tags if tag == "h1"), 1)
-        self.assertGreaterEqual(sum(1 for tag, _ in self.parser.tags if tag == "details"), 4)
-        self.assertEqual(len(self.parser.ids), len(set(self.parser.ids)))
-        internal_targets = {value for value in self.parser.ids}
-        for href in self.parser.hrefs:
-            if href.startswith("#") and href != "#":
-                self.assertIn(href[1:], internal_targets)
-
     def test_external_links_are_safe(self):
         for tag, attrs in self.parser.tags:
             if tag == "a" and attrs.get("target") == "_blank":
@@ -386,6 +205,37 @@ class PortfolioContentTests(unittest.TestCase):
         for tag, attrs in self.parser.tags:
             if tag == "button":
                 self.assertIn("type", attrs)
+
+    def test_one_screen_content(self):
+        self.assertEqual(self.html.count('<li>'), 3)
+        for project in ("Staff assistant", "Website and customer chat", "Solar performance reports"):
+            self.assertIn(f"<strong>{project}</strong>", self.html)
+        for removed in ("Selected work", "Experience", "How I work", "<nav", "<details"):
+            self.assertNotIn(removed, self.html)
+
+    def test_public_contact_channels(self):
+        self.assertIn(f'href="mailto:{RECRUITER_EMAIL}"', self.html)
+        self.assertRegex(self.html, rf">{re.escape(RECRUITER_EMAIL)}<")
+        self.assertNotIn(".pdf", self.lower)
+
+    def test_no_private_operational_details(self):
+        for term in ("saintlex.tech", "iree-vps", "vultr", "grok", "kemmar", "millsborough",
+                     "levy", "ste20", "powerhub", "open webui", "cloudflare"):
+            self.assertNotIn(term, self.lower)
+
+    def test_sun_path_is_accessible(self):
+        self.assertRegex(self.html, r'<svg[^>]+role="img"[^>]+aria-labelledby="sun-title"')
+        self.assertIn('<title id="sun-title">', self.html)
+        self.assertIn("America/Jamaica", self.html)
+
+    def test_accessible_structure(self):
+        tags = [tag for tag, _ in self.parser.tags]
+        self.assertIn("main", tags)
+        self.assertIn("footer", tags)
+        self.assertEqual(tags.count("h1"), 1)
+        self.assertTrue(any(tag == "main" and attrs.get("id") == "main-content"
+                            for tag, attrs in self.parser.tags))
+        self.assertEqual(len(self.parser.ids), len(set(self.parser.ids)))
 
 
 if __name__ == "__main__":
